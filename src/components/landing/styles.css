@@ -1,0 +1,12 @@
+.backgroundTheme {
+  /* The image used */
+  background-image: url("../../contents/images/2018-New-Fashion-Men-Costume-Homme-Business-Suits-Jacket-Wedding-Suits-For-Men-Two-Buttons-Three.jpg");
+  flex: 1;
+  /* Full height */
+  height: 100vh;
+  width: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
