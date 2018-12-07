@@ -488,7 +488,13 @@ class Menu extends Component {
             }}
             className="position-absolute pl-5"
           >
-            <Link style={{ color: "white", textDecoration: "none" }} to="/new">
+            <Link
+              style={{
+                color: this.renderColorOfTexts(),
+                textDecoration: "none"
+              }}
+              to="/new"
+            >
               <div
                 onClick={() => {
                   this.setState({ open: !this.state.open, subMenuNubmer: 1 });
@@ -608,7 +614,7 @@ class Menu extends Component {
             </div>
           </div>
         </div>
-        <Route path="/new/women" render={() => <Women {...this.props} />} />;
+        {/* <Route path="/new/women" render={() => <Women {...this.props} />} />; */}
       </div>
     );
   }

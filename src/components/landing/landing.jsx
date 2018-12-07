@@ -49,7 +49,8 @@ class Landing extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className="text-white backgroundTheme">
+      <div className="backgroundTheme ">
+        dfgujskildfgjhkfdlz
         <span style={{ fontSize: 30 }} className="d-flex w-100  p-5">
           M.S.A
         </span>
@@ -134,4 +135,4 @@ const styles = theme => ({
 Landing.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default (withRouter, withStyles)(styles)(Landing);
+export default withRouter(withStyles(styles)(Landing));
