@@ -19,7 +19,6 @@ class Menu extends Component {
   }
   handleScroll = () => {
     var lastScrollY = window.scrollY;
-    console.log("it is the log:", lastScrollY);
     this.setState({ scrollY: lastScrollY });
   };
   componentDidMount() {

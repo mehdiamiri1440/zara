@@ -11,6 +11,7 @@ class Women extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedImage: -1,
       womenClothes: [
         {
           imageItems: [
@@ -19,7 +20,7 @@ class Women extends Component {
               color: "white"
             },
             {
-              image: require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg"),
+              image: require("../../../contents/images/arms-cheerful-coffee-1331971.jpg"),
               color: "green"
             },
             {
@@ -72,53 +73,53 @@ class Women extends Component {
           descriprion: "to chtori hoseyn hoseynian",
           size: []
         }
-        // {
-        //   images: [
-        //     require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
-        //   ],
-        //   name: "",
-        //   price: 12000,
-        //   descriprion: "hey che fazecsangingi",
-        //   size: []
-        // },
-        // {
-        //   images: [
-        //     require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")
-        //   ],
-        //   name: "",
-        //   price: 12000,
-        //   descriprion: "ajaab rasmie rasme zamoone",
-        //   size: []
-        // },
-        // {
-        //   images: [
-        //     require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
-        //   ],
-        //   name: "",
-        //   price: 12000,
-        //   descriprion: "ghese ye margo ",
-        //   size: []
-        // },
-        // {
-        //   images: [
-        //     require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
-        //   ],
-        //   name: "",
-        //   price: 12000,
-        //   descriprion: "na baste am be kas del",
-        //   size: []
-        // },
-        // {
-        //   images: [
-        //     require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")
-        //   ],
-        //   name: "",
-        //   price: 12000,
-        //   descriprion: "be sooye to be shoghe rooye to",
-        //   size: []
-        // }
       ]
     };
+    // {
+    //   images: [
+    //     require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
+    //   ],
+    //   name: "",
+    //   price: 12000,
+    //   descriprion: "hey che fazecsangingi",
+    //   size: []
+    // },
+    // {
+    //   images: [
+    //     require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")
+    //   ],
+    //   name: "",
+    //   price: 12000,
+    //   descriprion: "ajaab rasmie rasme zamoone",
+    //   size: []
+    // },
+    // {
+    //   images: [
+    //     require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
+    //   ],
+    //   name: "",
+    //   price: 12000,
+    //   descriprion: "ghese ye margo ",
+    //   size: []
+    // },
+    // {
+    //   images: [
+    //     require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
+    //   ],
+    //   name: "",
+    //   price: 12000,
+    //   descriprion: "na baste am be kas del",
+    //   size: []
+    // },
+    // {
+    //   images: [
+    //     require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")
+    //   ],
+    //   name: "",
+    //   price: 12000,
+    //   descriprion: "be sooye to be shoghe rooye to",
+    //   size: []
+    // }
   }
   counterOfTheLoopFunction() {
     for (let j = 0; j < this.state.womenClothes.length - 5; j++) {
@@ -128,6 +129,11 @@ class Women extends Component {
 
     return arrayOfCounters;
   }
+  changeMainImage(selected) {
+    this.setState({ selectedImage: selected });
+    return this.state.selectedImage;
+  }
+
   renderImagesWithDetails() {
     var counter = this.counterOfTheLoopFunction();
     return (
@@ -147,7 +153,9 @@ class Women extends Component {
                 width: counter.indexOf(index) != -1 ? "45%" : "90%"
               }}
               src={
-                cloth.imageItems ? cloth.imageItems[0].image : cloth.images[0]
+                this.state.selectedImage == -1
+                  ? cloth.imageItems[0].image
+                  : cloth.imageItems[this.state.selectedImage].image
               }
             />
             <div
@@ -155,8 +163,8 @@ class Women extends Component {
               className="show row justify-content-center col-lg-12 align-top align-text-top text-center"
             >
               {cloth.imageItems.map((image, indx) => (
-                <div>
-                  <div className="">
+                <div key={indx}>
+                  <div onClick={() => this.changeMainImage(indx)}>
                     <img
                       className="p-2"
                       style={{ width: 50, height: 50 }}
