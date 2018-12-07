@@ -102,7 +102,7 @@ class Women extends Component {
           <div
             className={
               counter.indexOf(index) != -1
-                ? "col-md-12 col-sm-12 justify-content-end col-lg-12 row"
+                ? "col-md-12 col-sm-12 justify-content-end col-lg-6 row"
                 : "col-md-6 col-sm-6 col-lg-6 row justify-content-center"
             }
             key={index}
