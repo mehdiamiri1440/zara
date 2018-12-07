@@ -11,9 +11,9 @@ class Women extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedImage: -1,
       womenClothes: [
         {
+          selectedImage: -1,
           imageItems: [
             {
               image: require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg"),
@@ -34,6 +34,7 @@ class Women extends Component {
           size: []
         },
         {
+          selectedImage: -1,
           imageItems: [
             {
               image: require("../../../contents/images/arms-cheerful-coffee-1331971.jpg"),
@@ -54,6 +55,7 @@ class Women extends Component {
           size: []
         },
         {
+          selectedImage: -1,
           imageItems: [
             {
               image: require("../../../contents/images/beautiful-bestfriends-celebration-1627935.jpg"),
@@ -129,9 +131,11 @@ class Women extends Component {
 
     return arrayOfCounters;
   }
-  changeMainImage(selected) {
-    this.setState({ selectedImage: selected });
-    return this.state.selectedImage;
+  changeMainImage(index, indx) {
+    var womenClothes = this.state.womenClothes;
+    womenClothes[index].selectedImage = indx;
+    this.setState({ womenClothes });
+    // return this.state.selectedImage;
   }
 
   renderImagesWithDetails() {
@@ -153,9 +157,11 @@ class Women extends Component {
                 width: counter.indexOf(index) != -1 ? "45%" : "90%"
               }}
               src={
-                this.state.selectedImage == -1
-                  ? cloth.imageItems[0].image
-                  : cloth.imageItems[this.state.selectedImage].image
+                this.state.womenClothes[index].selectedImage == -1
+                  ? this.state.womenClothes[index].imageItems[0].image
+                  : this.state.womenClothes[index].imageItems[
+                      this.state.womenClothes[index].selectedImage
+                    ].image
               }
             />
             <div
@@ -164,7 +170,10 @@ class Women extends Component {
             >
               {cloth.imageItems.map((image, indx) => (
                 <div key={indx}>
-                  <div onClick={() => this.changeMainImage(indx)}>
+                  <div
+                    key={indx}
+                    onClick={() => this.changeMainImage(index, indx)}
+                  >
                     <img
                       className="p-2"
                       style={{ width: 50, height: 50 }}
