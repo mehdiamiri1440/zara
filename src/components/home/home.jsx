@@ -50,7 +50,7 @@ class Home extends Component {
     const { classes } = this.props;
     return (
       // style={{height:1000}}
-      <div>
+      <div style={{ zIndex: -9 }}>
         <Menu
           color="white"
           search={true}

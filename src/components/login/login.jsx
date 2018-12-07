@@ -21,7 +21,7 @@ class Login extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <div className="">
+        <div style={{ zIndex: -9 }}>
           <Menu
             login={false}
             contact={true}

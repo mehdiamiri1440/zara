@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Menu from "../menu";
+import "./womenStyles.css";
 import Footer from "../../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
 let i = 0;
@@ -12,17 +13,39 @@ class Women extends Component {
     this.state = {
       womenClothes: [
         {
-          images: [
-            require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
+          imageItems: [
+            {
+              image: require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg"),
+              color: "white"
+            },
+            {
+              image: require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg"),
+              color: "green"
+            },
+            {
+              image: require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg"),
+              color: "red"
+            }
           ],
           name: "",
           price: 12000,
-          descriprion: "mehdi amiri salam chtori",
+          descriprion: "سلامممم مهددی اوضاع احوالت",
           size: []
         },
         {
-          images: [
-            require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")
+          imageItems: [
+            {
+              image: require("../../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+              color: "green"
+            },
+            {
+              image: require("../../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+              color: "blue"
+            },
+            {
+              image: require("../../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+              color: "white"
+            }
           ],
           name: "",
           price: 12000,
@@ -30,59 +53,70 @@ class Women extends Component {
           size: []
         },
         {
-          images: [
-            require("../../../contents/images/beautiful-bestfriends-celebration-1627935.jpg")
+          imageItems: [
+            {
+              image: require("../../../contents/images/beautiful-bestfriends-celebration-1627935.jpg"),
+              color: "dark"
+            },
+            {
+              image: require("../../../contents/images/beautiful-bestfriends-celebration-1627935.jpg"),
+              color: "orange"
+            },
+            {
+              image: require("../../../contents/images/beautiful-bestfriends-celebration-1627935.jpg"),
+              color: "yellow"
+            }
           ],
           name: "",
           price: 12000,
           descriprion: "to chtori hoseyn hoseynian",
           size: []
-        },
-        {
-          images: [
-            require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
-          ],
-          name: "",
-          price: 12000,
-          descriprion: "hey che fazecsangingi",
-          size: []
-        },
-        {
-          images: [
-            require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")
-          ],
-          name: "",
-          price: 12000,
-          descriprion: "ajaab rasmie rasme zamoone",
-          size: []
-        },
-        {
-          images: [
-            require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
-          ],
-          name: "",
-          price: 12000,
-          descriprion: "ghese ye margo ",
-          size: []
-        },
-        {
-          images: [
-            require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
-          ],
-          name: "",
-          price: 12000,
-          descriprion: "na baste am be kas del",
-          size: []
-        },
-        {
-          images: [
-            require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")
-          ],
-          name: "",
-          price: 12000,
-          descriprion: "be sooye to be shoghe rooye to",
-          size: []
         }
+        // {
+        //   images: [
+        //     require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
+        //   ],
+        //   name: "",
+        //   price: 12000,
+        //   descriprion: "hey che fazecsangingi",
+        //   size: []
+        // },
+        // {
+        //   images: [
+        //     require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")
+        //   ],
+        //   name: "",
+        //   price: 12000,
+        //   descriprion: "ajaab rasmie rasme zamoone",
+        //   size: []
+        // },
+        // {
+        //   images: [
+        //     require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
+        //   ],
+        //   name: "",
+        //   price: 12000,
+        //   descriprion: "ghese ye margo ",
+        //   size: []
+        // },
+        // {
+        //   images: [
+        //     require("../../../contents/images/architecture-asking-brainstorming-1438084.jpg")
+        //   ],
+        //   name: "",
+        //   price: 12000,
+        //   descriprion: "na baste am be kas del",
+        //   size: []
+        // },
+        // {
+        //   images: [
+        //     require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")
+        //   ],
+        //   name: "",
+        //   price: 12000,
+        //   descriprion: "be sooye to be shoghe rooye to",
+        //   size: []
+        // }
       ]
     };
   }
@@ -97,21 +131,45 @@ class Women extends Component {
   renderImagesWithDetails() {
     var counter = this.counterOfTheLoopFunction();
     return (
-      <div className="p-5 col-md-12 col-sm-12 col-lg-12 row pr-0 mr-0`">
+      <div className="pt-3  row">
         {this.state.womenClothes.map((cloth, index) => (
           <div
             className={
               counter.indexOf(index) != -1
-                ? "col-md-12 col-sm-12 justify-content-end col-lg-12 row"
-                : "col-md-6 col-sm-6 col-lg-6 row justify-content-center"
+                ? " justify-content-center  row"
+                : "col-md-6 col-sm-6 row  justify-content-end col-lg-6 pt-5"
             }
             key={index}
           >
             <img
-              style={{ width: "50%", height: "100%" }}
-              src={cloth.images[0]}
+              className="visibility"
+              style={{
+                width: counter.indexOf(index) != -1 ? "45%" : "90%"
+              }}
+              src={
+                cloth.imageItems ? cloth.imageItems[0].image : cloth.images[0]
+              }
             />
-            <div style={{ zIndex: 999 }}>{cloth.descriprion}</div>
+            <div
+              id="hide"
+              className="show row justify-content-center col-lg-12 align-top align-text-top text-center"
+            >
+              {cloth.imageItems.map((image, indx) => (
+                <div>
+                  <div className="">
+                    <img
+                      className="p-2"
+                      style={{ width: 50, height: 50 }}
+                      src={image.image}
+                    />
+                  </div>
+                  <div>{image.color}</div>
+                </div>
+              ))}
+            </div>
+            <div className="col-lg-12 align-top align-text-top row justify-content-center text-center">
+              {cloth.descriprion}
+            </div>
           </div>
         ))}
       </div>
@@ -120,8 +178,8 @@ class Women extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div style={{ flex: 1 }} className="col-md-12 col-lg-12 col-sm-12 row">
-        <div>
+      <div className="body">
+        <div style={{ zIndex: -9 }}>
           <Menu
             login={false}
             contact={true}

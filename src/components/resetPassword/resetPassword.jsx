@@ -16,7 +16,7 @@ class ResetPassword extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <div>
+        <div style={{ zIndex: -9 }}>
           <Menu
             login={false}
             contact={true}

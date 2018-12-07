@@ -1,0 +1,18 @@
+
+
+@font-face {
+    font-family: 'BBardiya';
+    src: url('BBardiya.eot');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BBardiya';
+    src: url('BBardiya.eot') format('eot'),
+         url('BBardiya.woff') format('woff'),
+         url('BBardiya.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
