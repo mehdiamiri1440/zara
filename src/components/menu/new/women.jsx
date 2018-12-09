@@ -13,6 +13,7 @@ class Women extends Component {
     this.state = {
       womenClothes: [
         {
+          id: "55",
           selectedImage: -1,
           imageItems: [
             {
@@ -34,6 +35,7 @@ class Women extends Component {
           size: []
         },
         {
+          id: "23",
           selectedImage: -1,
           imageItems: [
             {
@@ -55,6 +57,7 @@ class Women extends Component {
           size: []
         },
         {
+          id: "45",
           selectedImage: -1,
           imageItems: [
             {
@@ -144,6 +147,13 @@ class Women extends Component {
       <div className="pt-3  row">
         {this.state.womenClothes.map((cloth, index) => (
           <div
+            onClick={() =>
+              this.props.history.push({
+                pathname: "/itemDetails",
+                state: { id: this.state.womenClothes[index].id }
+              })
+            }
+            style={{ cursor: "pointer" }}
             className={
               counter.indexOf(index) != -1
                 ? " justify-content-center  row"

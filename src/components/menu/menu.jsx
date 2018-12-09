@@ -485,7 +485,7 @@ class Menu extends Component {
               color: this.renderColorOfTexts(),
               cursor: "pointer"
             }}
-            className="position-absolute pl-5"
+            className="position-absolute pl-3"
           >
             <Link
               style={{
@@ -498,7 +498,7 @@ class Menu extends Component {
                 onClick={() => {
                   this.setState({ open: !this.state.open, subMenuNubmer: 1 });
                 }}
-                className="p-1 row col-md-12 col-sm-12 col-lg-12"
+                className="p-1  col-md-12 col-sm-12 col-lg-12"
               >
                 NEW IN
                 {this.state.subMenuNubmer == 1
@@ -513,14 +513,14 @@ class Menu extends Component {
                   subMenuNubmer: 2
                 })
               }
-              className="p-1 row col-md-12 col-sm-12 col-lg-12"
+              className="p-1  col-md-12 col-sm-12 col-lg-12"
             >
               WOMAN
               {this.state.subMenuNubmer == 2
                 ? this.renderSubMenu(this.state.open, 2)
                 : null}
             </div>
-            <div
+            {/* <div
               onClick={() => {
                 this.setState({ open: !this.state.open, subMenuNubmer: 3 });
               }}
@@ -610,7 +610,7 @@ class Menu extends Component {
               {this.state.subMenuNubmer == 10
                 ? this.renderSubMenu(this.state.open, 6)
                 : null}
-            </div>
+            </div> */}
           </div>
         </div>
         {/* <Route path="/new/women" render={() => <Women {...this.props} />} />; */}

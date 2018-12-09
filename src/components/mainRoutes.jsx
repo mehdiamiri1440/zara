@@ -7,6 +7,7 @@ import CreateAccount from "./createAccount/createAccount";
 import New from "./menu/new/new";
 import Landing from "./landing/landing";
 import Home from "./home/home";
+import ItemDetails from "./itemDetails/itemDetails";
 class MainRoutes extends React.Component {
   static init() {
     return (
@@ -16,6 +17,11 @@ class MainRoutes extends React.Component {
           exact
           path="/landing"
           render={() => <Landing {...this.props} />}
+        />
+        <Route
+          exact
+          path="/itemDetails"
+          render={() => <ItemDetails {...this.props} />}
         />
         <Route exact path="/new" render={props => <New {...this.props} />} />)
         {/* </Route> */}
