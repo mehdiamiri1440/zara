@@ -40,6 +40,37 @@ class ItemDetails extends Component {
   selectSize(size, index) {
     console.log(size, index);
   }
+  renderfullScreenImages(image, index) {
+    console.log("it is the index", index, image);
+    return (
+      <div className="modal fade" id={`myModal-${index}`}>
+        <div
+          style={{ maxWidth: "100%", maxHeight: "100%" }}
+          className="modal-dialog"
+        >
+          <div className="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+            <div className="modal-body">
+              <img
+                src={this.state.itemDetails.imageItems[index].image}
+                style={{ width: "100%", height: "100%" }}
+                alt=""
+              />
+            </div>
+            <div className="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   render() {
     const { itemDetails } = this.state;
     return (
@@ -56,7 +87,16 @@ class ItemDetails extends Component {
         <div className="row">
           <div style={{ flex: 1 }}>
             {itemDetails.imageItems.map((image, index) => (
-              <img className="w-100 h-50 p-5 ml-5" src={image.image} />
+              <div key={index}>
+                <img
+                  key={index}
+                  data-toggle="modal"
+                  data-target={`#myModal-${index}`}
+                  className="w-100 h-50 p-5 ml-5"
+                  src={image.image}
+                />
+                {this.renderfullScreenImages(image, index)}
+              </div>
             ))}
           </div>
           <div className=" p-5" style={{ position: "sticky", flex: 1 }}>
