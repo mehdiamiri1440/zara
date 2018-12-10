@@ -7,9 +7,9 @@
 .visibility:hover + div {
   visibility: visible;
 }
-.show {
+.showing {
   visibility: hidden;
 }
-.show:hover {
+.showing:hover {
   visibility: visible;
 }
