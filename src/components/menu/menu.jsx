@@ -80,302 +80,6 @@ class Menu extends Component {
               <div className=" row col-md-12 col-sm-12 col-lg-12">TOPS</div>
             </div>
           );
-        case 3:
-          return (
-            <div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">NEW IN</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                DUPONT SORONA
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                RECYCLED CAPSULE IINEW
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">DRESSES</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                JUMPSUITS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SHIRTS | BLOUSES
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                T - SHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> TOPS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SWEATSHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">TROUSERS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> JEANS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> SKIRTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">SHORTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                CO - ORD SETS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">BAGS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SPECIAL PRICES
-              </div>
-            </div>
-          );
-        case 4:
-          return (
-            <div className=" row col-md-12 col-sm-12 col-lg-12">
-              <div className=" row col-md-12 col-sm-12 col-lg-12">NEW IN</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                DUPONT SORONA
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                RECYCLED CAPSULE IINEW
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">DRESSES</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                JUMPSUITS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SHIRTS | BLOUSES
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                T - SHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> TOPS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SWEATSHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">TROUSERS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> JEANS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> SKIRTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">SHORTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                CO - ORD SETS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">BAGS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SPECIAL PRICES
-              </div>
-            </div>
-          );
-        case 5:
-          return (
-            <div className=" row col-md-12 col-sm-12 col-lg-12">
-              <div className=" row col-md-12 col-sm-12 col-lg-12">NEW IN</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                DUPONT SORONA
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                RECYCLED CAPSULE IINEW
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">DRESSES</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                JUMPSUITS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SHIRTS | BLOUSES
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                T - SHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> TOPS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SWEATSHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">TROUSERS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> JEANS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> SKIRTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">SHORTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                CO - ORD SETS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">BAGS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SPECIAL PRICES
-              </div>
-            </div>
-          );
-        case 6:
-          return (
-            <div className=" row col-md-12 col-sm-12 col-lg-12">
-              <div className=" row col-md-12 col-sm-12 col-lg-12">NEW IN</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                DUPONT SORONA
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                RECYCLED CAPSULE IINEW
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">DRESSES</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                JUMPSUITS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SHIRTS | BLOUSES
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                T - SHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> TOPS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SWEATSHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">TROUSERS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> JEANS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> SKIRTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">SHORTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                CO - ORD SETS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">BAGS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SPECIAL PRICES
-              </div>
-            </div>
-          );
-        case 7:
-          return (
-            <div className=" row col-md-12 col-sm-12 col-lg-12">
-              <div className=" row col-md-12 col-sm-12 col-lg-12">NEW IN</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                DUPONT SORONA
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                RECYCLED CAPSULE IINEW
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">DRESSES</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                JUMPSUITS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SHIRTS | BLOUSES
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                T - SHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> TOPS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SWEATSHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">TROUSERS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> JEANS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> SKIRTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">SHORTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                CO - ORD SETS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">BAGS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SPECIAL PRICES
-              </div>
-            </div>
-          );
-        case 8:
-          return (
-            <div className=" row col-md-12 col-sm-12 col-lg-12">
-              <div className=" row col-md-12 col-sm-12 col-lg-12">NEW IN</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                DUPONT SORONA
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                RECYCLED CAPSULE IINEW
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">DRESSES</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                JUMPSUITS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SHIRTS | BLOUSES
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                T - SHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> TOPS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SWEATSHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">TROUSERS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> JEANS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> SKIRTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">SHORTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                CO - ORD SETS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">BAGS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SPECIAL PRICES
-              </div>
-            </div>
-          );
-        case 9:
-          return (
-            <div className=" row col-md-12 col-sm-12 col-lg-12">
-              <div className=" row col-md-12 col-sm-12 col-lg-12">NEW IN</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                DUPONT SORONA
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                RECYCLED CAPSULE IINEW
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">DRESSES</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                JUMPSUITS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SHIRTS | BLOUSES
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                T - SHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> TOPS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SWEATSHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">TROUSERS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> JEANS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> SKIRTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">SHORTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                CO - ORD SETS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">BAGS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SPECIAL PRICES
-              </div>
-            </div>
-          );
-        case 10:
-          return (
-            <div className=" row col-md-12 col-sm-12 col-lg-12">
-              <div className=" row col-md-12 col-sm-12 col-lg-12">NEW IN</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                DUPONT SORONA
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                RECYCLED CAPSULE IINEW
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">DRESSES</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                JUMPSUITS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SHIRTS | BLOUSES
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                T - SHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> TOPS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SWEATSHIRTS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">TROUSERS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> JEANS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12"> SKIRTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">SHORTS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                CO - ORD SETS
-              </div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">BAGS</div>
-              <div className=" row col-md-12 col-sm-12 col-lg-12">
-                SPECIAL PRICES
-              </div>
-            </div>
-          );
       }
     }
   }
@@ -394,37 +98,30 @@ class Menu extends Component {
           >
             <div
               style={{
-                color: this.renderColorOfTexts(),
-                fontFamily:
-                  "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
+                color: this.renderColorOfTexts()
               }}
             >
-              zara
+              ثریا
             </div>
           </Link>
 
-          <div
-            style={{ fontFamily: "Neue-Helvetica-Condensed" }}
-            className="display-1 mt-3 col-md-4 col-sm-4 col-lg-4 p-3"
-          >
+          <div className="display-1 mt-3 col-md-4 col-sm-4 col-lg-4 p-3">
             {this.props.search ? (
               <TextField
                 InputLabelProps={{
                   className: [classes.floatingLabel, classes.focused],
                   style: {
-                    fontFamily:
-                      "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif",
+                    direction: "rtl",
                     color: this.renderColorOfTexts()
                   }
                 }}
                 id="search"
                 inputProps={{
                   style: {
-                    color: this.renderColorOfTexts(),
-                    fontFamily: "Arial"
+                    color: this.renderColorOfTexts()
                   }
                 }}
-                label="Search"
+                label="جستجو"
                 className={(classes.textField, "display-1 p-3 col-md-12")}
                 value={this.state.searchStuff}
                 onChange={event => this.searchStuff(event)}
@@ -442,13 +139,11 @@ class Menu extends Component {
                 <div
                   style={{
                     color: this.renderColorOfTexts(),
-                    cursor: "pointer",
-                    fontFamily:
-                      "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
+                    cursor: "pointer"
                   }}
                   className="pt-4 p-2 mt-5 align-middle"
                 >
-                  LOG IN
+                  ورود
                 </div>
               </Link>
             ) : null}
@@ -456,14 +151,12 @@ class Menu extends Component {
               <Link style={{ textDecoration: "none" }} to="/contact">
                 <div
                   style={{
-                    fontFamily:
-                      "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif",
                     color: this.renderColorOfTexts(),
                     cursor: "pointer"
                   }}
                   className="pt-4 p-2 mt-5 align-middle"
                 >
-                  CONTACT
+                  ارتباط با ما
                 </div>
               </Link>
             ) : null}
@@ -480,8 +173,7 @@ class Menu extends Component {
             style={{
               top: "90%",
               visibility: this.state.scrollY > 800 ? "hidden" : null,
-              fontFamily:
-                "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif",
+
               color: this.renderColorOfTexts(),
               cursor: "pointer"
             }}
@@ -496,11 +188,14 @@ class Menu extends Component {
             >
               <div
                 onClick={() => {
-                  this.setState({ open: !this.state.open, subMenuNubmer: 1 });
+                  this.setState({
+                    open: !this.state.open,
+                    subMenuNubmer: 1
+                  });
                 }}
                 className="p-1  col-md-12 col-sm-12 col-lg-12"
               >
-                NEW IN
+                جدید ها
                 {this.state.subMenuNubmer == 1
                   ? this.renderSubMenu(this.state.open, 1)
                   : null}
@@ -515,9 +210,23 @@ class Menu extends Component {
               }
               className="p-1  col-md-12 col-sm-12 col-lg-12"
             >
-              WOMAN
+              زنانه
               {this.state.subMenuNubmer == 2
                 ? this.renderSubMenu(this.state.open, 2)
+                : null}
+            </div>
+            <div
+              onClick={() =>
+                this.setState({
+                  open: !this.state.open,
+                  subMenuNubmer: 3
+                })
+              }
+              className="p-1  col-md-12 col-sm-12 col-lg-12"
+            >
+              مردانه
+              {this.state.subMenuNubmer == 3
+                ? this.renderSubMenu(this.state.open, 3)
                 : null}
             </div>
             {/* <div
@@ -641,7 +350,6 @@ const styles = theme => ({
     color: "white"
   },
   floatingLabel: {
-    fontFamily: "Neue-Helvetica-Condensed",
     color: "white",
     pointerEvents: "white"
   },

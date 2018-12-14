@@ -7,6 +7,59 @@ class ItemDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      similarItems: [
+        {
+          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+          title: "تی شزت سال جدید",
+          price: "2000",
+          sizes: ["sx", "s", "md"]
+        },
+        {
+          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+          title: "نو نیست",
+          price: "56867",
+          sizes: ["sx", "s", "lg"]
+        },
+        {
+          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+          title: "عجب تی شزتی",
+          price: "1000",
+          sizes: ["d", "s", "md"]
+        },
+        {
+          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+          title: "بیا که ارزانیست",
+          price: "43222",
+          sizes: ["md", "s", "ss"]
+        }
+      ],
+      matchWith: [
+        {
+          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+          title: "تی شزت سال جدید",
+          price: "2000",
+          sizes: ["sx", "s", "md"]
+        },
+        {
+          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+          title: "نو نیست",
+          price: "56867",
+          sizes: ["sx", "s", "lg"]
+        },
+        {
+          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+          title: "عجب تی شزتی",
+          price: "1000",
+          sizes: ["d", "s", "md"]
+        },
+        {
+          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
+          title: "بیا که ارزانیست",
+          price: "43222",
+          sizes: ["md", "s", "ss"]
+        }
+      ],
+      scrollY: 0,
       itemDetails: {
         id: "55",
         itemCount: 0,
@@ -34,6 +87,13 @@ class ItemDetails extends Component {
       }
     };
   }
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+  handleScroll = () => {
+    var lastScrollY = window.scrollY;
+    this.setState({ scrollY: lastScrollY });
+  };
   addToCart() {
     this.setState({ itemCount: this.state.itemDetails.itemCount++ });
   }
@@ -49,8 +109,8 @@ class ItemDetails extends Component {
           className="modal-dialog"
         >
           <div className="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal">
                 &times;
               </button>
             </div>
@@ -62,7 +122,11 @@ class ItemDetails extends Component {
               />
             </div>
             <div className="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">
+              <button
+                type="button"
+                className="btn btn-danger"
+                data-dismiss="modal"
+              >
                 Close
               </button>
             </div>
@@ -84,11 +148,7 @@ class ItemDetails extends Component {
             basket={true}
           />
         </div>
-        <div
-          style={{
-            paddingTop: "5%"
-          }}
-        >
+        <div style={{ paddingTop: "5%" }}>
           <div className=" w-50" style={{ left: 0 }}>
             {itemDetails.imageItems.map((image, index) => (
               <div key={index}>
@@ -104,8 +164,18 @@ class ItemDetails extends Component {
             ))}
           </div>
           <div
-            className="  position-fixed w-50 "
-            style={{ right: 0, top: "19%" }}
+            className={
+              this.state.scrollY <
+              this.state.itemDetails.imageItems.length * 400
+                ? "position-fixed w-50"
+                : null
+            }
+            style={
+              this.state.scrollY <
+              this.state.itemDetails.imageItems.length * 400
+                ? { right: 0, top: "19%" }
+                : { display: "none" }
+            }
           >
             <div
               style={{ fontSize: 24, fontWeight: "bold" }}
@@ -155,12 +225,87 @@ class ItemDetails extends Component {
                 style={{ backgroundColor: "#000000", borderRadius: 0 }}
                 type="button"
               >
-                ADD
+                اضافه کن
               </button>
             </div>
           </div>
         </div>
-        {/* <Footer /> */}
+        {/* WEAR WITH */}
+        <div>
+          <span
+            style={{ fontSize: 26 }}
+            className="w-100 text-right row justify-content-end"
+          >
+            :پوشیده شود با
+          </span>
+          <div className="row justify-content-between p-5">
+            {this.state.matchWith.map((match, index) => (
+              <div key={index} style={{ width: "23%", height: "80%" }}>
+                <img
+                  style={{ width: "100%", height: "100%" }}
+                  src={match.image}
+                  alt=""
+                />
+                <span className="w-100 row justify-content-end">
+                  {match.title}
+                </span>
+                <span className="w-100 row justify-content-end">
+                  تومان {match.price}
+                </span>
+                <select className="w-100 row justify-content-end">
+                  {match.sizes.map((size, indx) => (
+                    <option key={indx} value={size}>
+                      {size}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+          </div>
+          {/* <img
+              style={{ width: "23%", height: "80%" }}
+              src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+              alt=""
+            /> */}
+        </div>
+        <div>
+          <span
+            style={{ fontSize: 26 }}
+            className="w-100 text-right row justify-content-end"
+          >
+            : موارد مشابه
+          </span>
+          <div className="row justify-content-between p-5">
+            {this.state.similarItems.map((similar, index) => (
+              <div key={index} style={{ width: "23%", height: "80%" }}>
+                <img
+                  style={{ width: "100%", height: "100%" }}
+                  src={similar.image}
+                  alt=""
+                />
+                <span className="w-100 row justify-content-end">
+                  {similar.title}
+                </span>
+                <span className="w-100 row justify-content-end">
+                  تومان {similar.price}
+                </span>
+                <select className="w-100 row justify-content-end">
+                  {similar.sizes.map((size, indx) => (
+                    <option key={indx} value={size}>
+                      {size}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+          </div>
+          {/* <img
+              style={{ width: "23%", height: "80%" }}
+              src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+              alt=""
+            /> */}
+        </div>
+        <Footer />
       </div>
     );
   }

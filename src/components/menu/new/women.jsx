@@ -247,7 +247,6 @@ const styles = theme => ({
     color: "white"
   },
   floatingLabel: {
-    fontFamily: "Neue-Helvetica-Condensed",
     color: "white",
     pointerEvents: "white"
   },
