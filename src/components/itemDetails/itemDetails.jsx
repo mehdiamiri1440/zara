@@ -75,7 +75,7 @@ class ItemDetails extends Component {
     const { itemDetails } = this.state;
     return (
       <div>
-        {/* <div style={{ zIndex: -9 }}>
+        <div style={{ zIndex: -9 }}>
           <Menu
             login={false}
             contact={true}
@@ -83,9 +83,13 @@ class ItemDetails extends Component {
             color="black"
             basket={true}
           />
-        </div> */}
-        <div className="row">
-          <div style={{ flex: 1 }}>
+        </div>
+        <div
+          style={{
+            paddingTop: "5%"
+          }}
+        >
+          <div className=" w-50" style={{ left: 0 }}>
             {itemDetails.imageItems.map((image, index) => (
               <div key={index}>
                 <img
@@ -99,15 +103,18 @@ class ItemDetails extends Component {
               </div>
             ))}
           </div>
-          <div className=" p-5" style={{ position: "sticky", flex: 1 }}>
+          <div
+            className="  position-fixed w-50 "
+            style={{ right: 0, top: "19%" }}
+          >
             <div
-              style={{ fontSize: 45, fontWeight: "bold" }}
-              className="justify-content-center pt-5 d-flex w-100"
+              style={{ fontSize: 24, fontWeight: "bold" }}
+              className="justify-content-center text-center pt-5 d-flex w-100"
             >
               {itemDetails.title}
             </div>
             <div
-              style={{ fontSize: 30, fontWeight: "bold", direction: "rtl" }}
+              style={{ fontSize: 14, fontWeight: "bold", direction: "rtl" }}
               className="justify-content-center  d-flex w-100"
             >
               {itemDetails.price}

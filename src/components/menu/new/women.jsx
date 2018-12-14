@@ -176,7 +176,7 @@ class Women extends Component {
             />
             <div
               id="hide"
-              className="show row justify-content-center col-lg-12 align-top align-text-top text-center"
+              className="showing row justify-content-center col-lg-12 align-top align-text-top text-center"
             >
               {cloth.imageItems.map((image, indx) => (
                 <div key={indx}>

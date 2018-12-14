@@ -43,9 +43,33 @@
     -->
     <title>React App</title>
   </head>
+  <style>
+    /* @font-face {
+      font-family: Shabnam;
+      src: url("../src/contents/fonts/Shabnam.ttf");
+    } */
+
+    /* @font-face {
+      font-family: Shabnam;
+      src: url("Shabnam-Bold.eot");
+      src: url("Shabnam-Bold.eot?#iefix") format("embedded-opentype"),
+        url("Shabnam-Bold.woff") format("woff"),
+        url("Shabnam-Bold.ttf") format("truetype");
+      font-weight: bold;
+    }
+
+    @font-face {
+      font-family: Shabnam;
+      src: url("Shabnam-Light.eot");
+      src: url("Shabnam-Light.eot?#iefix") format("embedded-opentype"),
+        url("Shabnam-Light.woff") format("woff"),
+        url("Shabnam-Light.ttf") format("truetype");
+      font-weight: 300;
+    } */
+  </style>
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
-    <div style=" font-family:IranianSansRegular " id="root"></div>
+    <div id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -59,8 +83,14 @@
   </body>
 </html>
 <style>
+  @font-face {
+    font-family: Shabnam;
+    src: url("../src/contents/fonts/sh");
+  }
+
   body,
   html {
+    font-family: Shabnam;
     height: 100%;
     margin: 0;
   }
