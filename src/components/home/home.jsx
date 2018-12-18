@@ -52,6 +52,7 @@ class Home extends Component {
       // style={{height:1000}}
       <div style={{ zIndex: -9 }}>
         <Menu
+          menuItems={true}
           color="white"
           search={true}
           basket={true}

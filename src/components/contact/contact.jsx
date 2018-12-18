@@ -20,13 +20,29 @@ class Contact extends Component {
     console.log("it is the props:", this.props);
 
     const { classes } = this.props;
-    return <div>
+    return (
+      <div>
         <div style={{ zIndex: -9 }}>
-          <Menu login={false} contact={true} search={false} color="black" basket={true} />
+          <Menu
+            menuItems={true}
+            login={false}
+            contact={true}
+            search={false}
+            color="black"
+            basket={true}
+          />
         </div>
         <div className="" style={{ height: "35vh", zIndex: 22222 }} />
         <div className="col-md-12 col-lg-12 col-sm-12">
-          <div style={{ fontSize: 30, fontWeight: "bold", fontFamily: "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif" }} className="col-md-12 col-lg-12 col-sm-12 row justify-content-center">
+          <div
+            style={{
+              fontSize: 30,
+              fontWeight: "bold",
+              fontFamily:
+                "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
+            }}
+            className="col-md-12 col-lg-12 col-sm-12 row justify-content-center"
+          >
             <div className="col-md-6 col-lg-6 col-sm-6 p-3 border-bottom">
               Customer service
             </div>
@@ -40,13 +56,26 @@ class Contact extends Component {
             </div>
           </div>
           <div className="col-md-12 col-lg-12 col-sm-12 row justify-content-center">
-            <div style={{ fontWeight: "bold" }} className="text-secondary row justify-content-start col-md-6 p-5">
+            <div
+              style={{ fontWeight: "bold" }}
+              className="text-secondary row justify-content-start col-md-6 p-5"
+            >
               Schedule: 24x7
             </div>
           </div>
           <div className="col-md-12 col-lg-12 col-sm-12 row justify-content-center">
             <div className="col-md-6 col-lg-6 col-sm-6 row justify-content-end border-bottom p-5">
-              <Button className="p-3" variant="contained" style={{ color: "white", backgroundColor: "#000000", width: "20%", border: 0, borderRadius: 0 }}>
+              <Button
+                className="p-3"
+                variant="contained"
+                style={{
+                  color: "white",
+                  backgroundColor: "#000000",
+                  width: "20%",
+                  border: 0,
+                  borderRadius: 0
+                }}
+              >
                 ACCESS
               </Button>
             </div>
@@ -61,12 +90,19 @@ class Contact extends Component {
             </div>
           </div>
           <div className="col-md-12 col-lg-12 col-sm-12 row justify-content-center">
-            <div style={{ fontWeight: "bold" }} className="text-secondary row justify-content-start col-md-6 p-5">
+            <div
+              style={{ fontWeight: "bold" }}
+              className="text-secondary row justify-content-start col-md-6 p-5"
+            >
               +98 936 775 1890
             </div>
           </div>
-          <div style={{ fontWeight: "bold" }} className="text-secondary text-left row justify-content-center col-md-12 p-5">
-            Monday to Friday from 8:30 am to 7:30 pmSaturday from 10:00 am to 4:00 pm
+          <div
+            style={{ fontWeight: "bold" }}
+            className="text-secondary text-left row justify-content-center col-md-12 p-5"
+          >
+            Monday to Friday from 8:30 am to 7:30 pmSaturday from 10:00 am to
+            4:00 pm
           </div>
           <div className="col-md-12 col-lg-12 col-sm-12 row justify-content-center">
             <div className="col-md-6 col-lg-6 col-sm-6 row justify-content-end border-bottom p-5" />
@@ -81,13 +117,19 @@ class Contact extends Component {
             </div>
           </div>
           <div className="col-md-12 col-lg-12 col-sm-12">
-            <div style={{ fontWeight: "bold" }} className="text-secondary row justify-content-center col-md-8 pb-2 pt-4 ">
+            <div
+              style={{ fontWeight: "bold" }}
+              className="text-secondary row justify-content-center col-md-8 pb-2 pt-4 "
+            >
               <i className="fab fa-facebook pr-2" style={{ fontSize: 20 }} />
               <a className="text-dark" href="">
                 Facebook
               </a>
             </div>
-            <div style={{ fontWeight: "bold" }} className="text-secondary row justify-content-center col-md-8 ">
+            <div
+              style={{ fontWeight: "bold" }}
+              className="text-secondary row justify-content-center col-md-8 "
+            >
               <i className="fab fa-instagram pr-2" style={{ fontSize: 20 }} />
               <a className="text-dark" href="">
                 Instagram
@@ -100,7 +142,8 @@ class Contact extends Component {
           </div>
         </div>
         <Footer />
-      </div>;
+      </div>
+    );
   }
 }
 const styles = theme => ({

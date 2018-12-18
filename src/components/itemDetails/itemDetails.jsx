@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Menu from "../menu/menu";
 import "./itemDetailsStyles.css";
+import Alert from "react-s-alert";
+
 import Footer from "../footer/footer";
 class ItemDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedSize: "",
       similarItems: [
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
@@ -94,14 +97,49 @@ class ItemDetails extends Component {
     var lastScrollY = window.scrollY;
     this.setState({ scrollY: lastScrollY });
   };
-  addToCart() {
-    this.setState({ itemCount: this.state.itemDetails.itemCount++ });
+  addToCart(e) {
+    if (this.state.selectedSize)
+      this.setState({ itemCount: (this.state.itemDetails.itemCount += 1) });
+    else {
+      Alert.error("لطفا سایز را انتخاب کنید", {
+        position: "bottom-right",
+        effect: "slide",
+        timeout: 2000
+      });
+    }
   }
-  selectSize(size, index) {
-    console.log(size, index);
+  selectSize(itemDetails) {
+    if (!this.state.selectedSize)
+      return (
+        <div
+          style={{ fontSize: 14 }}
+          className="border-bottom border-top mt-3 pb-3 w-100 text-center pt-4 align-middle"
+        >
+          {itemDetails.size.map((size, indx) => (
+            <div key={indx} className="w-100 col">
+              <div
+                onClick={() => this.setState({ selectedSize: size })}
+                style={{ fontSize: 18, cursor: "pointer" }}
+                className="sizeHover col w-100"
+              >
+                {size}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    return (
+      <div className="w-100 pt-3 col">
+        <div
+          style={{ fontSize: 18, cursor: "pointer" }}
+          className="text-center border-bottom border-secondary border-top sizeHover col w-100"
+        >
+          {this.state.selectedSize}
+        </div>
+      </div>
+    );
   }
   renderfullScreenImages(image, index) {
-    console.log("it is the index", index, image);
     return (
       <div className="modal fade" id={`myModal-${index}`}>
         <div
@@ -127,7 +165,7 @@ class ItemDetails extends Component {
                 className="btn btn-danger"
                 data-dismiss="modal"
               >
-                Close
+                بستن
               </button>
             </div>
           </div>
@@ -139,8 +177,10 @@ class ItemDetails extends Component {
     const { itemDetails } = this.state;
     return (
       <div>
+        <Alert stack={{ limit: 3 }} />
         <div style={{ zIndex: -9 }}>
           <Menu
+            menuItems={true}
             login={false}
             contact={true}
             search={false}
@@ -202,32 +242,36 @@ class ItemDetails extends Component {
             >
               {itemDetails.description}
             </div>
-            <div
-              style={{ fontSize: 14 }}
-              className="border-bottom border-top mt-3 pb-3 w-100 text-center pt-4 align-middle"
-            >
-              {itemDetails.size.map((size, index) => (
-                <div key={index} className="w-100 col">
-                  <div
-                    onClick={() => this.selectSize(size, index)}
-                    style={{ fontSize: 18, cursor: "pointer" }}
-                    className="sizeHover col w-100"
-                  >
-                    {size}
-                  </div>
-                </div>
-              ))}
-            </div>
+            {this.selectSize(itemDetails)}
             <div className="row  justify-content-center p-3">
               <button
-                onClick={() => this.addToCart()}
-                className="text-white w-50 btn"
-                style={{ backgroundColor: "#000000", borderRadius: 0 }}
+                onClick={e => this.addToCart(e)}
+                className={`${
+                  this.state.selectedSize ? "text-dark" : "text-white"
+                } w-50 btn border-dark`}
+                style={{
+                  backgroundColor: this.state.selectedSize
+                    ? "#FFFFFF"
+                    : "#000000",
+                  borderRadius: 0
+                }}
                 type="button"
               >
                 اضافه کن
               </button>
             </div>
+            {this.state.selectedSize ? (
+              <div className="row  justify-content-center p-3">
+                <Link
+                  to="/shoppingbasket"
+                  className="text-white w-50 btn"
+                  style={{ backgroundColor: "#000000", borderRadius: 0 }}
+                  type="button"
+                >
+                  تسویه خرید
+                </Link>
+              </div>
+            ) : null}
           </div>
         </div>
         {/* WEAR WITH */}
@@ -252,13 +296,21 @@ class ItemDetails extends Component {
                 <span className="w-100 row justify-content-end">
                   تومان {match.price}
                 </span>
-                <select className="w-100 row justify-content-end">
+                <select className="w-100 form-control row justify-content-end">
                   {match.sizes.map((size, indx) => (
                     <option key={indx} value={size}>
                       {size}
                     </option>
                   ))}
                 </select>
+                <div className="row justify-content-end col pr-0">
+                  <button
+                    className="mt-1  text-dark w-50 btn border-dark"
+                    style={{ backgroundColor: "#FFFFFF", borderRadius: 0 }}
+                  >
+                    اضافه کردن
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -289,21 +341,24 @@ class ItemDetails extends Component {
                 <span className="w-100 row justify-content-end">
                   تومان {similar.price}
                 </span>
-                <select className="w-100 row justify-content-end">
+                <select className="w-100 form-control row justify-content-end">
                   {similar.sizes.map((size, indx) => (
                     <option key={indx} value={size}>
                       {size}
                     </option>
                   ))}
                 </select>
+                <div className="row justify-content-end col pr-0">
+                  <button
+                    className="mt-1  text-dark w-50 btn border-dark"
+                    style={{ backgroundColor: "#FFFFFF", borderRadius: 0 }}
+                  >
+                    اضافه کردن
+                  </button>
+                </div>
               </div>
             ))}
           </div>
-          {/* <img
-              style={{ width: "23%", height: "80%" }}
-              src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
-              alt=""
-            /> */}
         </div>
         <Footer />
       </div>

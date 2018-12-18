@@ -1,22 +1,29 @@
 import React from "react";
-import { Route, withRouter, Switch } from "react-router-dom";
+import { Redirect, Route, withRouter, Switch } from "react-router-dom";
 import Login from "./login/login";
 import Contact from "./contact/contact";
 import ResetPassword from "./resetPassword/resetPassword";
 import CreateAccount from "./createAccount/createAccount";
 import New from "./menu/new/new";
 import Landing from "./landing/landing";
+import ShoppingBasket from "./shoppingBasket/shoppingBasket";
 import Home from "./home/home";
 import ItemDetails from "./itemDetails/itemDetails";
 class MainRoutes extends React.Component {
   static init() {
     return (
       <Switch>
-        {/* <Redirect from="/" to="/landing" /> */}
+        {/* <Route from="/" to="/landing" /> */}
+        <Route exact path="/" render={() => <Landing {...this.props} />} />
         <Route
           exact
           path="/landing"
           render={() => <Landing {...this.props} />}
+        />
+        <Route
+          exact
+          path="/shoppingBasket"
+          render={() => <ShoppingBasket {...this.props} />}
         />
         <Route
           exact

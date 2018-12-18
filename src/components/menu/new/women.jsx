@@ -208,6 +208,7 @@ class Women extends Component {
       <div className="body">
         <div style={{ zIndex: -9 }}>
           <Menu
+            menuItems={true}
             login={false}
             contact={true}
             search={false}

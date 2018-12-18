@@ -169,67 +169,68 @@ class Menu extends Component {
               </div>
             ) : null}
           </div>
-          <div
-            style={{
-              top: "90%",
-              visibility: this.state.scrollY > 800 ? "hidden" : null,
-
-              color: this.renderColorOfTexts(),
-              cursor: "pointer"
-            }}
-            className="position-absolute pl-3"
-          >
-            <Link
+          {this.props.menuItems ? (
+            <div
               style={{
+                top: "90%",
+                visibility: this.state.scrollY > 800 ? "hidden" : null,
+
                 color: this.renderColorOfTexts(),
-                textDecoration: "none"
+                cursor: "pointer"
               }}
-              to="/new"
+              className="position-absolute pl-3"
             >
+              <Link
+                style={{
+                  color: this.renderColorOfTexts(),
+                  textDecoration: "none"
+                }}
+                to="/new"
+              >
+                <div
+                  onClick={() => {
+                    this.setState({
+                      open: !this.state.open,
+                      subMenuNubmer: 1
+                    });
+                  }}
+                  className="p-1  col-md-12 col-sm-12 col-lg-12"
+                >
+                  جدید ها
+                  {this.state.subMenuNubmer == 1
+                    ? this.renderSubMenu(this.state.open, 1)
+                    : null}
+                </div>
+              </Link>
               <div
-                onClick={() => {
+                onClick={() =>
                   this.setState({
                     open: !this.state.open,
-                    subMenuNubmer: 1
-                  });
-                }}
+                    subMenuNubmer: 2
+                  })
+                }
                 className="p-1  col-md-12 col-sm-12 col-lg-12"
               >
-                جدید ها
-                {this.state.subMenuNubmer == 1
-                  ? this.renderSubMenu(this.state.open, 1)
+                زنانه
+                {this.state.subMenuNubmer == 2
+                  ? this.renderSubMenu(this.state.open, 2)
                   : null}
               </div>
-            </Link>
-            <div
-              onClick={() =>
-                this.setState({
-                  open: !this.state.open,
-                  subMenuNubmer: 2
-                })
-              }
-              className="p-1  col-md-12 col-sm-12 col-lg-12"
-            >
-              زنانه
-              {this.state.subMenuNubmer == 2
-                ? this.renderSubMenu(this.state.open, 2)
-                : null}
-            </div>
-            <div
-              onClick={() =>
-                this.setState({
-                  open: !this.state.open,
-                  subMenuNubmer: 3
-                })
-              }
-              className="p-1  col-md-12 col-sm-12 col-lg-12"
-            >
-              مردانه
-              {this.state.subMenuNubmer == 3
-                ? this.renderSubMenu(this.state.open, 3)
-                : null}
-            </div>
-            {/* <div
+              <div
+                onClick={() =>
+                  this.setState({
+                    open: !this.state.open,
+                    subMenuNubmer: 3
+                  })
+                }
+                className="p-1  col-md-12 col-sm-12 col-lg-12"
+              >
+                مردانه
+                {this.state.subMenuNubmer == 3
+                  ? this.renderSubMenu(this.state.open, 3)
+                  : null}
+              </div>
+              {/* <div
               onClick={() => {
                 this.setState({ open: !this.state.open, subMenuNubmer: 3 });
               }}
@@ -320,7 +321,8 @@ class Menu extends Component {
                 ? this.renderSubMenu(this.state.open, 6)
                 : null}
             </div> */}
-          </div>
+            </div>
+          ) : null}
         </div>
         {/* <Route path="/new/women" render={() => <Women {...this.props} />} />; */}
       </div>

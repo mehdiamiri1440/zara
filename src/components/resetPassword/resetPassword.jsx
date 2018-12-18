@@ -18,6 +18,7 @@ class ResetPassword extends Component {
       <div>
         <div style={{ zIndex: -9 }}>
           <Menu
+            menuItems={true}
             login={false}
             contact={true}
             search={false}
