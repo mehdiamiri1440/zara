@@ -16,7 +16,11 @@ class Login extends Component {
   fetchPassword(event) {
     this.setState({ password: event.target.value });
   }
-  login() {}
+  login() {
+    this.props.history.push({
+      pathname: "/profile"
+    });
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -220,4 +224,4 @@ const styles = theme => ({
 Login.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default (withRouter, withStyles)(styles)(Login);
+export default withRouter(withStyles(styles)(Login));

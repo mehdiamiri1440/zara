@@ -267,4 +267,4 @@ const styles = theme => ({
 CreateAccount.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default (withRouter, withStyles)(styles)(CreateAccount);
+export default withRouter(withStyles(styles)(CreateAccount));

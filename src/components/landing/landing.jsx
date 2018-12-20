@@ -19,19 +19,40 @@ class Landing extends Component {
       country: "",
       language: "",
       languages: [
-        { name: "Persian", code: "01" },
-        { name: "English", code: "02" },
-        { name: "Arabic", code: "03" }
+        { name: "Persian", _id: "01" },
+        { name: "English", _id: "02" },
+        { name: "Arabic", _id: "03" }
       ],
       countries: [
-        { name: "Iran", code: "001" },
-        { name: "Iraq", code: "002" },
-        { name: "Turkey", code: "003" },
-        { name: "Russia", code: "004" }
+        // { name: "Iran", _id: "001" },
+        // { name: "Iraq", _id: "002" },
+        // { name: "Turkey", _id: "003" },
+        // { name: "Russia", _id: "004" }
       ]
     };
+    this.getCountries();
+  }
+  getCountries() {
+    fetch(`http://172.16.204.236:3003/country/get`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log("it is the countires", responseJson);
+        // responseJson.map(roleID => rolesID.push(roleID.Id));
+        this.setState({ countries: responseJson });
+      })
+      .catch(error => {
+        console.log("it was false", error);
+      });
   }
   fetchCountryAndLanguage() {
+    // 172.16.204.236:3003/country/get
+
     console.warn("hello mehdi amiri", this.state.language, this.state.country);
     this.props.history.push({
       pathname: "/home",

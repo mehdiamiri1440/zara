@@ -140,4 +140,4 @@ const styles = theme => ({
 Home.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default (withRouter, withStyles)(styles)(Home);
+export default withRouter(withStyles(styles)(Home));

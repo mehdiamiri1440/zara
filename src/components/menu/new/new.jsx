@@ -118,4 +118,4 @@ const styles = theme => ({
 // New.propTypes = {
 //   classes: PropTypes.object.isRequired
 // };
-export default New;
+export default withRouter(New);

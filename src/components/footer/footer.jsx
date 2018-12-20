@@ -184,4 +184,4 @@ const styles = theme => ({
 Footer.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default (withRouter, withStyles)(styles)(Footer);
+export default withRouter(withStyles(styles)(Footer));

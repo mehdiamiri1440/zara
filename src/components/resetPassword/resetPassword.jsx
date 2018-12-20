@@ -116,4 +116,4 @@ const styles = theme => ({
 ResetPassword.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default (withRouter, withStyles)(styles)(ResetPassword);
+export default withRouter(withStyles(styles)(ResetPassword));

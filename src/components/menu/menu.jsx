@@ -371,4 +371,4 @@ const styles = theme => ({
 // Menu.propTypes = {
 //   classes: PropTypes.object.isRequired
 // };
-export default (withRouter, withStyles)(styles)(Menu);
+export default withRouter(withStyles(styles)(Menu));

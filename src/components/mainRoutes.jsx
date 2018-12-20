@@ -8,7 +8,9 @@ import New from "./menu/new/new";
 import Landing from "./landing/landing";
 import ShoppingBasket from "./shoppingBasket/shoppingBasket";
 import Home from "./home/home";
+import ProcessOrder from "./processOrder/processOrder";
 import ItemDetails from "./itemDetails/itemDetails";
+import Profile from "./profile/profile";
 class MainRoutes extends React.Component {
   static init() {
     return (
@@ -19,6 +21,16 @@ class MainRoutes extends React.Component {
           exact
           path="/landing"
           render={() => <Landing {...this.props} />}
+        />
+        <Route
+          exact
+          path="/profile"
+          render={() => <Profile {...this.props} />}
+        />
+        <Route
+          exact
+          path="/processOrder"
+          render={() => <ProcessOrder {...this.props} />}
         />
         <Route
           exact

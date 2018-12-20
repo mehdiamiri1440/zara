@@ -189,4 +189,4 @@ const styles = theme => ({
 Contact.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default (withRouter, withStyles)(styles)(Contact);
+export default withRouter(withStyles(styles)(Contact));

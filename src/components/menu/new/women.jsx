@@ -267,4 +267,4 @@ const styles = theme => ({
 Women.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default (withRouter, withStyles)(styles)(Women);
+export default withRouter(withStyles(styles)(Women));
