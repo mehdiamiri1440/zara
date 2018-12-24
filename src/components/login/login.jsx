@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+import Alert from "react-s-alert";
 import Menu from "../menu/menu";
 import Footer from "../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
@@ -16,15 +17,41 @@ class Login extends Component {
   fetchPassword(event) {
     this.setState({ password: event.target.value });
   }
-  login() {
-    this.props.history.push({
-      pathname: "/profile"
-    });
+  login(userName) {
+    fetch(`http://192.168.1.183:3003/login`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: userName
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson) this.props.history.push({ pathname: "/profile" });
+        else {
+          Alert.error("ایمیل یا رمز عبور اشتباه است", {
+            position: "bottom-right",
+            effect: "slide",
+            timeout: 2000
+          });
+        }
+      })
+      .catch(error => {
+        Alert.error("خطا در ارسال اطلاعات", {
+          position: "bottom-right",
+          effect: "slide",
+          timeout: 2000
+        });
+      });
   }
   render() {
     const { classes } = this.props;
     return (
       <div>
+        <Alert stack={{ limit: 3 }} />
         <div style={{ zIndex: -9 }}>
           <Menu
             menuItems={true}

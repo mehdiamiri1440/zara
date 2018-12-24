@@ -11,12 +11,18 @@ import Home from "./home/home";
 import ProcessOrder from "./processOrder/processOrder";
 import ItemDetails from "./itemDetails/itemDetails";
 import Profile from "./profile/profile";
+import PasswordSentSuccessfully from "./passwordSentSuccessfully/passwordSentSuccessfully";
 class MainRoutes extends React.Component {
   static init() {
     return (
       <Switch>
         {/* <Route from="/" to="/landing" /> */}
         <Route exact path="/" render={() => <Landing {...this.props} />} />
+        <Route
+          exact
+          path="/passwordSentSuccessfully"
+          render={() => <PasswordSentSuccessfully {...this.props} />}
+        />
         <Route
           exact
           path="/landing"

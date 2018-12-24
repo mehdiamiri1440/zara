@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+import Alert from "react-s-alert";
 import Menu from "../menu/menu";
 import Footer from "../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
@@ -12,10 +13,42 @@ class ResetPassword extends Component {
   fetchEmail(event) {
     this.setState({ email: event.target.value });
   }
+  resetPassword() {
+    fetch(`http://192.168.1.183:3003/resetpassword`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: this.state.email
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson)
+          this.props.history.push({ pathname: "/passwordSentsuccessfully" });
+        else {
+          Alert.error("ایمیل اشتباه است", {
+            position: "bottom-right",
+            effect: "slide",
+            timeout: 2000
+          });
+        }
+      })
+      .catch(error => {
+        Alert.error("خطا در ارسال اطلاعات", {
+          position: "bottom-right",
+          effect: "slide",
+          timeout: 2000
+        });
+      });
+  }
   render() {
     const { classes } = this.props;
     return (
       <div>
+        <Alert stack={{ limit: 3 }} />
         <div style={{ zIndex: -9 }}>
           <Menu
             menuItems={true}
@@ -55,6 +88,7 @@ class ResetPassword extends Component {
         </div>
         <div className="col-md-12 col-lg-12 col-sm-12 row justify-content-center">
           <Button
+            onClick={() => this.resetPassword()}
             className="p-3 w-25"
             variant="contained"
             style={{

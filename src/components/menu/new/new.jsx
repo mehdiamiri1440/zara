@@ -3,71 +3,122 @@ import { Link, withRouter, Route } from "react-router-dom";
 import Menu from "../menu";
 import Footer from "../../footer/footer";
 import PropTypes from "prop-types";
+import "./new.css";
 import { Carousel } from "react-responsive-carousel";
 import { Button, withStyles, TextField } from "@material-ui/core";
 class New extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      visible: false,
+      newinCategories: []
+    };
   }
+  componentDidMount = () => {
+    this.getNewCategories();
+  };
+  getNewCategories() {}
   render() {
     // const { classes } = this.props;
     return (
       <div>
-        <div
-          style={{ zIndex: 9999, right: 0 }}
-          className=" position-absolute pt-5 p-3"
-        >
-          <div style={{ textDecoration: "none" }} className="text-white">
-            <div className="text-center align-middle">تازه ها</div>
-          </div>
-          <Link
-            style={{ textDecoration: "none" }}
-            className="text-center align-middle text-white"
-            to="/new/women"
-          >
-            <div className="row col-md-12 col-sm-12 col-lg-12">زنانه </div>
-          </Link>
-          <Link
-            style={{ textDecoration: "none" }}
-            className="text-center align-middle text-white"
-            to="/new/men"
-          >
-            <div className=" row col-md-12 col-sm-12 col-lg-12">مردانه</div>
-          </Link>
+        <div style={{ zIndex: -9 }}>
+          <Menu
+            menuItems={true}
+            login={false}
+            contact={true}
+            search={false}
+            color="black"
+            basket={true}
+          />
         </div>
-        <Carousel
-          stopOnHover={false}
-          infiniteLoop={true}
-          autoPlay={true}
-          showThumbs={false}
-          showStatus={false}
-        >
-          <div onScroll={event => this.scrollFunc(event)}>
-            <img
-              src={require("../../../contents/images/2018-New-Fashion-Men-Costume-Homme-Business-Suits-Jacket-Wedding-Suits-For-Men-Two-Buttons-Three.jpg")}
-            />
+        <div className="pt-5 " style={{ height: "35vh", zIndex: 22222 }} />
+        <div>
+          <div className="p-4 d-flex justify-content-center px-5">
+            <div className="px-5">
+              <div className="row p-3">
+                <div
+                  onMouseOver={() =>
+                    this.setState({
+                      visible: true
+                    })
+                  }
+                  onMouseOut={() =>
+                    this.setState({
+                      visible: false
+                    })
+                  }
+                  className={`mx-2 ${
+                    this.state.visible ? "hoverCard" : null
+                  } card`}
+                  style={{ width: 400 }}
+                >
+                  <div style={{ cursor: "pointer" }}>
+                    <img
+                      className="card-img-top"
+                      src={require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+                      alt="Card image"
+                    />
+                    <div class="card-img-overlay d-flex justify-content-center">
+                      {this.state.visible ? (
+                        <div>
+                          <h4 class="card-title">John Dsdfsdfoe</h4>
+                          <p class="card-text">Some sdfsfsd text.</p>
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="card-body">
+                      <h4 className="card-title">John Doe</h4>
+                      <p class="card-text">Some example text.</p>
+                      <a href="#" className="btn btn-primary">
+                        See Profile
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  onMouseOver={() =>
+                    this.setState({
+                      visible: true
+                    })
+                  }
+                  onMouseOut={() =>
+                    this.setState({
+                      visible: false
+                    })
+                  }
+                  className={`mx-2 ${
+                    this.state.visible ? "hoverCard" : null
+                  } card`}
+                  style={{ width: 400 }}
+                >
+                  <div style={{ cursor: "pointer" }}>
+                    <img
+                      className="card-img-top"
+                      src={require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+                      alt="Card image"
+                    />
+                    <div class="card-img-overlay d-flex justify-content-center">
+                      {this.state.visible ? (
+                        <div>
+                          <h4 class="card-title">John Dsdfsdfoe</h4>
+                          <p class="card-text">Some sdfsfsd text.</p>
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="card-body">
+                      <h4 className="card-title">John Doe</h4>
+                      <p class="card-text">Some example text.</p>
+                      <a href="#" className="btn btn-primary">
+                        See Profile
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <video
-              style={{ height: "100%", width: "100%" }}
-              autoPlay
-              muted
-              loop
-              id="myVideo"
-            >
-              <source
-                type="video/mp4"
-                src="https://static.zara.net//video//mkt/2018/11/aw18-post-black-friday-video01d/aw18-post-black-friday-video01d_1.mp4?1543109403749"
-              />
-            </video>
-          </div>
-          <div>
-            <img
-              src={require("../../../contents/images/2018-New-Fashion-Men-Costume-Homme-Business-Suits-Jacket-Wedding-Suits-For-Men-Two-Buttons-Three.jpg")}
-            />
-          </div>
-        </Carousel>
+        </div>
         <Footer />
       </div>
     );

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Menu from "../menu/menu";
+import Alert from "react-s-alert";
+
 import Footer from "../footer/footer";
 import {
   FormControlLabel,
@@ -13,20 +15,106 @@ import {
 class CreateAccount extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", readPolicies: false };
+    this.state = {
+      email: "",
+      firstName: "",
+      lastName: "",
+      city: "",
+      region: "",
+      password: "",
+      retypedPassword: "",
+      address: "",
+      postalCode: "",
+      phone: "",
+      policies: false
+    };
   }
-  fetchEmail(event) {
-    this.setState({ email: event.target.value });
+  fetchUserData(data, event) {
+    switch (data) {
+      case "email":
+        this.setState({ email: event.target.value });
+        break;
+      case "firstName":
+        this.setState({ firstName: event.target.value });
+        break;
+      case "lastName":
+        this.setState({ lastName: event.target.value });
+        break;
+      case "address":
+        this.setState({ address: event.target.value });
+        break;
+      case "city":
+        this.setState({ city: event.target.value });
+        break;
+      case "password":
+        this.setState({ password: event.target.value });
+        break;
+      case "retypedPassword":
+        this.setState({ retypedPassword: event.target.value });
+        break;
+      case "region":
+        this.setState({ region: event.target.value });
+        break;
+      case "postalCode":
+        this.setState({ postalCode: event.target.value });
+        break;
+      case "phone":
+        this.setState({ phone: event.target.value });
+        break;
+      case "policies":
+        this.setState({ policies: !this.state.policies });
+        break;
+    }
   }
-  readPolicies(event) {
-    this.setState({ readPolicies: event.target.checked });
-    console.log("after", this.state.readPolicies);
+
+  createAccount() {
+    let user = this.state;
+    if (this.state.policies) {
+      fetch(`http://192.168.43.102:3003/user/signup`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          postalCode: user.postalCode,
+          phone: user.phone,
+          city: user.city,
+          region: user.region,
+          address: user.address,
+          password: user.password,
+          email: user.email
+        })
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          this.props.history.push({
+            pathname: "/profile",
+            state: responseJson
+          });
+        })
+        .catch(error => {
+          Alert.error("خطا در ارسال اطلاعات", {
+            position: "bottom-right",
+            effect: "slide",
+            timeout: 2000
+          });
+        });
+    } else {
+      Alert.error("لطفا قوانین سایت را مطالعه فرمایید ", {
+        position: "bottom-right",
+        effect: "slide",
+        timeout: 3000
+      });
+    }
   }
-  createAccount() {}
   render() {
     const { classes } = this.props;
     return (
       <div>
+        <Alert stack={{ limit: 3 }} />
         <div style={{ zIndex: -9 }}>
           <Menu
             menuItems={true}
@@ -60,9 +148,8 @@ class CreateAccount extends Component {
               label="E-mail "
               type="email"
               value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              onChange={event => this.fetchUserData("email", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
           <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
@@ -72,8 +159,8 @@ class CreateAccount extends Component {
               id="outlined-name"
               label="Password "
               type="password"
-              value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              value={this.state.password}
+              onChange={event => this.fetchUserData("password", event)}
               margin="normal"
               classes={{}}
             />
@@ -87,8 +174,8 @@ class CreateAccount extends Component {
               id="outlined-name"
               label="Repeat Password "
               type="password"
-              value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              value={this.state.retypedPassword}
+              onChange={event => this.fetchUserData("retypedPassword", event)}
               margin="normal"
               classes={{}}
             />
@@ -98,10 +185,10 @@ class CreateAccount extends Component {
               style={{ width: "60%" }}
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
-              label="Name "
+              label="FirstName"
               type="text"
-              value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              value={this.state.firstName}
+              onChange={event => this.fetchUserData("firstName", event)}
               margin="normal"
               classes={{}}
             />
@@ -113,10 +200,10 @@ class CreateAccount extends Component {
               style={{ width: "60%" }}
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
-              label="SureName "
+              label="LastName "
               type="text"
-              value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              value={this.state.lastName}
+              onChange={event => this.fetchUserData("lastName", event)}
               margin="normal"
               classes={{}}
             />
@@ -126,10 +213,10 @@ class CreateAccount extends Component {
               style={{ width: "60%" }}
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
-              label="Town "
+              label="City "
               type="text"
-              value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              value={this.state.city}
+              onChange={event => this.fetchUserData("city", event)}
               margin="normal"
               classes={{}}
             />
@@ -143,8 +230,8 @@ class CreateAccount extends Component {
               id="outlined-name"
               label="Psotal Code "
               type="text"
-              value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              value={this.state.postalCode}
+              onChange={event => this.fetchUserData("postalCode", event)}
               margin="normal"
               classes={{}}
             />
@@ -156,8 +243,8 @@ class CreateAccount extends Component {
               id="outlined-name"
               label="Region "
               type="text"
-              value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              value={this.state.region}
+              onChange={event => this.fetchUserData("region", event)}
               margin="normal"
               classes={{}}
             />
@@ -171,8 +258,8 @@ class CreateAccount extends Component {
               id="outlined-name"
               label="Phone "
               type="text"
-              value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              value={this.state.phone}
+              onChange={event => this.fetchUserData("phone", event)}
               margin="normal"
               classes={{}}
             />
@@ -184,8 +271,8 @@ class CreateAccount extends Component {
               id="outlined-name"
               label="Address "
               type="text"
-              value={this.state.email}
-              onChange={event => this.fetchEmail(event)}
+              value={this.state.address}
+              onChange={event => this.fetchUserData("address", event)}
               margin="normal"
               classes={{}}
             />
@@ -194,9 +281,9 @@ class CreateAccount extends Component {
         <div className="pt-5 row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
           <input
             id="checkbox"
-            checked={this.state.readPolicies}
             type="Checkbox"
-            onChange={event => this.readPolicies(event)}
+            value={this.state.policies}
+            onChange={event => this.fetchUserData("policies", event)}
           />
           <label className="p-2 mt-1" htmlFor="checkbox">
             I have read and understand the Privacy and Cookies Policy

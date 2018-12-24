@@ -5,6 +5,10 @@ class Profile extends Component {
     super(props);
     this.state = {};
   }
+  componentDidMount = () => {
+    console.log("drjhf", this.props.history.location.state);
+  };
+
   render() {
     return <div>hello mewhdi bamiri</div>;
   }

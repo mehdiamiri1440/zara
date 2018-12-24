@@ -30,10 +30,13 @@ class Landing extends Component {
         // { name: "Russia", _id: "004" }
       ]
     };
+  }
+  componentDidMount() {
     this.getCountries();
   }
+
   getCountries() {
-    fetch(`http://172.16.204.236:3003/country/get`, {
+    fetch(`http://192.168.43.102:3003/country`, {
       method: "GET",
       headers: {
         Accept: "application/json",
