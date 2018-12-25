@@ -3,6 +3,7 @@ import { withRouter, Redirect } from "react-router-dom";
 import "./styles.css";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+import Alert from "react-s-alert";
 import { withStyles } from "@material-ui/core/styles";
 import {
   Select,
@@ -55,14 +56,27 @@ class Landing extends Component {
   }
   fetchCountryAndLanguage() {
     // 172.16.204.236:3003/country/get
-
-    console.warn("hello mehdi amiri", this.state.language, this.state.country);
-    this.props.history.push({
-      pathname: "/home",
-      state: {
-        hello: "world"
-      }
-    });
+    localStorage.language = this.state.language.toString();
+    localStorage.country = this.state.country.toString();
+    if (this.state.country && this.state.language) {
+      console.warn(
+        "hello mehdi amiri",
+        this.state.language,
+        this.state.country
+      );
+      this.props.history.push({
+        pathname: "/home",
+        state: {
+          hello: "world"
+        }
+      });
+    } else {
+      Alert.error("لطفا تمام فیلد ها را پر کنید", {
+        position: "bottom-right",
+        effect: "slide",
+        timeout: 2000
+      });
+    }
   }
   handleCountryChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -74,7 +88,8 @@ class Landing extends Component {
     const { classes } = this.props;
     return (
       <div className="backgroundTheme ">
-        dfgujskildfgjhkfdlz
+        <Alert stack={{ limit: 3 }} />
+
         <span style={{ fontSize: 30 }} className="d-flex w-100  p-5">
           M.S.A
         </span>

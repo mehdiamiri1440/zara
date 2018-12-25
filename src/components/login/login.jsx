@@ -18,14 +18,15 @@ class Login extends Component {
     this.setState({ password: event.target.value });
   }
   login(userName) {
-    fetch(`http://192.168.1.183:3003/login`, {
+    fetch(`http://192.168.43.102:3003/user/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        username: userName
+        email: this.state.email,
+        password: this.state.password
       })
     })
       .then(response => response.json())

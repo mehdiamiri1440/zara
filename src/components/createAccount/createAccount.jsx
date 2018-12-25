@@ -29,6 +29,8 @@ class CreateAccount extends Component {
       policies: false
     };
   }
+  componentDidMount = () => {};
+
   fetchUserData(data, event) {
     switch (data) {
       case "email":
@@ -53,7 +55,7 @@ class CreateAccount extends Component {
         this.setState({ retypedPassword: event.target.value });
         break;
       case "region":
-        this.setState({ region: event.target.value });
+        this.setState({ region: localStorage.country });
         break;
       case "postalCode":
         this.setState({ postalCode: event.target.value });
@@ -69,45 +71,53 @@ class CreateAccount extends Component {
 
   createAccount() {
     let user = this.state;
-    if (this.state.policies) {
-      fetch(`http://192.168.43.102:3003/user/signup`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          firstName: user.firstName,
-          lastName: user.lastName,
-          postalCode: user.postalCode,
-          phone: user.phone,
-          city: user.city,
-          region: user.region,
-          address: user.address,
-          password: user.password,
-          email: user.email
-        })
-      })
-        .then(response => response.json())
-        .then(responseJson => {
-          this.props.history.push({
-            pathname: "/profile",
-            state: responseJson
-          });
-        })
-        .catch(error => {
-          Alert.error("خطا در ارسال اطلاعات", {
-            position: "bottom-right",
-            effect: "slide",
-            timeout: 2000
-          });
-        });
-    } else {
-      Alert.error("لطفا قوانین سایت را مطالعه فرمایید ", {
+    if (user.retypedPassword != user.password) {
+      Alert.error("دو رمز عبور وارد شده متفاوت می باشند", {
         position: "bottom-right",
         effect: "slide",
-        timeout: 3000
+        timeout: 2000
       });
+    } else {
+      if (this.state.policies) {
+        fetch(`http://192.168.43.102:3003/user/signup`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            postalCode: user.postalCode,
+            phone: user.phone,
+            city: user.city,
+            region: user.region,
+            address: user.address,
+            password: user.password,
+            email: user.email
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            this.props.history.push({
+              pathname: "/login",
+              state: responseJson
+            });
+          })
+          .catch(error => {
+            Alert.error("خطا در ارسال اطلاعات", {
+              position: "bottom-right",
+              effect: "slide",
+              timeout: 2000
+            });
+          });
+      } else {
+        Alert.error("لطفا قوانین سایت را مطالعه فرمایید ", {
+          position: "bottom-right",
+          effect: "slide",
+          timeout: 3000
+        });
+      }
     }
   }
   render() {
@@ -243,7 +253,7 @@ class CreateAccount extends Component {
               id="outlined-name"
               label="Region "
               type="text"
-              value={this.state.region}
+              value={localStorage.language}
               onChange={event => this.fetchUserData("region", event)}
               margin="normal"
               classes={{}}
