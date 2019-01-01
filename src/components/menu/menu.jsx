@@ -135,17 +135,31 @@ class Menu extends Component {
             className="pr-0 justify-content-end row col-md-4 col-sm-4 col-lg-4 p-3 "
           >
             {this.props.login ? (
-              <Link style={{ textDecoration: "none" }} to="/login">
-                <div
-                  style={{
-                    color: this.renderColorOfTexts(),
-                    cursor: "pointer"
-                  }}
-                  className="pt-4 p-2 mt-5 align-middle"
-                >
-                  ورود
-                </div>
-              </Link>
+              this.props.history.location.state ? (
+                <Link style={{ textDecoration: "none" }} to="/profile">
+                  <div
+                    style={{
+                      color: this.renderColorOfTexts(),
+                      cursor: "pointer"
+                    }}
+                    className="pt-4 p-2 mt-5 align-middle"
+                  >
+                    {this.props.history.location.state.firstName}
+                  </div>
+                </Link>
+              ) : (
+                <Link style={{ textDecoration: "none" }} to="/login">
+                  <div
+                    style={{
+                      color: this.renderColorOfTexts(),
+                      cursor: "pointer"
+                    }}
+                    className="pt-4 p-2 mt-5 align-middle"
+                  >
+                    ورود
+                  </div>
+                </Link>
+              )
             ) : null}
             {this.props.contact ? (
               <Link style={{ textDecoration: "none" }} to="/contact">

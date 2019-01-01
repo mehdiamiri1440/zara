@@ -3,7 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import Menu from "../menu/menu";
 import "./itemDetailsStyles.css";
 import Alert from "react-s-alert";
-
+import MyAlert from "../myAlert/myAlert";
 import Footer from "../footer/footer";
 class ItemDetails extends Component {
   constructor(props) {
@@ -103,8 +103,7 @@ class ItemDetails extends Component {
     else {
       Alert.error("لطفا سایز را انتخاب کنید", {
         position: "bottom-right",
-        effect: "slide",
-        timeout: 2000
+        effect: "slide"
       });
     }
   }
@@ -173,6 +172,16 @@ class ItemDetails extends Component {
       </div>
     );
   }
+  //   alert(){
+  // return(<slam onsuccess={} oncancel={}/>)
+
+  //   }
+  mySuccess = () => {
+    console.log("helloo mehdi amiri");
+  };
+  myReject = () => {
+    console.log("goodbye mehdi amiri");
+  };
   render() {
     const { itemDetails } = this.state;
     return (

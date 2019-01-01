@@ -31,7 +31,11 @@ class Login extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        if (responseJson) this.props.history.push({ pathname: "/profile" });
+        if (responseJson)
+          this.props.history.push({
+            pathname: "/profile",
+            state: responseJson
+          });
         else {
           Alert.error("ایمیل یا رمز عبور اشتباه است", {
             position: "bottom-right",

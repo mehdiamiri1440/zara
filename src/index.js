@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import "@fortawesome/fontawesome-free/css/all.css";
 import "bootstrap/dist/css/bootstrap.css";
 import * as serviceWorker from "./serviceWorker";
 //alerts
@@ -18,6 +19,8 @@ import "react-s-alert/dist/s-alert-css-effects/genie.css";
 import "react-s-alert/dist/s-alert-css-effects/jelly.css";
 import "react-s-alert/dist/s-alert-css-effects/stackslide.css";
 ///end of alerts files
+require("bootstrap/dist/js/bootstrap");
+
 
 ReactDOM.render(
   <Router>

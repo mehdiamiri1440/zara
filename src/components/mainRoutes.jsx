@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, withRouter, Switch } from "react-router-dom";
+import { Route, withRouter, Switch } from "react-router-dom";
 import Login from "./login/login";
 import Contact from "./contact/contact";
 import ResetPassword from "./resetPassword/resetPassword";

@@ -17,6 +17,11 @@ class New extends Component {
   componentDidMount = () => {
     this.getNewCategories();
   };
+  goToCategory() {
+    this.props.history.push({
+      pathname: "/new/women"
+    });
+  }
   getNewCategories() {}
   render() {
     // const { classes } = this.props;
@@ -38,6 +43,7 @@ class New extends Component {
             <div className="px-5">
               <div className="row p-3">
                 <div
+                  onClick={() => this.goToCategory()}
                   onMouseOver={() =>
                     this.setState({
                       visible: true
