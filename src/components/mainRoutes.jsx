@@ -10,7 +10,10 @@ import ShoppingBasket from "./shoppingBasket/shoppingBasket";
 import Home from "./home/home";
 import ProcessOrder from "./processOrder/processOrder";
 import ItemDetails from "./itemDetails/itemDetails";
+import EditBasicInfos from "./profile/editBasicInfos";
 import Profile from "./profile/profile";
+import UpdateAddresses from "./profile/updateAddresses";
+import OrdersAndReturns from "./profile/ordersAndReturns";
 import PasswordSentSuccessfully from "./passwordSentSuccessfully/passwordSentSuccessfully";
 class MainRoutes extends React.Component {
   static init() {
@@ -18,6 +21,21 @@ class MainRoutes extends React.Component {
       <Switch>
         {/* <Route from="/" to="/landing" /> */}
         <Route exact path="/" render={() => <Landing {...this.props} />} />
+        <Route
+          exact
+          path="/profile/updateAddresses"
+          render={() => <UpdateAddresses {...this.props} />}
+        />
+        <Route
+          exact
+          path="/profile/ordersAndReturns"
+          render={() => <OrdersAndReturns {...this.props} />}
+        />
+        <Route
+          exact
+          path="/profile/editBasicInfos"
+          render={() => <EditBasicInfos {...this.props} />}
+        />
         <Route
           exact
           path="/passwordSentSuccessfully"

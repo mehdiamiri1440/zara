@@ -97,7 +97,7 @@ class Landing extends Component {
           <div>
             <FormControl className={[classes.formControl, "w-25  m-5"]}>
               <InputLabel className="text-white" htmlFor="country">
-                Country
+                کشور
               </InputLabel>
               <Select
                 value={this.state.country}
@@ -115,7 +115,7 @@ class Landing extends Component {
             </FormControl>
             <FormControl className={[classes.formControl, "w-25  m-5"]}>
               <InputLabel className="text-white" htmlFor="language">
-                Language
+                زبان
               </InputLabel>
               <Select
                 value={this.state.language}
@@ -148,7 +148,7 @@ class Landing extends Component {
                   borderRadius: 0
                 }}
               >
-                GO
+                وارد شوید
               </Button>
             </FormControl>
           </div>

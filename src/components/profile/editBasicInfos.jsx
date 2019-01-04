@@ -1,18 +1,11 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
 import Menu from "../menu/menu";
 import Alert from "react-s-alert";
 
 import Footer from "../footer/footer";
-import {
-  FormControlLabel,
-  Checkbox,
-  Button,
-  withStyles,
-  TextField
-} from "@material-ui/core";
-class CreateAccount extends Component {
+import { Button, TextField } from "@material-ui/core";
+class EditBasicInfos extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,6 +58,8 @@ class CreateAccount extends Component {
         break;
       case "policies":
         this.setState({ policies: !this.state.policies });
+        break;
+      default:
         break;
     }
   }
@@ -121,7 +116,6 @@ class CreateAccount extends Component {
     }
   }
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <Alert stack={{ limit: 3 }} />
@@ -144,7 +138,7 @@ class CreateAccount extends Component {
             }}
             className="text-center col-md-4 col-lg-4 row justify-content-center"
           >
-            اطلاعات شخصی خود را وارد کنید
+            ویرایش اطلاعات شخصی
           </div>
         </div>
         <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
@@ -153,7 +147,7 @@ class CreateAccount extends Component {
               style={{ width: "60%" }}
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
-              label="پست الکترونیک "
+              label="پست الکترونیک"
               type="email"
               value={this.state.email}
               onChange={event => this.fetchUserData("email", event)}
@@ -170,7 +164,6 @@ class CreateAccount extends Component {
               value={this.state.password}
               onChange={event => this.fetchUserData("password", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
         </div>
@@ -185,7 +178,6 @@ class CreateAccount extends Component {
               value={this.state.retypedPassword}
               onChange={event => this.fetchUserData("retypedPassword", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
           <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
@@ -198,7 +190,6 @@ class CreateAccount extends Component {
               value={this.state.firstName}
               onChange={event => this.fetchUserData("firstName", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
         </div>
@@ -213,7 +204,6 @@ class CreateAccount extends Component {
               value={this.state.lastName}
               onChange={event => this.fetchUserData("lastName", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
           <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
@@ -226,7 +216,6 @@ class CreateAccount extends Component {
               value={this.state.city}
               onChange={event => this.fetchUserData("city", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
         </div>
@@ -241,7 +230,6 @@ class CreateAccount extends Component {
               value={this.state.postalCode}
               onChange={event => this.fetchUserData("postalCode", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
           <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
@@ -254,7 +242,6 @@ class CreateAccount extends Component {
               value={localStorage.language}
               onChange={event => this.fetchUserData("region", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
         </div>
@@ -269,7 +256,6 @@ class CreateAccount extends Component {
               value={this.state.phone}
               onChange={event => this.fetchUserData("phone", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
           <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
@@ -282,20 +268,8 @@ class CreateAccount extends Component {
               value={this.state.address}
               onChange={event => this.fetchUserData("address", event)}
               margin="normal"
-              classes={{}}
             />
           </div>
-        </div>
-        <div className="pt-5 row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
-          <input
-            id="checkbox"
-            type="Checkbox"
-            value={this.state.policies}
-            onChange={event => this.fetchUserData("policies", event)}
-          />
-          <label className="p-2 mt-1" htmlFor="checkbox">
-            من اطلاعات و شرایط حریم خصوصی را خوانده ام و فهمیدم
-          </label>
         </div>
         <div className="pt-5 row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
           <Button
@@ -311,7 +285,7 @@ class CreateAccount extends Component {
               borderRadius: 0
             }}
           >
-            ساخت پروفایل
+            به روز رسانی اطلاعات
           </Button>
         </div>
 
@@ -320,46 +294,4 @@ class CreateAccount extends Component {
     );
   }
 }
-const styles = theme => ({
-  underline: {
-    backgroundColor: "yellow",
-    color: "green"
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-    color: "white",
-    backgroundColor: "red"
-  },
-  focused: {
-    "&$focused": {
-      color: "white",
-      fontSize: 40
-    }
-  },
-  input: {
-    borderColor: "white",
-    color: "white"
-  },
-  floatingLabel: {
-    color: "white",
-    pointerEvents: "white"
-  },
-  button: {
-    margin: theme.spacing.unit
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit
-  },
-  iconSmall: {
-    fontSize: 20
-  }
-});
-CreateAccount.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-export default withRouter(withStyles(styles)(CreateAccount));
+export default withRouter(EditBasicInfos);

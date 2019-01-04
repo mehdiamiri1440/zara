@@ -19,7 +19,6 @@ class Contact extends Component {
   render() {
     console.log("it is the props:", this.props);
 
-    const { classes } = this.props;
     return (
       <div>
         <div style={{ zIndex: -9 }}>
@@ -35,23 +34,18 @@ class Contact extends Component {
         <div className="" style={{ height: "35vh", zIndex: 22222 }} />
         <div className="col-md-12 col-lg-12 col-sm-12">
           <div
-            style={{
-              fontSize: 30,
-              fontWeight: "bold",
-              fontFamily:
-                "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
-            }}
+            style={{ fontSize: 30, fontWeight: "bold" }}
             className="col-md-12 col-lg-12 col-sm-12 row justify-content-center"
           >
-            <div className="col-md-6 col-lg-6 col-sm-6 p-3 border-bottom">
-              Customer service
+            <div className="d-flex justify-content-end col-md-6 col-lg-6 col-sm-6 p-3 border-bottom">
+              خدمات مشتری
             </div>
           </div>
           <div className="col-md-12 pt-4 col-lg-12 col-sm-12 row justify-content-center">
             <div className="row col-md-6 col-sm-6 col-lg-6">
               <Chat fontSize="large" style={{ color: "gray" }} />
               <div style={{ fontWeight: "bold" }} className="pl-3 pt-1">
-                Chat
+                گفتگو
               </div>
             </div>
           </div>
@@ -60,7 +54,7 @@ class Contact extends Component {
               style={{ fontWeight: "bold" }}
               className="text-secondary row justify-content-start col-md-6 p-5"
             >
-              Schedule: 24x7
+              برنامه :24 * 7
             </div>
           </div>
           <div className="col-md-12 col-lg-12 col-sm-12 row justify-content-center">
@@ -76,7 +70,7 @@ class Contact extends Component {
                   borderRadius: 0
                 }}
               >
-                ACCESS
+                دسترسی
               </Button>
             </div>
           </div>
@@ -85,7 +79,7 @@ class Contact extends Component {
             <div className="row col-md-6 col-sm-6 col-lg-6">
               <Phone fontSize="large" style={{ color: "gray" }} />
               <div style={{ fontWeight: "bold" }} className="pl-3 pt-1">
-                Telephone
+                تلفن
               </div>
             </div>
           </div>
@@ -101,8 +95,8 @@ class Contact extends Component {
             style={{ fontWeight: "bold" }}
             className="text-secondary text-left row justify-content-center col-md-12 p-5"
           >
-            Monday to Friday from 8:30 am to 7:30 pmSaturday from 10:00 am to
-            4:00 pm
+            دوشنبه تا جمعه از ساعت 8:30 صبح تا ساعت 7:30 شب شنبه از ساعت 10 صبح
+            تا ساعت 4 بعدازظهر
           </div>
           <div className="col-md-12 col-lg-12 col-sm-12 row justify-content-center">
             <div className="col-md-6 col-lg-6 col-sm-6 row justify-content-end border-bottom p-5" />
@@ -112,7 +106,7 @@ class Contact extends Component {
             <div className="row col-md-6 col-sm-6 col-lg-6">
               <Media fontSize="large" style={{ color: "gray" }} />
               <div style={{ fontWeight: "bold" }} className="pl-3 pt-1">
-                Social media
+                شبکه های اجتماعی
               </div>
             </div>
           </div>
@@ -123,7 +117,7 @@ class Contact extends Component {
             >
               <i className="fab fa-facebook pr-2" style={{ fontSize: 20 }} />
               <a className="text-dark" href="">
-                Facebook
+                فیسبوک
               </a>
             </div>
             <div
@@ -132,7 +126,7 @@ class Contact extends Component {
             >
               <i className="fab fa-instagram pr-2" style={{ fontSize: 20 }} />
               <a className="text-dark" href="">
-                Instagram
+                اینستاگرام
               </a>
             </div>
           </div>

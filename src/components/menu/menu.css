@@ -1,0 +1,11 @@
+.hoverBasket:hover > #baskets {
+  position: absolute;
+  width: 20rem !important;
+  max-height: 20rem !important;
+  display: block;
+  overflow: auto;
+  right: 2.5%;
+}
+.hoverBasket > #baskets {
+  display: none;
+}

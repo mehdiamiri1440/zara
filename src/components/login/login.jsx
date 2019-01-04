@@ -68,60 +68,49 @@ class Login extends Component {
           />
         </div>
         <div className="" style={{ height: "50vh", zIndex: 22222 }} />
-        <div className="row justify-content-end col-md-12 col-lg-12 col-sm-12 ">
+        <div className="d-flex justify-content-end col-md-12 col-lg-12 col-sm-12 ">
           <div
             style={{
               fontSize: 30,
-              fontWeight: "bold",
-              fontFamily:
-                "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
+              fontWeight: "bold"
             }}
             className="text-center col-md-4 col-lg-4 row justify-content-end"
           >
-            I am already a registered Zara user
+            در حال حاضر کاربر سایت هستم
           </div>
-          <div
-            style={{
-              fontSize: 30,
-              fontWeight: "bold",
-              fontFamily:
-                "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
-            }}
-            className="text-center col-md-5 col-lg-5 row justify-content-end"
-          >
-            I want a Zara user account
+          <div className="text-center col-md-5 col-lg-5 row justify-content-end">
+            <div
+              style={{
+                fontSize: 30,
+                fontWeight: "bold"
+              }}
+              className="text-center "
+            >
+              می خواهم حساب کاربری در سایت ایجاد کنم
+            </div>
           </div>
         </div>
 
         <div className="row justify-content-end col-md-12 col-lg-12 col-sm-12 ">
           <div
-            style={{
-              fontFamily:
-                "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
-            }}
-            className=" col-md-5 col-lg-5 row justify-content-start"
+            style={{}}
+            className=" col-md-5 col-lg-5 row justify-content-center"
           >
-            Please enter your e-mail address and password to identify yourself.
+            برای ورود لطفا نام کاربری و رمز عبور خود را وارد کنید
           </div>
           <div
-            style={{
-              fontFamily:
-                "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
-            }}
+            style={{}}
             className="text-right col-md-4  col-lg-4 row justify-content-end"
           >
-            If you still don't have a Zara.com account, use this option to
-            access the registration form.
+            اگر هنوز حساب کاربری در سایت ما ندارید ، می توانید با کلیک بر روی
+            دکمه زیر به فرم ثبت نام دسترسی پیدا کنید
           </div>
           <div
-            style={{
-              fontFamily:
-                "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
-            }}
+            style={{}}
             className="pt-3 text-right col-md-4  col-lg-4 row justify-content-end"
           >
-            By giving us your details, purchasing in Zara.com will be faster and
-            an enjoyable experience.
+            با کامل کردن مشخصات خود ، خرید در سایت ما بسیار سریع تر و راحت تر
+            خواهد بودو تجربه بهتری خواهید داشت
           </div>
         </div>
 
@@ -131,7 +120,7 @@ class Login extends Component {
               style={{ width: "60%" }}
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
-              label="E-mail "
+              label="ایمیل"
               type="email"
               value={this.state.email}
               onChange={event => this.fetchEmail(event)}
@@ -157,7 +146,7 @@ class Login extends Component {
                   borderRadius: 0
                 }}
               >
-                CREATE ACCOUNT
+                ساخت حساب کاربری
               </Button>
             </Link>
           </div>
@@ -169,7 +158,7 @@ class Login extends Component {
               style={{ width: "82%" }}
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
-              label="Password"
+              label="رمز عبور"
               type="password"
               value={this.state.password}
               onChange={event => this.fetchPassword(event)}
@@ -185,7 +174,7 @@ class Login extends Component {
             to="/resetPassword"
           >
             <div style={{ color: "#808080", textDecoration: "underline" }}>
-              HAVE YOU FORGGOTEN YOUR PASSWORD?
+              آیا رمز عبور خود را فراموش کرده اید ؟
             </div>
           </Link>
         </div>
@@ -204,7 +193,7 @@ class Login extends Component {
                 borderRadius: 0
               }}
             >
-              LOGIN
+              ورود
             </Button>
           </div>
         </div>

@@ -10,7 +10,11 @@ class Profile extends Component {
   componentDidMount = () => {
     console.log("drjhf", this.props.history.location.state);
   };
-  editUserInfo() {}
+  editUserInfo(path) {
+    this.props.history.push({
+      pathname: `${path}`
+    });
+  }
   render() {
     return (
       <div>
@@ -33,15 +37,44 @@ class Profile extends Component {
         </div>
         <div className=" ">
           <div
-            onclicke={() => this.editUserInfo()}
+            onClick={() => this.editUserInfo("/profile/ordersAndReturns")}
             className="d-flex  justify-content-end px-5 pt-2"
-            style={{ fontWeight: "bold", fontSize: 18 }}
+            style={{ cursor: "pointer", fontWeight: "bold", fontSize: 18 }}
+          >
+            سفارشات و برگشتی ها
+          </div>
+          <div className=" d-flex  justify-content-end px-5 pt-2">
+            شما می توانید لیست خرید های قبلی خود و لیست مرجوعیات خود را در این
+            قسمت مشاهده کنید
+          </div>
+        </div>
+
+        <div className=" ">
+          <div
+            onClick={() => this.editUserInfo("/profile/editBasicInfos")}
+            className="d-flex  justify-content-end px-5 pt-2"
+            style={{ cursor: "pointer", fontWeight: "bold", fontSize: 18 }}
           >
             ویرایش مشخصات پایه
           </div>
           <div className=" d-flex  justify-content-end px-5 pt-2">
             شما می توانید اطلاعات پایه مربوط به پروفایل خود را شامل نام و آدرس
             را در این قسمت تغییر دهید
+          </div>
+        </div>
+
+        <div className=" ">
+          <div
+            onClick={() => this.editUserInfo("/profile/updateAddresses")}
+            className="d-flex  justify-content-end px-5 pt-2"
+            style={{ cursor: "pointer", fontWeight: "bold", fontSize: 18 }}
+          >
+            دفتر آدرس ها
+          </div>
+          <div className=" d-flex  justify-content-end px-5 pt-2">
+            شما می توانید لیستی از آدرس های پیشفرض خود ایجاد نمایید تا در موقع
+            خرید با آسانی و سرعت بیشتر با استفاده از این لیست فرایند خرید خود را
+            تکمیل نمایید
           </div>
         </div>
 

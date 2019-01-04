@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Link, withRouter, Route } from "react-router-dom";
 import PropTypes from "prop-types";
 import New from "./new/new";
+import "./menu.css";
 import Women from "./new/women.jsx";
 import Basket from "@material-ui/icons/ShoppingCart";
 import { withStyles, TextField } from "@material-ui/core";
@@ -80,9 +81,12 @@ class Menu extends Component {
               <div className=" row col-md-12 col-sm-12 col-lg-12">TOPS</div>
             </div>
           );
+        default:
+          break;
       }
     }
   }
+  navigateToItemDetails() {}
   render() {
     const { classes } = this.props;
     return (
@@ -96,13 +100,7 @@ class Menu extends Component {
             style={{ textDecoration: "none", cursor: "pointer" }}
             to="/home"
           >
-            <div
-              style={{
-                color: this.renderColorOfTexts()
-              }}
-            >
-              ثریا
-            </div>
+            <div style={{ color: this.renderColorOfTexts() }}>ثریا</div>
           </Link>
 
           <div className="display-1 mt-3 col-md-4 col-sm-4 col-lg-4 p-3">
@@ -110,17 +108,10 @@ class Menu extends Component {
               <TextField
                 InputLabelProps={{
                   className: [classes.floatingLabel, classes.focused],
-                  style: {
-                    direction: "rtl",
-                    color: this.renderColorOfTexts()
-                  }
+                  style: { direction: "rtl", color: this.renderColorOfTexts() }
                 }}
                 id="search"
-                inputProps={{
-                  style: {
-                    color: this.renderColorOfTexts()
-                  }
-                }}
+                inputProps={{ style: { color: this.renderColorOfTexts() } }}
                 label="جستجو"
                 className={(classes.textField, "display-1 p-3 col-md-12")}
                 value={this.state.searchStuff}
@@ -179,7 +170,120 @@ class Menu extends Component {
                 style={{ color: this.renderColorOfTexts(), cursor: "pointer" }}
                 className="pt-4 p-2 mt-5 align-middle"
               >
-                <Basket />
+                <div className="hoverBasket position-relative">
+                  <i
+                    style={{ fontSize: 24 }}
+                    className=" fas fa-shopping-cart"
+                  />
+                  <span
+                    style={{ bottom: "72%", left: "50%" }}
+                    className="position-absolute bg-info  text-white px-1 rounded-circle"
+                  >
+                    33
+                  </span>
+                  <div
+                    className="p-2 border-3 inBaskets border-dark border-1 bg-white"
+                    id="baskets"
+                  >
+                    <div className="border-bottom d-flex p-1">
+                      <img
+                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+                        style={{ width: "39%", height: "60%" }}
+                        alt=""
+                      />
+                      <div style={{ width: "60%" }} className="text-center">
+                        <div className="px-2 text-right align-top text-dark">
+                          کالای جدید برای خرید
+                        </div>
+                        <div
+                          style={{ fontsize: 16 }}
+                          className="px-2 text-muted  text-right align-top text-dark"
+                        >
+                          3000 تومان
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border-bottom d-flex p-1">
+                      <img
+                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+                        style={{ width: "39%", height: "60%" }}
+                        alt=""
+                      />
+                      <div style={{ width: "60%" }} className="text-center">
+                        <div className="px-2 text-right align-top text-dark">
+                          کالای جدید برای خرید
+                        </div>
+                        <div
+                          style={{ fontsize: 16 }}
+                          className="px-2 text-muted  text-right align-top text-dark"
+                        >
+                          3000 تومان
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border-bottom d-flex p-1">
+                      <img
+                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+                        style={{ width: "39%", height: "60%" }}
+                        alt=""
+                      />
+                      <div style={{ width: "60%" }} className="text-center">
+                        <div className="px-2 text-right align-top text-dark">
+                          کالای جدید برای خرید
+                        </div>
+                        <div
+                          style={{ fontsize: 16 }}
+                          className="px-2 text-muted  text-right align-top text-dark"
+                        >
+                          3000 تومان
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      onClick={() => this.navigateToItemDetails()}
+                      className="border-bottom d-flex p-1"
+                    >
+                      <img
+                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+                        style={{ width: "39%", height: "60%" }}
+                        alt=""
+                      />
+                      <div style={{ width: "60%" }} className="text-center">
+                        <div className="px-2 text-right align-top text-dark">
+                          کالای جدید برای خرید
+                        </div>
+                        <div
+                          style={{ fontsize: 16 }}
+                          className="px-2 text-muted  text-right align-top text-dark"
+                        >
+                          3000 تومان
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border-bottom d-flex p-1">
+                      <img
+                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+                        style={{ width: "39%", height: "60%" }}
+                        alt=""
+                      />
+                      <div style={{ width: "60%" }} className="text-center">
+                        <div className="px-2 text-right align-top text-dark">
+                          کالای جدید برای خرید
+                        </div>
+                        <div
+                          style={{ fontsize: 16 }}
+                          className="px-2 text-muted  text-right align-top text-dark"
+                        >
+                          3000 تومان
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : null}
           </div>
@@ -188,7 +292,6 @@ class Menu extends Component {
               style={{
                 top: "90%",
                 visibility: this.state.scrollY > 800 ? "hidden" : null,
-
                 color: this.renderColorOfTexts(),
                 cursor: "pointer"
               }}
@@ -240,10 +343,23 @@ class Menu extends Component {
                 className="p-1  col-md-12 col-sm-12 col-lg-12"
               >
                 مردانه
-                {this.state.subMenuNubmer == 3
+                {this.state.subMenuNubmer === 3
                   ? this.renderSubMenu(this.state.open, 3)
                   : null}
               </div>
+              {localStorage.userName ? (
+                <div
+                  onClick={() =>
+                    this.setState({
+                      open: !this.state.open,
+                      subMenuNubmer: 3
+                    })
+                  }
+                  className="p-1  col-md-12 col-sm-12 col-lg-12"
+                >
+                  خروج
+                </div>
+              ) : null}
               {/* <div
               onClick={() => {
                 this.setState({ open: !this.state.open, subMenuNubmer: 3 });
