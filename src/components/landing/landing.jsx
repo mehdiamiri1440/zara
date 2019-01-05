@@ -37,7 +37,7 @@ class Landing extends Component {
   }
 
   getCountries() {
-    fetch(`http://192.168.43.102:3003/country`, {
+    fetch(`http://192.168.1.4:3003/country`, {
       method: "GET",
       headers: {
         Accept: "application/json",

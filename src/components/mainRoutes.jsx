@@ -66,8 +66,12 @@ class MainRoutes extends React.Component {
           path="/itemDetails"
           render={() => <ItemDetails {...this.props} />}
         />
-        <Route exact path="/new" render={props => <New {...this.props} />} />)
-        {/* </Route> */}
+        <Route
+          exact
+          path="/category/new"
+          render={props => <New {...this.props} />}
+        />
+        ){/* </Route> */}
         <Route
           exact
           path="/createAccount"

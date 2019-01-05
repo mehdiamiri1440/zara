@@ -1,0 +1,15 @@
+.body {
+  background: linear-gradient(to bottom, white, #f5f5cf, #e4e6e1, white);
+}
+.visibility + div {
+  visibility: hidden;
+}
+.visibility:hover + div {
+  visibility: visible;
+}
+.showing {
+  visibility: hidden;
+}
+.showing:hover {
+  visibility: visible;
+}

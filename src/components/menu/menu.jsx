@@ -302,50 +302,42 @@ class Menu extends Component {
                   color: this.renderColorOfTexts(),
                   textDecoration: "none"
                 }}
-                to="/new"
+                to="/category/new"
               >
-                <div
-                  onClick={() => {
-                    this.setState({
-                      open: !this.state.open,
-                      subMenuNubmer: 1
-                    });
-                  }}
-                  className="p-1  col-md-12 col-sm-12 col-lg-12"
-                >
+                <div className="p-1  col-md-12 col-sm-12 col-lg-12">
                   جدید ها
-                  {this.state.subMenuNubmer == 1
+                  {/* {this.state.subMenuNubmer == 1
                     ? this.renderSubMenu(this.state.open, 1)
-                    : null}
+                    : null} */}
                 </div>
               </Link>
               <div
                 onClick={() =>
-                  this.setState({
-                    open: !this.state.open,
-                    subMenuNubmer: 2
+                  this.props.history.push({
+                    pathname: "/category/women",
+                    state: ""
                   })
                 }
                 className="p-1  col-md-12 col-sm-12 col-lg-12"
               >
                 زنانه
-                {this.state.subMenuNubmer == 2
+                {/* {this.state.subMenuNubmer == 2
                   ? this.renderSubMenu(this.state.open, 2)
-                  : null}
+                  : null} */}
               </div>
               <div
                 onClick={() =>
-                  this.setState({
-                    open: !this.state.open,
-                    subMenuNubmer: 3
+                  this.props.history.push({
+                    pathname: "/category/men",
+                    state: ""
                   })
                 }
                 className="p-1  col-md-12 col-sm-12 col-lg-12"
               >
                 مردانه
-                {this.state.subMenuNubmer === 3
+                {/* {this.state.subMenuNubmer === 3
                   ? this.renderSubMenu(this.state.open, 3)
-                  : null}
+                  : null} */}
               </div>
               {localStorage.userName ? (
                 <div

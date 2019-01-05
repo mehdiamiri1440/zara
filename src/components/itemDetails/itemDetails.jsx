@@ -9,7 +9,8 @@ class ItemDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedSize: "",
+      selectedSize: [],
+      sizeFlag: false,
       similarItems: [
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
@@ -98,7 +99,7 @@ class ItemDetails extends Component {
     this.setState({ scrollY: lastScrollY });
   };
   addToCart(e) {
-    if (this.state.selectedSize)
+    if (this.state.selectedSize && this.state.selectedSize.length > 0)
       this.setState({ itemCount: (this.state.itemDetails.itemCount += 1) });
     else {
       Alert.error("لطفا سایز را انتخاب کنید", {
@@ -107,8 +108,20 @@ class ItemDetails extends Component {
       });
     }
   }
+  addSizeOrReject(size) {
+    let selectedSize = this.state.selectedSize;
+    if (selectedSize.indexOf(size) == -1) {
+      selectedSize.push(size);
+      this.setState({ sizeFlag: true, selectedSize });
+    } else {
+      Alert.error("این سایز انتخاب شده است", {
+        position: "bottom-right",
+        effect: "slide"
+      });
+    }
+  }
   selectSize(itemDetails) {
-    if (!this.state.selectedSize)
+    if (!this.state.sizeFlag)
       return (
         <div
           style={{ fontSize: 14 }}
@@ -117,9 +130,13 @@ class ItemDetails extends Component {
           {itemDetails.size.map((size, indx) => (
             <div key={indx} className="w-100 col">
               <div
-                onClick={() => this.setState({ selectedSize: size })}
+                onClick={() => this.addSizeOrReject(size)}
                 style={{ fontSize: 18, cursor: "pointer" }}
-                className="sizeHover col w-100"
+                className={`${
+                  this.state.selectedSize.indexOf(size) != -1
+                    ? "text-danger"
+                    : "text-dark"
+                } sizeHover col w-100`}
               >
                 {size}
               </div>
@@ -130,10 +147,12 @@ class ItemDetails extends Component {
     return (
       <div className="w-100 pt-3 col">
         <div
+          onClick={() => this.setState({ sizeFlag: false })}
           style={{ fontSize: 18, cursor: "pointer" }}
           className="text-center border-bottom border-secondary border-top sizeHover col w-100"
         >
-          {this.state.selectedSize}
+          {this.state.selectedSize[this.state.selectedSize.length - 1]}
+          {console.log("selected size", this.state.selectedSize)}
         </div>
       </div>
     );
@@ -256,12 +275,16 @@ class ItemDetails extends Component {
               <button
                 onClick={e => this.addToCart(e)}
                 className={`${
-                  this.state.selectedSize ? "text-dark" : "text-white"
+                  this.state.selectedSize && this.state.selectedSize.length > 0
+                    ? "text-dark"
+                    : "text-white"
                 } w-50 btn border-dark`}
                 style={{
-                  backgroundColor: this.state.selectedSize
-                    ? "#FFFFFF"
-                    : "#000000",
+                  backgroundColor:
+                    this.state.selectedSize &&
+                    this.state.selectedSize.length > 0
+                      ? "#FFFFFF"
+                      : "#000000",
                   borderRadius: 0
                 }}
                 type="button"
@@ -269,7 +292,7 @@ class ItemDetails extends Component {
                 اضافه کن
               </button>
             </div>
-            {this.state.selectedSize ? (
+            {this.state.selectedSize && this.state.selectedSize.length > 0 ? (
               <div className="row  justify-content-center p-3">
                 <Link
                   to="/shoppingbasket"

@@ -19,7 +19,7 @@ class New extends Component {
   };
   goToCategory() {
     this.props.history.push({
-      pathname: "/new/women"
+      pathname: "/category/women"
     });
   }
   getNewCategories() {}
