@@ -5,6 +5,7 @@ import Menu from "../menu";
 import "./womenStyles.css";
 import Footer from "../../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
+import { serverAddress } from "./../../../utility/consts";
 let i = 0;
 let arrayOfCounters = [];
 class Women extends Component {
@@ -18,7 +19,7 @@ class Women extends Component {
     this.getProducts();
   }
   getProducts() {
-    fetch(`http://192.168.1.194:3003/product/getByCategoryName/women`, {
+    fetch(`${serverAddress}/product/getByCategoryName/women`, {
       method: "GET",
       headers: {
         Accept: "application/json",

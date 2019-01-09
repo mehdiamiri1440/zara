@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Alert from "react-s-alert";
 import Menu from "../menu/menu";
+import { serverAddress } from "../../utility/consts";
 import Footer from "../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
 class CheckForSignUp extends Component {
@@ -18,7 +19,7 @@ class CheckForSignUp extends Component {
     this.setState({ password: event.target.value });
   }
   login(userName) {
-    fetch(`http://192.168.43.102:3003/user/login`, {
+    fetch(`${serverAddress}/user/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import "./new.css";
 import { Carousel } from "react-responsive-carousel";
 import { Button, withStyles, TextField } from "@material-ui/core";
+import { serverAddress } from "./../../../utility/consts";
 class New extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,7 @@ class New extends Component {
     });
   }
   getNewCategories() {
-    fetch(`http://192.168.43.102:3003/product/getIsNew`, {
+    fetch(`${serverAddress}/product/getIsNew`, {
       method: "GET",
       headers: {
         Accept: "application/json",

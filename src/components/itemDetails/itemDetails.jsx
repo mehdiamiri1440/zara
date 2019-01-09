@@ -6,6 +6,7 @@ import Alert from "react-s-alert";
 import MyAlert from "../myAlert/myAlert";
 import Footer from "../footer/footer";
 import { connect } from "react-redux";
+import { serverAddress } from "./../../utility/consts";
 class ItemDetails extends Component {
   constructor(props) {
     super(props);
@@ -109,18 +110,13 @@ class ItemDetails extends Component {
     window.addEventListener("scroll", this.handleScroll);
   }
   getProduct() {
-    fetch(
-      `http://192.168.1.194:3003/product/id/${
-        this.props.history.location.state
-      }`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
+    fetch(`${serverAddress}/product/id/${this.props.history.location.state}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
-    )
+    })
       .then(response => response.json())
       .then(responseJson => {
         console.log("it is the countires", responseJson);

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Menu from "../menu/menu";
 import Alert from "react-s-alert";
-
 import Footer from "../footer/footer";
 import { Button, TextField } from "@material-ui/core";
+import { serverAddress } from "./../../utility/consts";
 class EditBasicInfos extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ class EditBasicInfos extends Component {
     this.getUserInfo();
   };
   getUserInfo() {
-    //   fetch("http://192.168.43.102:3003/user", {
+    //   fetch(`${serverAddress}/user`, {
     //     method: "GET"
     //   })
     //     .then(response => response.json())
@@ -88,7 +88,7 @@ class EditBasicInfos extends Component {
       });
     } else {
       if (this.state.policies) {
-        fetch(`http://192.168.43.102:3003/user/signup`, {
+        fetch(`${serverAddress}/user/signup`, {
           method: "POST",
           headers: {
             Accept: "application/json",

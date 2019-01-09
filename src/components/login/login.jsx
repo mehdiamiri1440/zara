@@ -5,6 +5,7 @@ import Alert from "react-s-alert";
 import Menu from "../menu/menu";
 import Footer from "../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
+import { serverAddress } from "./../../utility/consts";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +19,7 @@ class Login extends Component {
     this.setState({ password: event.target.value });
   }
   login(userName) {
-    fetch(`http://192.168.43.102:3003/user/login`, {
+    fetch(`${serverAddress}/user/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",

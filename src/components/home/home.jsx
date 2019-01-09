@@ -8,6 +8,7 @@ import Basket from "@material-ui/icons/ShoppingCart";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import color from "@material-ui/core/colors/teal";
+import { serverAddress } from "./../../utility/consts";
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ class Home extends Component {
     this.getCarousel();
   }
   getCarousel() {
-    fetch(`http://192.168.1.194:3003/carousel/getShownCarousels`, {
+    fetch(`${serverAddress}/carousel/getShownCarousels`, {
       method: "GET",
       headers: {
         Accept: "application/json",

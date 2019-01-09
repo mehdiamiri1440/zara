@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import Alert from "react-s-alert";
 import { withStyles } from "@material-ui/core/styles";
+import { serverAddress } from "./../../utility/consts";
 import {
   Select,
   Button,
@@ -37,7 +38,7 @@ class Landing extends Component {
   }
 
   getCountries() {
-    fetch(`http://192.168.1.4:3003/country`, {
+    fetch(`${serverAddress}/country`, {
       method: "GET",
       headers: {
         Accept: "application/json",

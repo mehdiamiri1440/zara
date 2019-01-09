@@ -54,6 +54,32 @@ class UpdateAddresses extends Component {
       </table>
     );
   }
+  addOrUpdateAddress() {}
+  setNewAddressFields(field, event) {
+    switch (field) {
+      case "phone":
+        this.setState({ phone: event.target.value });
+        break;
+      case "city":
+        this.setState({ city: event.target.value });
+        break;
+      case "firstName":
+        this.setState({ firstName: event.target.value });
+        break;
+      case "lastName":
+        this.setState({ lastName: event.target.value });
+        break;
+      case "address":
+        this.setState({ address: event.target.value });
+        break;
+      case "postalCode":
+        this.setState({ postalCode: event.target.value });
+        break;
+
+      default:
+        break;
+    }
+  }
   render() {
     return (
       <div>
@@ -78,9 +104,9 @@ class UpdateAddresses extends Component {
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
               label="نام "
-              type="email"
-              value={this.state.email}
-              onChange={event => this.fetchUserData("email", event)}
+              type="text"
+              value={this.state.firstName}
+              onChange={event => this.setNewAddressFields("firstName", event)}
               margin="normal"
             />
           </div>
@@ -90,9 +116,9 @@ class UpdateAddresses extends Component {
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
               label="نام خانوادگی"
-              type="password"
-              value={this.state.password}
-              onChange={event => this.fetchUserData("password", event)}
+              type="text"
+              value={this.state.lastName}
+              onChange={event => this.setNewAddressFields("lastName", event)}
               margin="normal"
             />
           </div>
@@ -104,9 +130,9 @@ class UpdateAddresses extends Component {
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
               label="کد پستی"
-              type="email"
-              value={this.state.email}
-              onChange={event => this.fetchUserData("email", event)}
+              type="text"
+              value={this.state.postalcode}
+              onChange={event => this.setNewAddressFields("postalcode", event)}
               margin="normal"
             />
           </div>
@@ -116,9 +142,9 @@ class UpdateAddresses extends Component {
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
               label="شهر"
-              type="password"
-              value={this.state.password}
-              onChange={event => this.fetchUserData("password", event)}
+              type="text"
+              value={this.state.city}
+              onChange={event => this.setNewAddressFields("city", event)}
               margin="normal"
             />
           </div>
@@ -130,9 +156,9 @@ class UpdateAddresses extends Component {
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
               label="تلفن"
-              type="email"
-              value={this.state.email}
-              onChange={event => this.fetchUserData("email", event)}
+              type="text"
+              value={this.state.phone}
+              onChange={event => this.setNewAddressFields("phone", event)}
               margin="normal"
             />
           </div>
@@ -142,18 +168,32 @@ class UpdateAddresses extends Component {
               InputProps={{ disableUnderline: false }}
               id="outlined-name"
               label="منطقه "
+              disabled
               type="text"
               value={localStorage.language}
-              onChange={event => this.fetchUserData("region", event)}
+              onChange={event => this.setNewAddressFields("region", event)}
               margin="normal"
               classes={{}}
             />
           </div>
         </div>
+        <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
+          <TextField
+            style={{ width: "60%" }}
+            InputProps={{ disableUnderline: false }}
+            id="outlined-name"
+            label="آدرس "
+            type="text"
+            value={this.state.address}
+            onChange={event => this.setNewAddressFields("address", event)}
+            margin="normal"
+            classes={{}}
+          />
+        </div>
         <div className="pt-5 row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
           <Button
             className="p-3"
-            onClick={() => this.createAccount()}
+            onClick={() => this.addOrUpdateAddress()}
             variant="contained"
             style={{
               zIndex: 999999,

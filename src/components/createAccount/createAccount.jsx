@@ -3,8 +3,8 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Menu from "../menu/menu";
 import Alert from "react-s-alert";
-
 import Footer from "../footer/footer";
+import { serverAddress } from "./../../utility/consts";
 import {
   FormControlLabel,
   Checkbox,
@@ -85,7 +85,7 @@ class CreateAccount extends Component {
       });
     } else {
       if (this.state.policies) {
-        fetch(`http://192.168.43.102:3003/user/signup`, {
+        fetch(`${serverAddress}/user/signup`, {
           method: "POST",
           headers: {
             Accept: "application/json",

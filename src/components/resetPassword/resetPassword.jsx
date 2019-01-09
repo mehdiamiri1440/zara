@@ -5,6 +5,7 @@ import Alert from "react-s-alert";
 import Menu from "../menu/menu";
 import Footer from "../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
+import { serverAddress } from "./../../utility/consts";
 class ResetPassword extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,7 @@ class ResetPassword extends Component {
     this.setState({ email: event.target.value });
   }
   resetPassword() {
-    fetch(`http://192.168.1.183:3003/resetpassword`, {
+    fetch(`${serverAddress}/resetpassword`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -27,7 +28,9 @@ class ResetPassword extends Component {
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson)
-          this.props.history.push({ pathname: "/passwordSentsuccessfully" });
+          this.props.history.push({
+            pathname: "/passwordSentsuccessfully"
+          });
         else {
           Alert.error("ایمیل اشتباه است", {
             position: "bottom-right",
