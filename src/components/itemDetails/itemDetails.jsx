@@ -1,38 +1,45 @@
 import React, { Component } from "react";
-import { withRouter, Link } from "react-router-dom";
+import { Redirect, withRouter, Link } from "react-router-dom";
 import Menu from "../menu/menu";
 import "./itemDetailsStyles.css";
 import Alert from "react-s-alert";
 import MyAlert from "../myAlert/myAlert";
 import Footer from "../footer/footer";
+import { connect } from "react-redux";
 class ItemDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      finalObject: [],
       selectedSize: [],
       sizeFlag: false,
+      colorFlag: false,
+      count: 1,
+      color: "",
+      selectedColor: [],
       similarItems: [
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-          title: "تی شزت سال جدید",
+          name: "تی شزت سال جدید",
           price: "2000",
-          sizes: ["sx", "s", "md"]
+          sizes: ["sx", "s", "md"],
+          colors: ["red", "blue", "green"]
         },
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-          title: "نو نیست",
+          name: "نو نیست",
           price: "56867",
           sizes: ["sx", "s", "lg"]
         },
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-          title: "عجب تی شزتی",
+          name: "عجب تی شزتی",
           price: "1000",
           sizes: ["d", "s", "md"]
         },
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-          title: "بیا که ارزانیست",
+          name: "بیا که ارزانیست",
           price: "43222",
           sizes: ["md", "s", "ss"]
         }
@@ -40,25 +47,25 @@ class ItemDetails extends Component {
       matchWith: [
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-          title: "تی شزت سال جدید",
+          name: "تی شزت سال جدید",
           price: "2000",
           sizes: ["sx", "s", "md"]
         },
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-          title: "نو نیست",
+          name: "نو نیست",
           price: "56867",
           sizes: ["sx", "s", "lg"]
         },
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-          title: "عجب تی شزتی",
+          name: "عجب تی شزتی",
           price: "1000",
           sizes: ["d", "s", "md"]
         },
         {
           image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-          title: "بیا که ارزانیست",
+          name: "بیا که ارزانیست",
           price: "43222",
           sizes: ["md", "s", "ss"]
         }
@@ -83,30 +90,83 @@ class ItemDetails extends Component {
             color: "red"
           }
         ],
-        title: "تی شرت جدید برای فروش",
+        name: "تی شرت جدید برای فروش",
         description:
           "لباس جدید مردانه برای فروش در دسترس همه عموم برای بازدید در جنس های مختلف شامل قد سایز و رنگ های مختلف",
         price: 12000,
-        size: ["xs", "s", "m", "l"]
+        size: ["xs", "s", "m", "l"],
+        colors: ["green", "blue", "orange", "yellow"]
       }
     };
   }
   componentDidMount() {
+    this.getProduct();
+    if (
+      JSON.parse(localStorage.basket) &&
+      JSON.parse(localStorage.basket).length
+    )
+      this.setState({ finalObject: JSON.parse(localStorage.basket) });
     window.addEventListener("scroll", this.handleScroll);
+  }
+  getProduct() {
+    fetch(
+      `http://192.168.1.194:3003/product/id/${
+        this.props.history.location.state
+      }`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log("it is the countires", responseJson);
+        responseJson.map(cloth => (cloth.selectedImage = -1));
+        this.setState({ products: responseJson });
+      })
+      .catch(error => {
+        console.log("it was false", error);
+      });
   }
   handleScroll = () => {
     var lastScrollY = window.scrollY;
     this.setState({ scrollY: lastScrollY });
   };
-  addToCart(e) {
-    if (this.state.selectedSize && this.state.selectedSize.length > 0)
-      this.setState({ itemCount: (this.state.itemDetails.itemCount += 1) });
-    else {
+  addToCart(e, itemDetails) {
+    let finalObject = this.state.finalObject;
+    this.state.selectedSize.map((size, index) => {
+      let selectedItem = {
+        image: itemDetails.imageItems[0].image,
+        size: size,
+        color: this.state.color ? this.state.color : itemDetails.colors[0],
+        name: itemDetails.name,
+        price: itemDetails.price,
+        count: this.state.count,
+        _id: itemDetails._id
+      };
+      finalObject.push(selectedItem);
+    });
+    if (this.state.selectedSize && this.state.selectedSize.length > 0) {
+      this.setState({ sizeFlag: false, selectedSize: [], finalObject }, () => {
+        localStorage.basket = JSON.stringify(this.state.finalObject);
+
+        if (
+          JSON.parse(localStorage.basket) &&
+          JSON.parse(localStorage.basket).length
+        )
+          this.setState({ finalObject: JSON.parse(localStorage.basket) });
+      });
+      console.log("my loicalstorage:", localStorage.basket);
+    } else {
       Alert.error("لطفا سایز را انتخاب کنید", {
         position: "bottom-right",
         effect: "slide"
       });
     }
+    this.props.deleteItemFromBasket();
   }
   addSizeOrReject(size) {
     let selectedSize = this.state.selectedSize;
@@ -119,6 +179,84 @@ class ItemDetails extends Component {
         effect: "slide"
       });
     }
+  }
+  addColorOrReject(color) {
+    let selectedColor = this.state.selectedColor;
+    if (selectedColor.indexOf(color) == -1) {
+      selectedColor.push(color);
+      this.setState({ colorFlag: true, selectedColor });
+    } else {
+      Alert.error("این رنگ انتخاب شده است", {
+        position: "bottom-right",
+        effect: "slide"
+      });
+    }
+  }
+  selectColorAndCount(itemDetails) {
+    if (!this.state.colorFlag)
+      return (
+        <div>
+          <div className="d-flex   form-group">
+            <select className="m-2 form-control w-50" name="" id="">
+              {itemDetails.colors.map((color, indx) => (
+                <option
+                  onClick={event =>
+                    this.setState({ color: event.target.value })
+                  }
+                  value={color}
+                >
+                  {color}
+                </option>
+              ))}
+            </select>
+            <div className="input-group w-50 p-2">
+              <input
+                value={this.state.count}
+                onChange={event => this.setState({ count: event.target.value })}
+                className="form-control"
+                type="text"
+              />
+              <span className="px-1 m-auto align-middle">: تعداد</span>
+            </div>
+          </div>
+        </div>
+        // <div
+        //   style={{ fontSize: 14 }}
+        //   className="border-bottom border-top mt-3 pb-3 w-100 text-center pt-4 align-middle"
+        // >
+        //   {itemDetails.colors.map((color, indx) => (
+        //     <div key={indx} className="w-100 col">
+        //       <div
+        //         onClick={() => this.addColorOrReject(color)}
+        //         style={{ fontSize: 18, cursor: "pointer" }}
+        //         className={`${
+        //           this.state.selectedColor.indexOf(color) != -1
+        //             ? "text-danger"
+        //             : "text-dark"
+        //         } colorHover col w-100`}
+        //       >
+        //         {color}
+        //       </div>
+        //     </div>
+        //   ))}
+        // </div>
+      );
+    return (
+      <div className="w-100 pt-3 col">
+        <div
+          onClick={() =>
+            this.setState({
+              colorFlag: false
+            })
+          }
+          style={{ fontSize: 18, cursor: "pointer" }}
+          className="text-center border-bottom border-secondary border-top colorHover col w-100"
+        >
+          {this.state.selectedColor[this.state.selectedColor.length - 1]}
+          {console.log("selected color", this.state.selectedColor)}
+        </div>
+      </div>
+    );
   }
   selectSize(itemDetails) {
     if (!this.state.sizeFlag)
@@ -152,7 +290,6 @@ class ItemDetails extends Component {
           className="text-center border-bottom border-secondary border-top sizeHover col w-100"
         >
           {this.state.selectedSize[this.state.selectedSize.length - 1]}
-          {console.log("selected size", this.state.selectedSize)}
         </div>
       </div>
     );
@@ -247,9 +384,9 @@ class ItemDetails extends Component {
           >
             <div
               style={{ fontSize: 24, fontWeight: "bold" }}
-              className="justify-content-center text-center pt-5 d-flex w-100"
+              className="justify-content-center text-center  d-flex w-100"
             >
-              {itemDetails.title}
+              {itemDetails.name}
             </div>
             <div
               style={{ fontSize: 14, fontWeight: "bold", direction: "rtl" }}
@@ -271,9 +408,10 @@ class ItemDetails extends Component {
               {itemDetails.description}
             </div>
             {this.selectSize(itemDetails)}
-            <div className="row  justify-content-center p-3">
+            {this.selectColorAndCount(itemDetails)}
+            <div className="row  justify-content-center p-1">
               <button
-                onClick={e => this.addToCart(e)}
+                onClick={e => this.addToCart(e, itemDetails)}
                 className={`${
                   this.state.selectedSize && this.state.selectedSize.length > 0
                     ? "text-dark"
@@ -292,7 +430,7 @@ class ItemDetails extends Component {
                 اضافه کن
               </button>
             </div>
-            {this.state.selectedSize && this.state.selectedSize.length > 0 ? (
+            {this.state.selectedSize.length > 0 ? (
               <div className="row  justify-content-center p-3">
                 <Link
                   to="/shoppingbasket"
@@ -323,7 +461,7 @@ class ItemDetails extends Component {
                   alt=""
                 />
                 <span className="w-100 row justify-content-end">
-                  {match.title}
+                  {match.name}
                 </span>
                 <span className="w-100 row justify-content-end">
                   تومان {match.price}
@@ -368,7 +506,7 @@ class ItemDetails extends Component {
                   alt=""
                 />
                 <span className="w-100 row justify-content-end">
-                  {similar.title}
+                  {similar.name}
                 </span>
                 <span className="w-100 row justify-content-end">
                   تومان {similar.price}
@@ -397,5 +535,18 @@ class ItemDetails extends Component {
     );
   }
 }
-
-export default withRouter(ItemDetails);
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteItemFromBasket: () => {
+      const action = { type: "ADD_BASKET_COUNT" };
+      dispatch(action);
+    }
+  };
+}
+function mapStateToProps(state) {
+  return { basketCount: state.basketCount };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(ItemDetails));

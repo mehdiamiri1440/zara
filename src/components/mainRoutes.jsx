@@ -10,9 +10,11 @@ import ShoppingBasket from "./shoppingBasket/shoppingBasket";
 import Home from "./home/home";
 import ProcessOrder from "./processOrder/processOrder";
 import ItemDetails from "./itemDetails/itemDetails";
+import CheckForSignUp from "./checkForSignUp/checkForSignUp";
 import EditBasicInfos from "./profile/editBasicInfos";
 import Profile from "./profile/profile";
 import UpdateAddresses from "./profile/updateAddresses";
+
 import OrdersAndReturns from "./profile/ordersAndReturns";
 import PasswordSentSuccessfully from "./passwordSentSuccessfully/passwordSentSuccessfully";
 class MainRoutes extends React.Component {
@@ -21,6 +23,11 @@ class MainRoutes extends React.Component {
       <Switch>
         {/* <Route from="/" to="/landing" /> */}
         <Route exact path="/" render={() => <Landing {...this.props} />} />
+        <Route
+          exact
+          path="/checkForSignUp"
+          render={() => <CheckForSignUp {...this.props} />}
+        />
         <Route
           exact
           path="/profile/updateAddresses"

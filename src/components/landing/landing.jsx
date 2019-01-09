@@ -148,7 +148,7 @@ class Landing extends Component {
                   borderRadius: 0
                 }}
               >
-                وارد شوید
+                GO
               </Button>
             </FormControl>
           </div>

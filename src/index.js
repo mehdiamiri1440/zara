@@ -8,6 +8,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import * as serviceWorker from "./serviceWorker";
 //alerts
 // mandatory
+import { Provider } from "react-redux";
+import store from "./store";
 import "react-s-alert/dist/s-alert-default.css";
 
 // optional - you can choose the effect you want
@@ -21,11 +23,10 @@ import "react-s-alert/dist/s-alert-css-effects/stackslide.css";
 ///end of alerts files
 require("bootstrap/dist/js/bootstrap");
 
-
 ReactDOM.render(
-  <Router>
+  <Provider store={store}>
     <App />
-  </Router>,
+  </Provider>,
   document.getElementById("root")
 );
 

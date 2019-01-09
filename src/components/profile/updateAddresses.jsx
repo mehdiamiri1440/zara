@@ -6,7 +6,53 @@ import Footer from "./../footer/footer";
 class UpdateAddresses extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      postalCode: "",
+      phone: "",
+      region: ""
+    };
+  }
+  componentDidMount() {
+    this.getAddresses();
+  }
+  getAddresses() {}
+  deleteAddress() {}
+  updateAddress() {
+    this.setState({});
+  }
+  renderTableOfAddresses() {
+    return (
+      <table className="table table-hover table-light table-striped">
+        <thead>
+          <tr>
+            <th className="text-center align-middle">حذف</th>
+            <th className="text-center align-middle">شماره تماس</th>
+            <th className="text-center align-middle">کد پستی</th>
+            <th className="text-center align-middle">شهر</th>
+            <th className="text-center align-middle">آدرس</th>
+            <th className="text-center align-middle">نام خانوادگی</th>
+            <th className="text-center align-middle">نام</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr onClick={() => this.updateAddress()}>
+            <td className="text-center align-middle">
+              <i onClick={() => this.deleteAddress()} className="fa fa-trash" />
+            </td>
+            <td className="text-center align-middle">xvc</td>
+            <td className="text-center align-middle">xvc</td>
+            <td className="text-center align-middle">xvc</td>
+            <td className="text-center align-middle">xvc</td>
+            <td className="text-center align-middle">xvc</td>
+            <td className="text-center align-middle">xvc</td>
+          </tr>
+        </tbody>
+      </table>
+    );
   }
   render() {
     return (
@@ -122,6 +168,7 @@ class UpdateAddresses extends Component {
             ثبت آدرس جدید
           </Button>
         </div>
+        <div className="p-5">{this.renderTableOfAddresses()}</div>
         <Footer />
       </div>
     );

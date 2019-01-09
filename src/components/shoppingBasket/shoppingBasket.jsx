@@ -3,12 +3,15 @@ import { Link, withRouter } from "react-router-dom";
 import Menu from "../menu/menu";
 import Footer from "../footer/footer";
 import "./shoppingbasket.css";
+import { connect } from "react-redux";
+import store from "../../store";
 var sum = 0;
 class ShoppingBasket extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sum: 0,
+      basket: [],
       shoppingBasket: [
         {
           price: 1000
@@ -22,17 +25,35 @@ class ShoppingBasket extends Component {
       ]
     };
   }
+  calculaeSum() {
+    let sum = 0;
+    this.state.basket.map(basket => (sum += basket.count * basket.price));
+    this.setState({ sum });
+  }
   componentDidMount() {
-    this.state.shoppingBasket.map(shop => (sum += shop.price));
-    this.setState({ sum: sum });
+    this.setState({ basket: this.props.basket }, () => {
+      this.calculaeSum();
+    });
     console.log(sum, "it is the summation of the all of the prices");
   }
-
+  changeRoute() {
+    if (localStorage.username && localStorage.username.length > 0) {
+      this.history.props.push({
+        pathname: "/processOrder",
+        state: "user"
+      });
+    } else {
+      this.props.history.push({
+        pathname: "/checkForSignUp"
+      });
+    }
+  }
   render() {
     return (
       <div>
         <div style={{ zIndex: -9 }}>
           <Menu
+            store={store}
             menuItems={true}
             login={false}
             contact={true}
@@ -59,49 +80,84 @@ class ShoppingBasket extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="align-middle text-center">
-                  <img
-                    style={{ width: 84, height: 126 }}
-                    src={require("../../contents/images/architecture-asking-brainstorming-1438084.jpg")}
-                    alt=""
-                  />
-                </td>
-                <td className="align-middle text-center">
-                  <div
-                    className="text-dark text-center"
+              {this.state.basket.map((basket, indx) => (
+                <tr>
+                  <td className="align-middle text-center">
+                    <img
+                      style={{ width: 84, height: 126 }}
+                      src={basket.image}
+                      alt=""
+                    />
+                  </td>
+                  <td className="align-middle text-center">
+                    <div
+                      className="text-dark text-center"
+                      style={{ fontSize: 18 }}
+                    >
+                      {basket.name}
+                    </div>
+                    <div style={{ color: "#B5BCC4" }}>{basket.price}</div>
+                  </td>
+                  <td
+                    className="align-middle text-center text-dark"
                     style={{ fontSize: 18 }}
                   >
-                    title of the product
-                  </div>
-                  <div style={{ color: "#B5BCC4" }}>price is 4000</div>
-                </td>
-                <td
-                  className="align-middle text-center text-dark"
-                  style={{ fontSize: 18 }}
-                >
-                  black
-                </td>
-                <td className="align-middle text-center">xl</td>
-                <td className="align-middle text-center">
-                  <i
-                    style={{ cursor: "pointer", fontSize: 20 }}
-                    className="hoverableArrow align-middle text-center p-3 fas fa-angle-left"
-                  />
-                  <span className="text-center align-middle">4</span>
-                  <i
-                    style={{ cursor: "pointer", fontSize: 20 }}
-                    className="hoverableArrow align-middle text-center p-3 fas fa-angle-right "
-                  />
-                </td>
-                <td className="align-middle text-center">419 GBP</td>
-                <td className="align-middle text-center">
-                  <i
-                    style={{ fontSize: 20, cursor: "pointer" }}
-                    className="fas fa-times-circle"
-                  />
-                </td>
-              </tr>
+                    {basket.color}
+                  </td>
+                  <td className="align-middle text-center">{basket.size}</td>
+                  <td className="align-middle text-center">
+                    <i
+                      onClick={() => {
+                        let myBasket = this.state.basket;
+                        if (basket.count <= 1) myBasket[indx].count = 1;
+                        else myBasket[indx].count -= 1;
+                        this.setState({ basket: myBasket }, () => {
+                          localStorage.basket = JSON.stringify(
+                            this.state.basket
+                          );
+                          this.calculaeSum();
+                        });
+                      }}
+                      style={{ cursor: "pointer", fontSize: 20 }}
+                      className="hoverableArrow align-middle text-center p-3 fas fa-angle-left"
+                    />
+                    <span className="text-center align-middle">
+                      {basket.count}
+                    </span>
+                    <i
+                      onClick={() => {
+                        let myBasket = this.state.basket;
+                        myBasket[indx].count += 1;
+                        this.setState({ basket: myBasket }, () => {
+                          localStorage.basket = JSON.stringify(
+                            this.state.basket
+                          );
+                          this.calculaeSum();
+                        });
+                      }}
+                      style={{ cursor: "pointer", fontSize: 20 }}
+                      className="hoverableArrow align-middle text-center p-3 fas fa-angle-right "
+                    />
+                  </td>
+                  <td className="align-middle text-center">{basket.price}</td>
+                  <td className="align-middle text-center">
+                    <i
+                      onClick={() => {
+                        let myBasket = this.state.basket;
+                        myBasket.splice(indx, 1);
+                        this.setState({ basket: myBasket }, () => {
+                          localStorage.basket = JSON.stringify(
+                            this.state.basket
+                          );
+                        });
+                        this.props.deleteItemFromBasket();
+                      }}
+                      style={{ fontSize: 20, cursor: "pointer" }}
+                      className="fas fa-times-circle"
+                    />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -117,10 +173,10 @@ class ShoppingBasket extends Component {
         </div>
         <div className="px-5 pt-1 d-flex justify-content-end">
           <span>تومان</span>
-          <span>6974</span>
+          <span>{this.state.sum}</span>
           <span>: کل هزینه</span>
         </div>
-        <div className="row pt-5">
+        <div className="row justify-content-between px-5 pt-5">
           <div className="px-5 pt-1 d-flex justify-content-start w-50">
             <Link
               to="/home"
@@ -134,18 +190,16 @@ class ShoppingBasket extends Component {
               خرید بیشتر
             </Link>
           </div>
-          <div className="px-5 w-50 pt-1 d-flex justify-content-end">
-            <Link
-              to="/processOrder"
-              className="text-white w-50 btn border-dark"
-              style={{
-                textDecoration: "none",
-                backgroundColor: "#000000",
-                borderRadius: 0
-              }}
-            >
-              ادامه
-            </Link>
+          <div
+            onClick={() => this.changeRoute()}
+            style={{
+              textDecoration: "none",
+              backgroundColor: "#000000",
+              borderRadius: 0
+            }}
+            className="px-5  text-white  btn border-dark w-25 pt-1 d-flex justify-content-center"
+          >
+            ادامه
           </div>
         </div>
         <Footer />
@@ -153,5 +207,18 @@ class ShoppingBasket extends Component {
     );
   }
 }
-
-export default withRouter(ShoppingBasket);
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteItemFromBasket: () => {
+      const action = { type: "DELETE_BASKET_COUNT" };
+      dispatch(action);
+    }
+  };
+}
+function mapStateToProps(state) {
+  return { basketCount: state.basketCount, basket: state.basket };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(ShoppingBasket));

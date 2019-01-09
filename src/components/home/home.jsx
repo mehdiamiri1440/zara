@@ -13,13 +13,34 @@ class Home extends Component {
     super(props);
     this.state = {
       searchStuff: "",
-      email: ""
+      email: "",
+      carousels: []
     };
   }
   searchStuff(event) {
     this.setState({ searchStuff: event.target.value });
   }
-
+  componentDidMount() {
+    this.getCarousel();
+  }
+  getCarousel() {
+    fetch(`http://192.168.1.194:3003/carousel/getShownCarousels`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log("it is the countires", responseJson);
+        // responseJson.map(roleID => rolesID.push(roleID.Id));
+        this.setState({ carousels: responseJson });
+      })
+      .catch(error => {
+        console.log("it was false", error);
+      });
+  }
   fetchEmail(event) {
     this.setState({ email: event.target.value });
   }
@@ -66,30 +87,23 @@ class Home extends Component {
           showThumbs={false}
           showStatus={false}
         >
-          <div onScroll={event => this.scrollFunc(event)}>
-            <img
-              src={require("../../contents/images/2018-New-Fashion-Men-Costume-Homme-Business-Suits-Jacket-Wedding-Suits-For-Men-Two-Buttons-Three.jpg")}
-            />
-          </div>
-          <div>
-            <video
-              style={{ height: "100%", width: "100%" }}
-              autoPlay
-              muted
-              loop
-              id="myVideo"
+          {this.state.carousels.map((carousel, index) => (
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                this.props.history.push({
+                  pathname: `/category/${carousel.location}`,
+                  state: carousel._id
+                });
+              }}
+              onScroll={event => this.scrollFunc(event)}
             >
-              <source
-                type="video/mp4"
-                src="https://static.zara.net//video//mkt/2018/11/aw18-post-black-friday-video01d/aw18-post-black-friday-video01d_1.mp4?1543109403749"
+              <img
+                // carousel.image
+                src={carousel.image}
               />
-            </video>
-          </div>
-          <div>
-            <img
-              src={require("../../contents/images/2018-New-Fashion-Men-Costume-Homme-Business-Suits-Jacket-Wedding-Suits-For-Men-Two-Buttons-Three.jpg")}
-            />
-          </div>
+            </div>
+          ))}
         </Carousel>
         <div className="h-100" style={{ height: 400 }}>
           <Footer />

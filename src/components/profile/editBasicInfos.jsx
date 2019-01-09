@@ -9,6 +9,7 @@ class EditBasicInfos extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: [],
       email: "",
       firstName: "",
       lastName: "",
@@ -22,8 +23,21 @@ class EditBasicInfos extends Component {
       policies: false
     };
   }
-  componentDidMount = () => {};
-
+  componentDidMount = () => {
+    this.getUserInfo();
+  };
+  getUserInfo() {
+    //   fetch("http://192.168.43.102:3003/user", {
+    //     method: "GET"
+    //   })
+    //     .then(response => response.json())
+    //     .then(responseJson => {
+    //       console.log("it is the response", responseJson);
+    //       this.setState({ users: responseJson });
+    //     })
+    //     .catch(error => console.error("Error:", error));
+    // }
+  }
   fetchUserData(data, event) {
     switch (data) {
       case "email":
@@ -64,7 +78,7 @@ class EditBasicInfos extends Component {
     }
   }
 
-  createAccount() {
+  updateUserInfos() {
     let user = this.state;
     if (user.retypedPassword != user.password) {
       Alert.error("دو رمز عبور وارد شده متفاوت می باشند", {
@@ -94,10 +108,18 @@ class EditBasicInfos extends Component {
         })
           .then(response => response.json())
           .then(responseJson => {
-            this.props.history.push({
-              pathname: "/login",
-              state: responseJson
-            });
+            if (responseJson.status !== 200) {
+              alert.error("نام کاربری یا ایمیل تکراری", {
+                position: "bottom-right",
+                effect: "slide",
+                timeout: 2000
+              });
+            } else {
+              this.props.history.push({
+                pathname: "/login",
+                state: responseJson
+              });
+            }
           })
           .catch(error => {
             Alert.error("خطا در ارسال اطلاعات", {
@@ -274,7 +296,7 @@ class EditBasicInfos extends Component {
         <div className="pt-5 row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
           <Button
             className="p-3"
-            onClick={() => this.createAccount()}
+            onClick={() => this.updateUserInfos()}
             variant="contained"
             style={{
               color: "white",

@@ -5,7 +5,7 @@ import Footer from "../footer/footer";
 class ProcessOrder extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { shippingWay: "", paymentType: "" };
   }
   render() {
     return (
@@ -32,6 +32,69 @@ class ProcessOrder extends Component {
           className="d-flex justify-content-end pt-5 border-bottom w-75 p-2 m-auto px-5"
         >
           نحوه ارسال
+        </div>
+        <div
+          style={{}}
+          className="d-flex justify-content-center  align-items-center w-75 p-4 m-auto px-5"
+        >
+          <input
+            className="mx-2"
+            onClick={() =>
+              this.setState({
+                shippingWay: "post"
+              })
+            }
+            type="radio"
+            name="category0"
+          />
+          <span className="d-flex align-items-center px-1">پست پیشتاز</span>
+          <input
+            className="mx-2"
+            onClick={() =>
+              this.setState({
+                shippingWay: "dhl"
+              })
+            }
+            type="radio"
+            name="category0"
+          />
+          <span className="d-flex align-items-center px-1">DHL</span>
+        </div>
+        <div
+          style={{ fontWeight: "bold", fontSize: 26 }}
+          className="d-flex justify-content-end pt-1 border-bottom w-75 p-2 m-auto px-5"
+        >
+          نحوه پرداخت
+        </div>
+        <div
+          style={{}}
+          className="d-flex justify-content-center  align-items-center border-bottom w-75 p-4 m-auto px-5"
+        >
+          <div>
+            <img src={require("../../contents/icons/paypal.png")} alt="" />
+            <input
+              className="mx-2"
+              onClick={() =>
+                this.setState({
+                  paymentType: "localPay"
+                })
+              }
+              type="radio"
+              name="category0"
+            />
+          </div>
+          <span className="d-flex align-items-center px-1">بانک ملی</span>
+          <input
+            className="mx-2"
+            onClick={() =>
+              this.setState({
+                paymentType: "payPal"
+              })
+            }
+            type="radio"
+            name="category0"
+          />
+          <span className="d-flex align-items-center px-1">paypal</span>
         </div>
         <div />
         <Footer />

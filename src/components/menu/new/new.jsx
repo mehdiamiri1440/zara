@@ -22,7 +22,140 @@ class New extends Component {
       pathname: "/category/women"
     });
   }
-  getNewCategories() {}
+  getNewCategories() {
+    fetch(`http://192.168.43.102:3003/product/getIsNew`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log("it is the countires", responseJson);
+        // responseJson.map(roleID => rolesID.push(roleID.Id));
+        this.setState({ products: responseJson });
+      })
+      .catch(error => {
+        console.log("it was false", error);
+      });
+  }
+  renderProducts() {
+    this.state.products.map((product, index) => {
+      if (product.isAvialable) {
+        return (
+          <div>
+            <div
+              onMouseOut={() =>
+                this.setState({
+                  visible: false
+                })
+              }
+              className={`mx-2 ${this.state.visible ? "hoverCard" : null} card`}
+              style={{ width: 400 }}
+              onClick={() => this.goToCategory()}
+            >
+              <img src={product.image} alt="" />
+            </div>
+            <div>{product.name}</div>
+            <div>{product.description}</div>
+            <div>{product.price}</div>
+            <div>{product}</div>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <div className="p-4 d-flex justify-content-center px-5">
+              <div className="px-5">
+                <div className="row p-3">
+                  <div
+                    onClick={() => this.goToCategory()}
+                    onMouseOver={() =>
+                      this.setState({
+                        visible: true
+                      })
+                    }
+                    onMouseOut={() =>
+                      this.setState({
+                        visible: false
+                      })
+                    }
+                    className={`mx-2 ${
+                      this.state.visible ? "hoverCard" : null
+                    } card`}
+                    style={{ width: 400 }}
+                  >
+                    <div style={{ cursor: "pointer" }}>
+                      <img
+                        className="card-img-top"
+                        src={require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+                        alt="Card image"
+                      />
+                      <div className="card-img-overlay d-flex justify-content-center">
+                        {this.state.visible ? (
+                          <div>
+                            <h4 class="card-title">John Dsdfsdfoe</h4>
+                            <p class="card-text">Some sdfsfsd text.</p>
+                          </div>
+                        ) : null}
+                      </div>
+                      <div className="card-body">
+                        <h4 className="card-title">John Doe</h4>
+                        <p class="card-text">Some example text.</p>
+                        <a href="#" className="btn btn-primary">
+                          See Profile
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    onMouseOver={() =>
+                      this.setState({
+                        visible: true
+                      })
+                    }
+                    onMouseOut={() =>
+                      this.setState({
+                        visible: false
+                      })
+                    }
+                    className={`mx-2 ${
+                      this.state.visible ? "hoverCard" : null
+                    } card`}
+                    style={{ width: 400 }}
+                  >
+                    <div style={{ cursor: "pointer" }}>
+                      <img
+                        className="card-img-top"
+                        src={require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")}
+                        alt="Card image"
+                      />
+                      <div class="card-img-overlay d-flex justify-content-center">
+                        {this.state.visible ? (
+                          <div>
+                            <h4 className="card-title">John Dsdfsdfoe</h4>
+                            <p className="card-text">Some sdfsfsd text.</p>
+                          </div>
+                        ) : null}
+                      </div>
+                      <div className="card-body">
+                        <h4 className="card-title">John Doe</h4>
+                        <p className="card-text">Some example text.</p>
+                        <a href="#" className="btn btn-primary">
+                          See Profile
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    });
+  }
   render() {
     // const { classes } = this.props;
     return (
@@ -38,93 +171,7 @@ class New extends Component {
           />
         </div>
         <div className="pt-5 " style={{ height: "35vh", zIndex: 22222 }} />
-        <div>
-          <div className="p-4 d-flex justify-content-center px-5">
-            <div className="px-5">
-              <div className="row p-3">
-                <div
-                  onClick={() => this.goToCategory()}
-                  onMouseOver={() =>
-                    this.setState({
-                      visible: true
-                    })
-                  }
-                  onMouseOut={() =>
-                    this.setState({
-                      visible: false
-                    })
-                  }
-                  className={`mx-2 ${
-                    this.state.visible ? "hoverCard" : null
-                  } card`}
-                  style={{ width: 400 }}
-                >
-                  <div style={{ cursor: "pointer" }}>
-                    <img
-                      className="card-img-top"
-                      src={require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")}
-                      alt="Card image"
-                    />
-                    <div class="card-img-overlay d-flex justify-content-center">
-                      {this.state.visible ? (
-                        <div>
-                          <h4 class="card-title">John Dsdfsdfoe</h4>
-                          <p class="card-text">Some sdfsfsd text.</p>
-                        </div>
-                      ) : null}
-                    </div>
-                    <div className="card-body">
-                      <h4 className="card-title">John Doe</h4>
-                      <p class="card-text">Some example text.</p>
-                      <a href="#" className="btn btn-primary">
-                        See Profile
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  onMouseOver={() =>
-                    this.setState({
-                      visible: true
-                    })
-                  }
-                  onMouseOut={() =>
-                    this.setState({
-                      visible: false
-                    })
-                  }
-                  className={`mx-2 ${
-                    this.state.visible ? "hoverCard" : null
-                  } card`}
-                  style={{ width: 400 }}
-                >
-                  <div style={{ cursor: "pointer" }}>
-                    <img
-                      className="card-img-top"
-                      src={require("../../../contents/images/arms-cheerful-coffee-1331971.jpg")}
-                      alt="Card image"
-                    />
-                    <div class="card-img-overlay d-flex justify-content-center">
-                      {this.state.visible ? (
-                        <div>
-                          <h4 class="card-title">John Dsdfsdfoe</h4>
-                          <p class="card-text">Some sdfsfsd text.</p>
-                        </div>
-                      ) : null}
-                    </div>
-                    <div className="card-body">
-                      <h4 className="card-title">John Doe</h4>
-                      <p class="card-text">Some example text.</p>
-                      <a href="#" className="btn btn-primary">
-                        See Profile
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {this.renderProducts()}
         <Footer />
       </div>
     );

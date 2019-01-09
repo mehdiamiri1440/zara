@@ -6,11 +6,14 @@ import "./menu.css";
 import Women from "./new/women.jsx";
 import Basket from "@material-ui/icons/ShoppingCart";
 import { withStyles, TextField } from "@material-ui/core";
+import { connect } from "react-redux";
+
 class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
+      basket: [],
       subMenuNubmer: 0,
       searchStuff: "",
       scrollY: 0,
@@ -23,6 +26,12 @@ class Menu extends Component {
     this.setState({ scrollY: lastScrollY });
   };
   componentDidMount() {
+    console.log("in shopping basket and menu", this.props.basketCount);
+    if (
+      JSON.parse(localStorage.basket) &&
+      JSON.parse(localStorage.basket).length
+    )
+      this.setState({ basket: this.props.basket });
     window.addEventListener("scroll", this.handleScroll);
   }
   renderColorOfTexts() {
@@ -179,109 +188,64 @@ class Menu extends Component {
                     style={{ bottom: "72%", left: "50%" }}
                     className="position-absolute bg-info  text-white px-1 rounded-circle"
                   >
-                    33
+                    {this.props.basketCount}
                   </span>
                   <div
+                    onClick={() => this.navigateToItemDetalis()}
                     className="p-2 border-3 inBaskets border-dark border-1 bg-white"
                     id="baskets"
                   >
-                    <div className="border-bottom d-flex p-1">
-                      <img
-                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
-                        style={{ width: "39%", height: "60%" }}
-                        alt=""
-                      />
-                      <div style={{ width: "60%" }} className="text-center">
-                        <div className="px-2 text-right align-top text-dark">
-                          کالای جدید برای خرید
-                        </div>
-                        <div
-                          style={{ fontsize: 16 }}
-                          className="px-2 text-muted  text-right align-top text-dark"
-                        >
-                          3000 تومان
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="border-bottom d-flex p-1">
-                      <img
-                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
-                        style={{ width: "39%", height: "60%" }}
-                        alt=""
-                      />
-                      <div style={{ width: "60%" }} className="text-center">
-                        <div className="px-2 text-right align-top text-dark">
-                          کالای جدید برای خرید
-                        </div>
-                        <div
-                          style={{ fontsize: 16 }}
-                          className="px-2 text-muted  text-right align-top text-dark"
-                        >
-                          3000 تومان
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="border-bottom d-flex p-1">
-                      <img
-                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
-                        style={{ width: "39%", height: "60%" }}
-                        alt=""
-                      />
-                      <div style={{ width: "60%" }} className="text-center">
-                        <div className="px-2 text-right align-top text-dark">
-                          کالای جدید برای خرید
-                        </div>
-                        <div
-                          style={{ fontsize: 16 }}
-                          className="px-2 text-muted  text-right align-top text-dark"
-                        >
-                          3000 تومان
+                    {this.state.basket.map((item, indx) => (
+                      <div className="border-bottom d-flex p-1">
+                        <img
+                          src={item.image}
+                          style={{ width: "35%", height: "60%" }}
+                          alt=""
+                        />
+                        <div style={{ width: "60%" }} className="text-center">
+                          <div className="px-2 text-right align-top text-dark">
+                            {item.name}
+                          </div>
+                          <div
+                            style={{ fontsize: 16 }}
+                            className="px-2 text-muted  text-right align-top"
+                          >
+                            {item.price}
+                          </div>
+                          <div
+                            style={{ fontsize: 16 }}
+                            className="px-2 text-muted  text-right align-top text-dark"
+                          >
+                            {item.size}
+                          </div>
+                          <div
+                            style={{ fontsize: 16 }}
+                            className="px-2 text-muted  text-right align-top text-dark"
+                          >
+                            {item.color}
+                          </div>
+                          <div
+                            style={{ fontsize: 16 }}
+                            className="px-2 text-muted  text-right align-top text-dark"
+                          >
+                            <i
+                              onClick={e => {
+                                e.stopPropagation();
+                                this.props.deleteItemFromBasket();
+                                let basket = this.state.basket;
+                                basket.splice(indx, 1);
+                                this.setState({ basket }, () => {
+                                  localStorage.basket = JSON.stringify(
+                                    this.state.basket
+                                  );
+                                });
+                              }}
+                              className="fa fa-trash"
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
-
-                    <div
-                      onClick={() => this.navigateToItemDetails()}
-                      className="border-bottom d-flex p-1"
-                    >
-                      <img
-                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
-                        style={{ width: "39%", height: "60%" }}
-                        alt=""
-                      />
-                      <div style={{ width: "60%" }} className="text-center">
-                        <div className="px-2 text-right align-top text-dark">
-                          کالای جدید برای خرید
-                        </div>
-                        <div
-                          style={{ fontsize: 16 }}
-                          className="px-2 text-muted  text-right align-top text-dark"
-                        >
-                          3000 تومان
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="border-bottom d-flex p-1">
-                      <img
-                        src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
-                        style={{ width: "39%", height: "60%" }}
-                        alt=""
-                      />
-                      <div style={{ width: "60%" }} className="text-center">
-                        <div className="px-2 text-right align-top text-dark">
-                          کالای جدید برای خرید
-                        </div>
-                        <div
-                          style={{ fontsize: 16 }}
-                          className="px-2 text-muted  text-right align-top text-dark"
-                        >
-                          3000 تومان
-                        </div>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -493,4 +457,18 @@ const styles = theme => ({
 // Menu.propTypes = {
 //   classes: PropTypes.object.isRequired
 // };
-export default withRouter(withStyles(styles)(Menu));
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteItemFromBasket: () => {
+      const action = { type: "DELETE_BASKET_COUNT" };
+      dispatch(action);
+    }
+  };
+}
+function mapStateToProps(state) {
+  return { basketCount: state.basketCount, basket: state.basket };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(withStyles(styles)(Menu)));

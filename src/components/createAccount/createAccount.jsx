@@ -17,13 +17,14 @@ class CreateAccount extends Component {
     super(props);
     this.state = {
       email: "",
+      userName: "",
       firstName: "",
       lastName: "",
       city: "",
       region: "",
       password: "",
       retypedPassword: "",
-      address: "",
+      address: [],
       postalCode: "",
       phone: "",
       policies: false
@@ -33,6 +34,9 @@ class CreateAccount extends Component {
 
   fetchUserData(data, event) {
     switch (data) {
+      case "userName":
+        this.setState({ userName: event.target.value });
+        break;
       case "email":
         this.setState({ email: event.target.value });
         break;
@@ -43,7 +47,9 @@ class CreateAccount extends Component {
         this.setState({ lastName: event.target.value });
         break;
       case "address":
-        this.setState({ address: event.target.value });
+        let address = this.state.address;
+        address[0] = event.target.value;
+        this.setState({ address });
         break;
       case "city":
         this.setState({ city: event.target.value });
@@ -87,6 +93,7 @@ class CreateAccount extends Component {
           },
           body: JSON.stringify({
             firstName: user.firstName,
+            username: user.userName,
             lastName: user.lastName,
             postalCode: user.postalCode,
             phone: user.phone,
@@ -138,16 +145,25 @@ class CreateAccount extends Component {
         <div className="" style={{ height: "35vh", zIndex: 22222 }} />
         <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
           <div
-            style={{
-              fontSize: 30,
-              fontWeight: "bold"
-            }}
+            style={{ fontSize: 30, fontWeight: "bold" }}
             className="text-center col-md-4 col-lg-4 row justify-content-center"
           >
             اطلاعات شخصی خود را وارد کنید
           </div>
         </div>
         <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
+          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+            <TextField
+              style={{ width: "60%" }}
+              InputProps={{ disableUnderline: false }}
+              id="outlined-name"
+              label="نام کاربری"
+              type="userName"
+              value={this.state.userName}
+              onChange={event => this.fetchUserData("userName", event)}
+              margin="normal"
+            />
+          </div>
           <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
             <TextField
               style={{ width: "60%" }}
@@ -279,7 +295,7 @@ class CreateAccount extends Component {
               id="outlined-name"
               label="آدرس "
               type="text"
-              value={this.state.address}
+              value={this.state.address[0]}
               onChange={event => this.fetchUserData("address", event)}
               margin="normal"
               classes={{}}
