@@ -16,6 +16,7 @@ var basketObject =
   JSON.parse(localStorage.basket) && JSON.parse(localStorage.basket).length
     ? JSON.parse(localStorage.basket)
     : [];
+console.log("in store:", basketObject);
 const initialState = {
   basketCount: basketObject.length,
   basket: basketObject
@@ -29,7 +30,10 @@ const reducer = (state = initialState, action) => {
         basket: state.basket
       });
     case "ADD_BASKET_COUNT":
-      return Object.assign({}, state, { basketCount: state.basketCount + 1 });
+      return Object.assign({}, state, {
+        basketCount: state.basketCount + 1,
+        basket: state.basket
+      });
     default:
       return state;
   }

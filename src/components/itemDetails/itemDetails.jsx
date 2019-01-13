@@ -7,6 +7,7 @@ import MyAlert from "../myAlert/myAlert";
 import Footer from "../footer/footer";
 import { connect } from "react-redux";
 import { serverAddress } from "./../../utility/consts";
+import { numberWithCommas } from "./../../utility/index";
 class ItemDetails extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,7 @@ class ItemDetails extends Component {
       finalObject: [],
       selectedSize: [],
       sizeFlag: false,
+      product: [],
       colorFlag: false,
       count: 1,
       color: "",
@@ -71,44 +73,18 @@ class ItemDetails extends Component {
           sizes: ["md", "s", "ss"]
         }
       ],
-      scrollY: 0,
-      itemDetails: {
-        id: "55",
-        itemCount: 0,
-        color: "مشکی",
-        selectedImage: -1,
-        imageItems: [
-          {
-            image: require("../../contents/images/2018-New-Fashion-Men-Costume-Homme-Business-Suits-Jacket-Wedding-Suits-For-Men-Two-Buttons-Three.jpg"),
-            color: "white"
-          },
-          {
-            image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-            color: "green"
-          },
-          {
-            image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
-            color: "red"
-          }
-        ],
-        name: "تی شرت جدید برای فروش",
-        description:
-          "لباس جدید مردانه برای فروش در دسترس همه عموم برای بازدید در جنس های مختلف شامل قد سایز و رنگ های مختلف",
-        price: 12000,
-        size: ["xs", "s", "m", "l"],
-        colors: ["green", "blue", "orange", "yellow"]
-      }
+      scrollY: 0
     };
   }
-  componentDidMount() {
+  componentDidMount = () => {
     this.getProduct();
-    if (
-      JSON.parse(localStorage.basket) &&
-      JSON.parse(localStorage.basket).length
-    )
-      this.setState({ finalObject: JSON.parse(localStorage.basket) });
+    // this.getSimilarProducts();
+    // this.getMatchWithProducts();
+    this.setState({ finalObject: this.props.basket });
     window.addEventListener("scroll", this.handleScroll);
-  }
+  };
+  getSimilarProducts() {}
+  getMatchWithProducts() {}
   getProduct() {
     fetch(`${serverAddress}/product/id/${this.props.history.location.state}`, {
       method: "GET",
@@ -119,9 +95,9 @@ class ItemDetails extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        console.log("it is the countires", responseJson);
-        responseJson.map(cloth => (cloth.selectedImage = -1));
-        this.setState({ products: responseJson });
+        this.setState({ product: responseJson }, () => {
+          console.log("it is my response:", responseJson, this.state.product);
+        });
       })
       .catch(error => {
         console.log("it was false", error);
@@ -131,17 +107,17 @@ class ItemDetails extends Component {
     var lastScrollY = window.scrollY;
     this.setState({ scrollY: lastScrollY });
   };
-  addToCart(e, itemDetails) {
+  addToCart(e, product) {
     let finalObject = this.state.finalObject;
     this.state.selectedSize.map((size, index) => {
       let selectedItem = {
-        image: itemDetails.imageItems[0].image,
+        image: product.images[0],
         size: size,
-        color: this.state.color ? this.state.color : itemDetails.colors[0],
-        name: itemDetails.name,
-        price: itemDetails.price,
+        color: this.state.color ? this.state.color : product.color[0],
+        name: product.name,
+        price: product.price,
         count: this.state.count,
-        _id: itemDetails._id
+        _id: product._id
       };
       finalObject.push(selectedItem);
     });
@@ -149,26 +125,29 @@ class ItemDetails extends Component {
       this.setState({ sizeFlag: false, selectedSize: [], finalObject }, () => {
         localStorage.basket = JSON.stringify(this.state.finalObject);
 
-        if (
-          JSON.parse(localStorage.basket) &&
-          JSON.parse(localStorage.basket).length
-        )
-          this.setState({ finalObject: JSON.parse(localStorage.basket) });
+        // if (
+        //   JSON.parse(localStorage.basket) &&
+        //   JSON.parse(localStorage.basket).length
+        // )
+        //   this.setState({ finalObject: JSON.parse(localStorage.basket) });
       });
-      console.log("my loicalstorage:", localStorage.basket);
+      for (let i = 0; i < this.state.selectedSize.length; i++) {
+        this.props.deleteItemFromBasket();
+      }
     } else {
+      console.log("my loicalstorage:", localStorage.basket);
       Alert.error("لطفا سایز را انتخاب کنید", {
         position: "bottom-right",
         effect: "slide"
       });
     }
-    this.props.deleteItemFromBasket();
+    // window.location.reload();
   }
   addSizeOrReject(size) {
     let selectedSize = this.state.selectedSize;
     if (selectedSize.indexOf(size) == -1) {
       selectedSize.push(size);
-      this.setState({ sizeFlag: true, selectedSize });
+      this.setState({ selectedSize });
     } else {
       Alert.error("این سایز انتخاب شده است", {
         position: "bottom-right",
@@ -176,34 +155,24 @@ class ItemDetails extends Component {
       });
     }
   }
-  addColorOrReject(color) {
-    let selectedColor = this.state.selectedColor;
-    if (selectedColor.indexOf(color) == -1) {
-      selectedColor.push(color);
-      this.setState({ colorFlag: true, selectedColor });
-    } else {
-      Alert.error("این رنگ انتخاب شده است", {
-        position: "bottom-right",
-        effect: "slide"
-      });
-    }
-  }
-  selectColorAndCount(itemDetails) {
+  selectColorAndCount(product) {
     if (!this.state.colorFlag)
       return (
         <div>
           <div className="d-flex   form-group">
             <select className="m-2 form-control w-50" name="" id="">
-              {itemDetails.colors.map((color, indx) => (
-                <option
-                  onClick={event =>
-                    this.setState({ color: event.target.value })
-                  }
-                  value={color}
-                >
-                  {color}
-                </option>
-              ))}
+              {product.color &&
+                product.color.map((color, indx) => (
+                  <option
+                    key={indx}
+                    onClick={event =>
+                      this.setState({ color: event.target.value })
+                    }
+                    value={color}
+                  >
+                    {color}
+                  </option>
+                ))}
             </select>
             <div className="input-group w-50 p-2">
               <input
@@ -216,26 +185,6 @@ class ItemDetails extends Component {
             </div>
           </div>
         </div>
-        // <div
-        //   style={{ fontSize: 14 }}
-        //   className="border-bottom border-top mt-3 pb-3 w-100 text-center pt-4 align-middle"
-        // >
-        //   {itemDetails.colors.map((color, indx) => (
-        //     <div key={indx} className="w-100 col">
-        //       <div
-        //         onClick={() => this.addColorOrReject(color)}
-        //         style={{ fontSize: 18, cursor: "pointer" }}
-        //         className={`${
-        //           this.state.selectedColor.indexOf(color) != -1
-        //             ? "text-danger"
-        //             : "text-dark"
-        //         } colorHover col w-100`}
-        //       >
-        //         {color}
-        //       </div>
-        //     </div>
-        //   ))}
-        // </div>
       );
     return (
       <div className="w-100 pt-3 col">
@@ -254,14 +203,14 @@ class ItemDetails extends Component {
       </div>
     );
   }
-  selectSize(itemDetails) {
+  selectSize(product) {
     if (!this.state.sizeFlag)
       return (
         <div
           style={{ fontSize: 14 }}
           className="border-bottom border-top mt-3 pb-3 w-100 text-center pt-4 align-middle"
         >
-          {itemDetails.size.map((size, indx) => (
+          {product.sizes.map((size, indx) => (
             <div key={indx} className="w-100 col">
               <div
                 onClick={() => this.addSizeOrReject(size)}
@@ -305,7 +254,7 @@ class ItemDetails extends Component {
             </div>
             <div className="modal-body">
               <img
-                src={this.state.itemDetails.imageItems[index].image}
+                src={image}
                 style={{ width: "100%", height: "100%" }}
                 alt=""
               />
@@ -324,19 +273,8 @@ class ItemDetails extends Component {
       </div>
     );
   }
-  //   alert(){
-  // return(<slam onsuccess={} oncancel={}/>)
-
-  //   }
-  mySuccess = () => {
-    console.log("helloo mehdi amiri");
-  };
-  myReject = () => {
-    console.log("goodbye mehdi amiri");
-  };
   render() {
-    const { itemDetails } = this.state;
-    return (
+    return this.state.product.length > 0 ? (
       <div>
         <Alert stack={{ limit: 3 }} />
         <div style={{ zIndex: -9 }}>
@@ -351,14 +289,14 @@ class ItemDetails extends Component {
         </div>
         <div style={{ paddingTop: "5%" }}>
           <div className=" w-50" style={{ left: 0 }}>
-            {itemDetails.imageItems.map((image, index) => (
+            {this.state.product[0].images.map((image, index) => (
               <div key={index}>
                 <img
                   key={index}
                   data-toggle="modal"
                   data-target={`#myModal-${index}`}
                   className="w-100 h-50 p-5 ml-5"
-                  src={image.image}
+                  src={image}
                 />
                 {this.renderfullScreenImages(image, index)}
               </div>
@@ -366,14 +304,12 @@ class ItemDetails extends Component {
           </div>
           <div
             className={
-              this.state.scrollY <
-              this.state.itemDetails.imageItems.length * 400
+              this.state.scrollY < this.state.product[0].images.length * 400
                 ? "position-fixed w-50"
                 : null
             }
             style={
-              this.state.scrollY <
-              this.state.itemDetails.imageItems.length * 400
+              this.state.scrollY < this.state.product[0].images.length * 400
                 ? { right: 0, top: "19%" }
                 : { display: "none" }
             }
@@ -382,32 +318,40 @@ class ItemDetails extends Component {
               style={{ fontSize: 24, fontWeight: "bold" }}
               className="justify-content-center text-center  d-flex w-100"
             >
-              {itemDetails.name}
+              {this.state.product[0].name}
             </div>
             <div
               style={{ fontSize: 14, fontWeight: "bold", direction: "rtl" }}
               className="justify-content-center  d-flex w-100"
             >
-              {itemDetails.price}
+              {numberWithCommas(this.state.product[0].price)}
               {" " + "ریال"}
             </div>
             <div
               style={{ fontSize: 14 }}
               className="justify-content-center   d-flex w-100 text-right pt-4 align-middle"
             >
-              {itemDetails.color}
+              {this.state.product[0].color &&
+                this.state.product[0].color.map((color, indx) => (
+                  <span className="px-1" key={indx}>
+                    {color}
+                    {` ${
+                      indx != this.state.product[0].color.length - 1 ? "," : ""
+                    } `}
+                  </span>
+                ))}
             </div>
             <div
               style={{ fontSize: 14 }}
               className="justify-content-center  d-flex w-100 text-center pt-4 align-middle"
             >
-              {itemDetails.description}
+              {this.state.product[0].description}
             </div>
-            {this.selectSize(itemDetails)}
-            {this.selectColorAndCount(itemDetails)}
+            {this.selectSize(this.state.product[0])}
+            {this.selectColorAndCount(this.state.product[0])}
             <div className="row  justify-content-center p-1">
               <button
-                onClick={e => this.addToCart(e, itemDetails)}
+                onClick={e => this.addToCart(e, this.state.product[0])}
                 className={`${
                   this.state.selectedSize && this.state.selectedSize.length > 0
                     ? "text-dark"
@@ -426,18 +370,24 @@ class ItemDetails extends Component {
                 اضافه کن
               </button>
             </div>
-            {this.state.selectedSize.length > 0 ? (
-              <div className="row  justify-content-center p-3">
-                <Link
-                  to="/shoppingbasket"
-                  className="text-white w-50 btn"
-                  style={{ backgroundColor: "#000000", borderRadius: 0 }}
-                  type="button"
-                >
-                  تسویه خرید
-                </Link>
-              </div>
-            ) : null}
+            <div className="row  justify-content-center p-3">
+              <button
+                onClick={() => {
+                  if (this.props.basket.length)
+                    this.props.history.push({ pathname: "/shoppingbasket" });
+                  else
+                    Alert.error("لطفا سایز را انتخاب کنید", {
+                      position: "bottom-right",
+                      effect: "slide"
+                    });
+                }}
+                className="text-white w-50 btn"
+                style={{ backgroundColor: "#000000", borderRadius: 0 }}
+                type="button"
+              >
+                تسویه خرید
+              </button>
+            </div>
           </div>
         </div>
         {/* WEAR WITH */}
@@ -460,7 +410,7 @@ class ItemDetails extends Component {
                   {match.name}
                 </span>
                 <span className="w-100 row justify-content-end">
-                  تومان {match.price}
+                  تومان {numberWithCommas(match.price)}
                 </span>
                 <select className="w-100 form-control row justify-content-end">
                   {match.sizes.map((size, indx) => (
@@ -505,7 +455,7 @@ class ItemDetails extends Component {
                   {similar.name}
                 </span>
                 <span className="w-100 row justify-content-end">
-                  تومان {similar.price}
+                  تومان {numberWithCommas(similar.price)}
                 </span>
                 <select className="w-100 form-control row justify-content-end">
                   {similar.sizes.map((size, indx) => (
@@ -528,7 +478,7 @@ class ItemDetails extends Component {
         </div>
         <Footer />
       </div>
-    );
+    ) : null;
   }
 }
 function mapDispatchToProps(dispatch) {
@@ -540,7 +490,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 function mapStateToProps(state) {
-  return { basketCount: state.basketCount };
+  return { basketCount: state.basketCount, basket: state.basket };
 }
 export default connect(
   mapStateToProps,

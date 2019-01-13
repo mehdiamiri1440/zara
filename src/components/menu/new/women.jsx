@@ -12,29 +12,45 @@ class Women extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      headerItem: {},
+      headerImage: "",
       products: []
     };
   }
   componentDidMount() {
-    this.getProducts();
+    this.getProducts().then(() => {
+      let headerItem = this.state.headerItem;
+      if (this.props.history.location.state) {
+        this.state.products.filter(product => {
+          if (product._id === this.props.history.location.state) {
+            headerItem = product;
+            this.setState({ headerItem: headerItem }, () => {
+              this.setState({ headerImage: this.state.headerItem.images[0] });
+            });
+          }
+        });
+      }
+    });
   }
   getProducts() {
-    fetch(`${serverAddress}/product/getByCategoryName/women`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log("it is the countires", responseJson);
-        responseJson.map(cloth => (cloth.selectedImage = -1));
-        this.setState({ products: responseJson });
+    return new Promise((resolve, reject) => {
+      fetch(`${serverAddress}/product/getByCategoryName/women`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
       })
-      .catch(error => {
-        console.log("it was false", error);
-      });
+        .then(response => response.json())
+        .then(responseJson => {
+          responseJson.map(cloth => (cloth.selectedImage = -1));
+          this.setState({ products: responseJson });
+          resolve(responseJson);
+        })
+        .catch(error => {
+          console.log("it was false", error);
+        });
+    });
   }
   counterOfTheLoopFunction() {
     for (let j = 0; j < this.state.products.length - 5; j++) {
@@ -55,14 +71,36 @@ class Women extends Component {
     var counter = this.counterOfTheLoopFunction();
     return (
       <div className="pt-3  row">
+        {this.state.headerItem ? (
+          <div className="d-flex justify-content-center align-items-center pt-5 w-100">
+            <img
+              onClick={() => {
+                if (this.state.headerItem && this.state.headerImage) {
+                  this.props.history.push({
+                    pathname: `/itemDetails/${this.state.headerItem._id}`,
+                    state: this.state.headerItem._id
+                  });
+                }
+              }}
+              src={
+                this.state.headerImage
+                  ? this.state.headerImage
+                  : require("../../../contents/images/defualutpic.png")
+              }
+              style={{ width: "40%", heigh: "20rem" }}
+              alt=""
+            />
+          </div>
+        ) : null}
         {this.state.products.map((cloth, index) => (
           <div
-            onClick={() =>
+            onClick={() => {
+              console.log("it is the id", cloth._id);
               this.props.history.push({
-                pathname: `/itemDetails/id/${cloth._id}`
-                // state: cloth._id
-              })
-            }
+                pathname: `/itemDetails/id/${cloth._id}`,
+                state: cloth._id
+              });
+            }}
             style={{ cursor: "pointer" }}
             className={
               counter.indexOf(index) != -1
@@ -103,7 +141,7 @@ class Women extends Component {
               ))}
             </div>
             <div className="col-lg-12 align-top align-text-top row justify-content-center text-center">
-              {cloth.descriprion ? cloth.descriprion : null}
+              {cloth.description ? cloth.description : null}
             </div>
           </div>
         ))}

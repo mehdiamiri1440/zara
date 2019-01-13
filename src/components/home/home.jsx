@@ -90,11 +90,12 @@ class Home extends Component {
         >
           {this.state.carousels.map((carousel, index) => (
             <div
+              key={index}
               style={{ cursor: "pointer" }}
               onClick={() => {
                 this.props.history.push({
-                  pathname: `/category/${carousel.location}`,
-                  state: carousel._id
+                  pathname: `/category/${carousel.location.split("/")[0]}`,
+                  state: carousel.location.split("/")[1]
                 });
               }}
               onScroll={event => this.scrollFunc(event)}

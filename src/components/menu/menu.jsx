@@ -7,6 +7,7 @@ import Women from "./new/women.jsx";
 import Basket from "@material-ui/icons/ShoppingCart";
 import { withStyles, TextField } from "@material-ui/core";
 import { connect } from "react-redux";
+import { numberWithCommas } from "./../../utility/index";
 
 class Menu extends Component {
   constructor(props) {
@@ -191,12 +192,21 @@ class Menu extends Component {
                     {this.props.basketCount}
                   </span>
                   <div
-                    onClick={() => this.navigateToItemDetalis()}
                     className="p-2 border-3 inBaskets border-dark border-1 bg-white"
                     id="baskets"
                   >
-                    {this.state.basket.map((item, indx) => (
-                      <div className="border-bottom d-flex p-1">
+                    {this.props.basket.map((item, indx) => (
+                      <div
+                        key={indx}
+                        onClick={() => {
+                          this.props.history.push({
+                            pathname: `/itemDetails/id/${item._id}`,
+                            state: item._id
+                          });
+                          window.location.reload();
+                        }}
+                        className="border-bottom d-flex p-1"
+                      >
                         <img
                           src={item.image}
                           style={{ width: "35%", height: "60%" }}
@@ -210,7 +220,7 @@ class Menu extends Component {
                             style={{ fontsize: 16 }}
                             className="px-2 text-muted  text-right align-top"
                           >
-                            {item.price}
+                            {numberWithCommas(item.price)}
                           </div>
                           <div
                             style={{ fontsize: 16 }}

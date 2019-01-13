@@ -5,6 +5,7 @@ import Footer from "../footer/footer";
 import "./shoppingbasket.css";
 import { connect } from "react-redux";
 import store from "../../store";
+import { numberWithCommas } from "./../../utility/index";
 var sum = 0;
 class ShoppingBasket extends Component {
   constructor(props) {
@@ -96,7 +97,9 @@ class ShoppingBasket extends Component {
                     >
                       {basket.name}
                     </div>
-                    <div style={{ color: "#B5BCC4" }}>{basket.price}</div>
+                    <div style={{ color: "#B5BCC4" }}>
+                      {numberWithCommas(basket.price)}
+                    </div>
                   </td>
                   <td
                     className="align-middle text-center text-dark"
@@ -139,17 +142,25 @@ class ShoppingBasket extends Component {
                       className="hoverableArrow align-middle text-center p-3 fas fa-angle-right "
                     />
                   </td>
-                  <td className="align-middle text-center">{basket.price}</td>
+                  <td className="align-middle text-center">
+                    {numberWithCommas(basket.price * basket.count)}
+                  </td>
                   <td className="align-middle text-center">
                     <i
                       onClick={() => {
                         let myBasket = this.state.basket;
                         myBasket.splice(indx, 1);
-                        this.setState({ basket: myBasket }, () => {
-                          localStorage.basket = JSON.stringify(
-                            this.state.basket
-                          );
-                        });
+                        this.calculaeSum();
+                        this.setState(
+                          {
+                            basket: myBasket
+                          },
+                          () => {
+                            localStorage.basket = JSON.stringify(
+                              this.state.basket
+                            );
+                          }
+                        );
                         this.props.deleteItemFromBasket();
                       }}
                       style={{ fontSize: 20, cursor: "pointer" }}

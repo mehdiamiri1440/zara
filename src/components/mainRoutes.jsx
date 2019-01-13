@@ -70,7 +70,7 @@ class MainRoutes extends React.Component {
         />
         <Route
           exact
-          path="/itemDetails"
+          path="/itemDetails/id/:id"
           render={() => <ItemDetails {...this.props} />}
         />
         <Route
