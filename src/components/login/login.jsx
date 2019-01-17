@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Alert from "react-s-alert";
+import { connect } from "react-redux";
 import Menu from "../menu/menu";
 import Footer from "../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
@@ -9,7 +10,7 @@ import { serverAddress } from "./../../utility/consts";
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "" };
+    this.state = { user: {}, email: "", password: "" };
   }
 
   fetchEmail(event) {
@@ -18,7 +19,7 @@ class Login extends Component {
   fetchPassword(event) {
     this.setState({ password: event.target.value });
   }
-  login(userName) {
+  login() {
     fetch(`${serverAddress}/user/login`, {
       method: "POST",
       headers: {
@@ -32,12 +33,16 @@ class Login extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        if (responseJson)
+        if (!responseJson.error) {
+          localStorage.user = JSON.stringify(responseJson);
+          this.props.deleteItemFromBasket();
+          console.log("res", responseJson);
+          this.setState({ user: responseJson });
           this.props.history.push({
             pathname: "/profile",
             state: responseJson
           });
-        else {
+        } else {
           Alert.error("ایمیل یا رمز عبور اشتباه است", {
             position: "bottom-right",
             effect: "slide",
@@ -46,6 +51,7 @@ class Login extends Component {
         }
       })
       .catch(error => {
+        console.log(error);
         Alert.error("خطا در ارسال اطلاعات", {
           position: "bottom-right",
           effect: "slide",
@@ -53,6 +59,10 @@ class Login extends Component {
         });
       });
   }
+  componentDidMount() {
+    console.log("it is the user", this.props.user, localStorage.user);
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -246,4 +256,18 @@ const styles = theme => ({
 Login.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withRouter(withStyles(styles)(Login));
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteItemFromBasket: () => {
+      const action = { type: "USER", user: localStorage.user };
+      dispatch(action);
+    }
+  };
+}
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(withStyles(styles)(Login)));

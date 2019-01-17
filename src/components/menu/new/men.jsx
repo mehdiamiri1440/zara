@@ -94,12 +94,13 @@ class Men extends Component {
         ) : null}
         {this.state.products.map((cloth, index) => (
           <div
-            onClick={() =>
-              this.props.history.push({
-                pathname: `/itemDetails/id/${cloth._id}`,
-                state: cloth._id
-              })
-            }
+            onClick={() => {
+              if (cloth.isAvailable)
+                this.props.history.push({
+                  pathname: `/itemDetails/id/${cloth._id}`,
+                  state: cloth._id
+                });
+            }}
             style={{ cursor: "pointer" }}
             className={
               counter.indexOf(index) != -1
@@ -109,7 +110,7 @@ class Men extends Component {
             key={index}
           >
             <img
-              className="visibility"
+              // className="visibility"
               style={{
                 width: counter.indexOf(index) != -1 ? "45%" : "90%"
               }}
@@ -119,6 +120,17 @@ class Men extends Component {
                   : cloth.images[cloth.selectedImage]
               }
             />
+            {!cloth.isAvailable ? (
+              <div
+                style={{ fontSize: 20, fontWeight: "bold" }}
+                className="position-absolute text-white  h-100 d-flex justify-content-center align-items-center col-10"
+              >
+                <span className="col p-0 text-center p-2 bg-dark">
+                  {" "}
+                  محصول ناموجود است
+                </span>
+              </div>
+            ) : null}
             <div
               id="hide"
               className="showing row justify-content-center col-lg-12 align-top align-text-top text-center"

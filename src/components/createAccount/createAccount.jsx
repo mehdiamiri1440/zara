@@ -5,6 +5,7 @@ import Menu from "../menu/menu";
 import Alert from "react-s-alert";
 import Footer from "../footer/footer";
 import { serverAddress } from "./../../utility/consts";
+import { connect } from "react-redux";
 import {
   FormControlLabel,
   Checkbox,
@@ -267,7 +268,7 @@ class CreateAccount extends Component {
               id="outlined-name"
               label="منطقه "
               type="text"
-              value={localStorage.language}
+              value={localStorage.country}
               onChange={event => this.fetchUserData("region", event)}
               margin="normal"
               classes={{}}
@@ -378,4 +379,18 @@ const styles = theme => ({
 CreateAccount.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withRouter(withStyles(styles)(CreateAccount));
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteItemFromBasket: () => {
+      const action = { type: "USER" };
+      dispatch(action);
+    }
+  };
+}
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(withStyles(styles)(CreateAccount)));

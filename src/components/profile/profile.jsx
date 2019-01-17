@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Footer from "../footer/footer";
 import Menu from "../menu/menu";
+import { connect } from "react-redux";
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { user: {} };
   }
   componentDidMount = () => {
-    console.log("drjhf", this.props.history.location.state);
+    console.log("drjhf", this.props);
+    this.setState({ user: this.props.user });
   };
   editUserInfo(path) {
     this.props.history.push({
@@ -83,5 +85,18 @@ class Profile extends Component {
     );
   }
 }
-
-export default withRouter(Profile);
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteItemFromBasket: () => {
+      const action = { type: "USER" };
+      dispatch(action);
+    }
+  };
+}
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Profile));

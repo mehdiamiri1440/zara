@@ -12,17 +12,20 @@
 
 // export default createStore(rootReducer, initialState);
 import { createStore } from "redux";
-var basketObject =
+let basketObject =
   JSON.parse(localStorage.basket) && JSON.parse(localStorage.basket).length
     ? JSON.parse(localStorage.basket)
     : [];
-console.log("in store:", basketObject);
+let user = localStorage.user ? JSON.parse(localStorage.user) : {};
+// console.log("in store:", basketObject);
 const initialState = {
   basketCount: basketObject.length,
-  basket: basketObject
+  basket: basketObject,
+  user: user
 };
+console.log("it is the user information in redux reducer", user);
 const reducer = (state = initialState, action) => {
-  console.log("in reducer:", basketObject.length);
+  console.log("in reducer:", user);
   switch (action.type) {
     case "DELETE_BASKET_COUNT":
       return Object.assign({}, state, {
@@ -34,10 +37,18 @@ const reducer = (state = initialState, action) => {
         basketCount: state.basketCount + 1,
         basket: state.basket
       });
+    case "USER":
+      return Object.assign({}, state, {
+        user: JSON.parse(action.user)
+      });
     default:
       return state;
   }
 };
+console.log(
+  "after assign the user to uiser state that has fuckerd me up",
+  user
+);
 
 const store = createStore(reducer);
 export default store;

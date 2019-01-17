@@ -67,13 +67,11 @@ class ResetPassword extends Component {
           <div
             style={{
               fontSize: 30,
-              fontWeight: "bold",
-              fontFamily:
-                "NeueHelvetica  Condensed Roboto Condensed Helvetica Arial Sans-Serif"
+              fontWeight: "bold"
             }}
-            className="text-center col-md-5 col-lg-5 row justify-content-end"
+            className="text-center col-md-5 col-lg-5 row justify-content-center"
           >
-            Have you forgotten your password?
+            آیا رمز عبور خود را فراموش کرده اید ؟
           </div>
         </div>
         <div className="col-md-12 pt-3 col-lg-12 col-sm-12 row justify-content-center">
@@ -81,7 +79,7 @@ class ResetPassword extends Component {
             style={{ width: "40%" }}
             InputProps={{ disableUnderline: false }}
             id="outlined-name"
-            label="E-mail "
+            label="ایمیل"
             type="email"
             value={this.state.email}
             onChange={event => this.fetchEmail(event)}
@@ -103,7 +101,7 @@ class ResetPassword extends Component {
               borderRadius: 0
             }}
           >
-            RESET PASSWORD
+            بازنشانی رمز عبور
           </Button>
         </div>
         <Footer />

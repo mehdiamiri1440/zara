@@ -8,6 +8,7 @@ import Basket from "@material-ui/icons/ShoppingCart";
 import { withStyles, TextField } from "@material-ui/core";
 import { connect } from "react-redux";
 import { numberWithCommas } from "./../../utility/index";
+import { serverAddress } from "./../../utility/consts";
 
 class Menu extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Menu extends Component {
       basket: [],
       subMenuNubmer: 0,
       searchStuff: "",
+      user: {},
       scrollY: 0,
       color: "green"
     };
@@ -27,7 +29,8 @@ class Menu extends Component {
     this.setState({ scrollY: lastScrollY });
   };
   componentDidMount() {
-    console.log("in shopping basket and menu", this.props.basketCount);
+    console.log("in shopping basket and menu", this.props.user);
+    this.setState({ user: this.props.user });
     if (
       JSON.parse(localStorage.basket) &&
       JSON.parse(localStorage.basket).length
@@ -96,6 +99,25 @@ class Menu extends Component {
       }
     }
   }
+  logout() {
+    fetch(`${serverAddress}/user/logout`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(responseJson => {
+        window.location.reload();
+        console.log("oit is thgew erwspiis", responseJson);
+        localStorage.user = null;
+        this.props.deleteUserData();
+        this.props.history.push({
+          pathname: "/home"
+        });
+      })
+      .catch(error => {});
+  }
   navigateToItemDetails() {}
   render() {
     const { classes } = this.props;
@@ -135,33 +157,31 @@ class Menu extends Component {
             style={{ paddingTop: "10%" }}
             className="pr-0 justify-content-end row col-md-4 col-sm-4 col-lg-4 p-3 "
           >
-            {this.props.login ? (
-              this.props.history.location.state ? (
-                <Link style={{ textDecoration: "none" }} to="/profile">
-                  <div
-                    style={{
-                      color: this.renderColorOfTexts(),
-                      cursor: "pointer"
-                    }}
-                    className="pt-4 p-2 mt-5 align-middle"
-                  >
-                    {this.props.history.location.state.firstName}
-                  </div>
-                </Link>
-              ) : (
-                <Link style={{ textDecoration: "none" }} to="/login">
-                  <div
-                    style={{
-                      color: this.renderColorOfTexts(),
-                      cursor: "pointer"
-                    }}
-                    className="pt-4 p-2 mt-5 align-middle"
-                  >
-                    ورود
-                  </div>
-                </Link>
-              )
-            ) : null}
+            {this.state.user ? (
+              <Link style={{ textDecoration: "none" }} to="/profile">
+                <div
+                  style={{
+                    color: this.renderColorOfTexts(),
+                    cursor: "pointer"
+                  }}
+                  className="pt-4 p-2 mt-5 align-middle"
+                >
+                  {this.state.user.username}
+                </div>
+              </Link>
+            ) : (
+              <Link style={{ textDecoration: "none" }} to="/login">
+                <div
+                  style={{
+                    color: this.renderColorOfTexts(),
+                    cursor: "pointer"
+                  }}
+                  className="pt-4 p-2 mt-5 align-middle"
+                >
+                  ورود
+                </div>
+              </Link>
+            )}
             {this.props.contact ? (
               <Link style={{ textDecoration: "none" }} to="/contact">
                 <div
@@ -313,14 +333,9 @@ class Menu extends Component {
                   ? this.renderSubMenu(this.state.open, 3)
                   : null} */}
               </div>
-              {localStorage.userName ? (
+              {this.state.user ? (
                 <div
-                  onClick={() =>
-                    this.setState({
-                      open: !this.state.open,
-                      subMenuNubmer: 3
-                    })
-                  }
+                  onClick={() => this.logout()}
                   className="p-1  col-md-12 col-sm-12 col-lg-12"
                 >
                   خروج
@@ -470,13 +485,21 @@ const styles = theme => ({
 function mapDispatchToProps(dispatch) {
   return {
     deleteItemFromBasket: () => {
-      const action = { type: "DELETE_BASKET_COUNT" };
+      const action = { type: "DELETE_BASKET_COUNT", user: localStorage.user };
+      dispatch(action);
+    },
+    deleteUserData: () => {
+      const action = { type: "USER", user: localStorage.user };
       dispatch(action);
     }
   };
 }
 function mapStateToProps(state) {
-  return { basketCount: state.basketCount, basket: state.basket };
+  return {
+    basketCount: state.basketCount,
+    basket: state.basket,
+    user: state.user
+  };
 }
 export default connect(
   mapStateToProps,

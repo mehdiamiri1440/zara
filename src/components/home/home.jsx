@@ -3,6 +3,8 @@ import Footer from "../footer/footer";
 import Menu from "../menu/menu";
 import { Redirect, Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+import { css } from "@emotion/core";
+import { ScaleLoader } from "react-spinners";
 import { withStyles, TextField, Input } from "@material-ui/core";
 import Basket from "@material-ui/icons/ShoppingCart";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -13,6 +15,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       searchStuff: "",
       email: "",
       carousels: []
@@ -22,6 +25,7 @@ class Home extends Component {
     this.setState({ searchStuff: event.target.value });
   }
   componentDidMount() {
+    console.log(this.props.user);
     this.getCarousel();
   }
   getCarousel() {
@@ -36,7 +40,7 @@ class Home extends Component {
       .then(responseJson => {
         console.log("it is the countires", responseJson);
         // responseJson.map(roleID => rolesID.push(roleID.Id));
-        this.setState({ carousels: responseJson });
+        this.setState({ carousels: responseJson, loading: false });
       })
       .catch(error => {
         console.log("it was false", error);
@@ -71,44 +75,66 @@ class Home extends Component {
   render() {
     const { classes } = this.props;
     return (
-      // style={{height:1000}}
-      <div style={{ zIndex: -9 }}>
-        <Menu
-          menuItems={true}
-          color="white"
-          search={true}
-          basket={true}
-          contact={true}
-          login={true}
-        />
-        <Carousel
-          stopOnHover={false}
-          infiniteLoop={true}
-          autoPlay={true}
-          showThumbs={false}
-          showStatus={false}
+      <div>
+        <div
+          className="position-absolute"
+          style={{
+            top: "50%",
+            left: "50%",
+            zIndex: 9999
+          }}
         >
-          {this.state.carousels.map((carousel, index) => (
-            <div
-              key={index}
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                this.props.history.push({
-                  pathname: `/category/${carousel.location.split("/")[0]}`,
-                  state: carousel.location.split("/")[1]
-                });
-              }}
-              onScroll={event => this.scrollFunc(event)}
-            >
-              <img
-                // carousel.image
-                src={carousel.image}
-              />
-            </div>
-          ))}
-        </Carousel>
-        <div className="h-100" style={{ height: 400 }}>
-          <Footer />
+          <ScaleLoader
+            sizeUnit={"px"}
+            size={400}
+            color={"red"}
+            loading={this.state.loading}
+          />
+        </div>
+        <div
+          style={{
+            backgroundColor: `${this.state.loading ? "gray" : "transparent"}`,
+            opacity: `${this.state.loading ? 0.4 : 1}`,
+            zIndex: -9
+          }}
+        >
+          <Menu
+            menuItems={true}
+            color="white"
+            search={true}
+            basket={true}
+            contact={true}
+            login={true}
+          />
+          <Carousel
+            stopOnHover={false}
+            infiniteLoop={true}
+            autoPlay={true}
+            showThumbs={false}
+            showStatus={false}
+          >
+            {this.state.carousels.map((carousel, index) => (
+              <div
+                key={index}
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  this.props.history.push({
+                    pathname: `/category/${carousel.location.split("/")[0]}`,
+                    state: carousel.location.split("/")[1]
+                  });
+                }}
+                onScroll={event => this.scrollFunc(event)}
+              >
+                <img
+                  // carousel.image
+                  src={carousel.image}
+                />
+              </div>
+            ))}
+          </Carousel>
+          <div className="h-100" style={{ height: 400 }}>
+            <Footer />
+          </div>
         </div>
       </div>
     );
