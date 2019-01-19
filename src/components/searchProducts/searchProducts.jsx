@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import Menu from "../menu";
-import "./womenStyles.css";
-import Footer from "../../footer/footer";
+import Menu from "../menu/menu";
+import "./searchProducts.css";
+import Footer from "../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
-import { serverAddress } from "./../../../utility/consts";
+import { serverAddress } from "./../../utility/consts";
 let i = 0;
 let arrayOfCounters = [];
-class Women extends Component {
+class SearchProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {
       headerItem: {},
       headerImage: "",
+      searchKey: "",
       products: []
     };
   }
@@ -34,7 +35,7 @@ class Women extends Component {
   }
   getProducts() {
     return new Promise((resolve, reject) => {
-      fetch(`${serverAddress}/product/getByCategoryName/women`, {
+      fetch(`${serverAddress}/product`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -77,12 +78,16 @@ class Women extends Component {
               onClick={() => {
                 if (this.state.headerItem && this.state.headerImage) {
                   this.props.history.push({
-                    pathname: `/itemDetails/id/${this.state.headerItem._id}`,
+                    pathname: `/itemDetails/${this.state.headerItem._id}`,
                     state: this.state.headerItem._id
                   });
                 }
               }}
-              src={this.state.headerImage ? this.state.headerImage : null}
+              src={
+                this.state.headerImage
+                  ? this.state.headerImage
+                  : require("../../contents/images/defualutpic.png")
+              }
               style={{ width: "40%", heigh: "20rem" }}
               alt=""
             />
@@ -105,8 +110,11 @@ class Women extends Component {
             }
             key={index}
           >
-            <img // className=" visibility"
-              style={{ width: counter.indexOf(index) != -1 ? "45%" : "90%" }}
+            <img
+              // className="visibility"
+              style={{
+                width: counter.indexOf(index) != -1 ? "45%" : "90%"
+              }}
               src={
                 cloth.selectedImage == -1
                   ? cloth.images[0]
@@ -152,6 +160,54 @@ class Women extends Component {
       </div>
     );
   }
+  search() {
+    fetch(`${serverAddress}/product/search`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        phrase: this.state.searchKey
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        responseJson.map(cloth => (cloth.selectedImage = -1));
+        this.setState({ products: responseJson });
+      })
+      .catch(error => {
+        console.log("it was false", error);
+      });
+  }
+  renderSearchBox() {
+    const { classes } = this.props;
+    return (
+      <div className="d-flex col justify-content-center">
+        <TextField
+          InputLabelProps={{
+            className: [classes.floatingLabel, classes.focused],
+            style: {
+              cursor: "pointer",
+              color: "black",
+              direction: "rtl"
+            }
+          }}
+          style={{ cursor: "pointer", color: "black" }}
+          id="search"
+          label="جستجو"
+          className={(classes.textField, "display-1 p-3 col-6")}
+          value={this.state.searchStuff}
+          onChange={event =>
+            this.setState({ searchKey: event.target.value }, () => {
+              return this.search();
+            })
+          }
+          margin="normal"
+        />
+      </div>
+    );
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -167,6 +223,9 @@ class Women extends Component {
           />
         </div>
         {/* images */}
+        <div className="" style={{ height: "35vh", zIndex: 22222 }} />
+
+        {this.renderSearchBox()}
         {this.renderImagesWithDetails()}
         <div />
         <div />
@@ -184,7 +243,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
-    color: "white",
+    color: "black",
     backgroundColor: "red"
   },
   focused: {
@@ -214,7 +273,7 @@ const styles = theme => ({
     fontSize: 20
   }
 });
-Women.propTypes = {
+SearchProducts.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withRouter(withStyles(styles)(Women));
+export default withRouter(withStyles(styles)(SearchProducts));

@@ -22,6 +22,7 @@ import "react-s-alert/dist/s-alert-css-effects/jelly.css";
 import "react-s-alert/dist/s-alert-css-effects/stackslide.css";
 ///end of alerts files
 require("bootstrap/dist/js/bootstrap");
+const Joi = require("joi");
 
 ReactDOM.render(
   <Provider store={store}>

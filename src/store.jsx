@@ -9,13 +9,16 @@
 // // } else {
 // //   middleware = applyMiddleware(thunk, promise, logger);
 // // }
-
 // export default createStore(rootReducer, initialState);
 import { createStore } from "redux";
-let basketObject =
-  JSON.parse(localStorage.basket) && JSON.parse(localStorage.basket).length
-    ? JSON.parse(localStorage.basket)
-    : [];
+let basketObject;
+if (
+  localStorage.basket &&
+  JSON.parse(localStorage.basket) &&
+  JSON.parse(localStorage.basket).length
+)
+  basketObject = JSON.parse(localStorage.basket);
+else basketObject = [];
 let user = localStorage.user ? JSON.parse(localStorage.user) : {};
 // console.log("in store:", basketObject);
 const initialState = {

@@ -77,16 +77,12 @@ class Men extends Component {
               onClick={() => {
                 if (this.state.headerItem && this.state.headerImage) {
                   this.props.history.push({
-                    pathname: `/itemDetails/${this.state.headerItem._id}`,
+                    pathname: `/itemDetails/id/${this.state.headerItem._id}`,
                     state: this.state.headerItem._id
                   });
                 }
               }}
-              src={
-                this.state.headerImage
-                  ? this.state.headerImage
-                  : require("../../../contents/images/defualutpic.png")
-              }
+              src={this.state.headerImage ? this.state.headerImage : null}
               style={{ width: "40%", heigh: "20rem" }}
               alt=""
             />

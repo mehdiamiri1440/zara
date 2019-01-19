@@ -391,7 +391,7 @@ class ItemDetails extends Component {
           </div>
         </div>
         {/* WEAR WITH */}
-        <div>
+        {/* <div>
           <span
             style={{ fontSize: 26 }}
             className="w-100 text-right row justify-content-end"
@@ -430,13 +430,9 @@ class ItemDetails extends Component {
               </div>
             ))}
           </div>
-          {/* <img
-              style={{ width: "23%", height: "80%" }}
-              src={require("../../contents/images/arms-cheerful-coffee-1331971.jpg")}
-              alt=""
-            /> */}
-        </div>
-        <div>
+        </div> */}
+
+        {/* <div>
           <span
             style={{ fontSize: 26 }}
             className="w-100 text-right row justify-content-end"
@@ -475,7 +471,8 @@ class ItemDetails extends Component {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
+
         <Footer />
       </div>
     ) : null;

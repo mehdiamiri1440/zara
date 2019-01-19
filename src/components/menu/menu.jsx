@@ -32,6 +32,7 @@ class Menu extends Component {
     console.log("in shopping basket and menu", this.props.user);
     this.setState({ user: this.props.user });
     if (
+      localStorage.basket &&
       JSON.parse(localStorage.basket) &&
       JSON.parse(localStorage.basket).length
     )
@@ -108,17 +109,46 @@ class Menu extends Component {
       }
     })
       .then(responseJson => {
-        window.location.reload();
         console.log("oit is thgew erwspiis", responseJson);
         localStorage.user = null;
         this.props.deleteUserData();
         this.props.history.push({
           pathname: "/home"
         });
+        window.location.reload();
       })
       .catch(error => {});
   }
   navigateToItemDetails() {}
+  renderSearch() {
+    const { classes } = this.props;
+    if (this.props.search) {
+      if (window.location.pathname != "/searchProducts") {
+        return (
+          <TextField
+            InputLabelProps={{
+              className: [classes.floatingLabel, classes.focused],
+              style: {
+                cursor: "pointer",
+                direction: "rtl",
+                color: this.renderColorOfTexts()
+              }
+            }}
+            style={{ cursor: "pointer" }}
+            id="search"
+            inputProps={{ style: { color: this.renderColorOfTexts() } }}
+            label="جستجو"
+            className={(classes.textField, "display-1 p-3 col-md-12")}
+            value={this.state.searchStuff}
+            onClick={() =>
+              this.props.history.push({ pathname: "/searchProducts" })
+            }
+            margin="normal"
+          />
+        );
+      }
+    }
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -136,23 +166,8 @@ class Menu extends Component {
           </Link>
 
           <div className="display-1 mt-3 col-md-4 col-sm-4 col-lg-4 p-3">
-            {this.props.search ? (
-              <TextField
-                InputLabelProps={{
-                  className: [classes.floatingLabel, classes.focused],
-                  style: { direction: "rtl", color: this.renderColorOfTexts() }
-                }}
-                id="search"
-                inputProps={{ style: { color: this.renderColorOfTexts() } }}
-                label="جستجو"
-                className={(classes.textField, "display-1 p-3 col-md-12")}
-                value={this.state.searchStuff}
-                onChange={event => this.searchStuff(event)}
-                margin="normal"
-              />
-            ) : null}
+            {this.renderSearch()}
           </div>
-
           <div
             style={{ paddingTop: "10%" }}
             className="pr-0 justify-content-end row col-md-4 col-sm-4 col-lg-4 p-3 "
@@ -464,6 +479,7 @@ const styles = theme => ({
   },
   floatingLabel: {
     color: "white",
+    cursor: "pointer",
     pointerEvents: "white"
   },
   button: {
