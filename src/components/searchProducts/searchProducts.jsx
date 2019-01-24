@@ -83,11 +83,7 @@ class SearchProducts extends Component {
                   });
                 }
               }}
-              src={
-                this.state.headerImage
-                  ? this.state.headerImage
-                  : require("../../contents/images/defualutpic.png")
-              }
+              src={this.state.headerImage ? this.state.headerImage : null}
               style={{ width: "40%", heigh: "20rem" }}
               alt=""
             />
@@ -153,6 +149,9 @@ class SearchProducts extends Component {
               ))}
             </div>
             <div className="col-lg-12 align-top align-text-top row justify-content-center text-center">
+              {cloth.name ? cloth.name : null}
+            </div>
+            <div className="col-lg-12 align-top align-text-top row justify-content-center text-center">
               {cloth.description ? cloth.description : null}
             </div>
           </div>
@@ -160,7 +159,7 @@ class SearchProducts extends Component {
       </div>
     );
   }
-  search() {
+  searchProduct() {
     fetch(`${serverAddress}/product/search`, {
       method: "POST",
       headers: {
@@ -174,6 +173,7 @@ class SearchProducts extends Component {
       .then(response => response.json())
       .then(responseJson => {
         responseJson.map(cloth => (cloth.selectedImage = -1));
+        console.log("sdfg", responseJson);
         this.setState({ products: responseJson });
       })
       .catch(error => {
@@ -200,7 +200,7 @@ class SearchProducts extends Component {
           value={this.state.searchStuff}
           onChange={event =>
             this.setState({ searchKey: event.target.value }, () => {
-              return this.search();
+              return this.searchProduct();
             })
           }
           margin="normal"

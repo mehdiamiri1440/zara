@@ -106,8 +106,9 @@ class Men extends Component {
             key={index}
           >
             <img
-              className="visibility"
+              className={`pt-3 ${cloth.isAvailable ? "visibility" : null}`}
               style={{
+                height: "90%",
                 width: counter.indexOf(index) != -1 ? "45%" : "90%"
               }}
               src={

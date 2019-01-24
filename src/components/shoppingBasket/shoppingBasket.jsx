@@ -127,6 +127,10 @@ class ShoppingBasket extends Component {
                     <span className="text-center align-middle">
                       {basket.count}
                     </span>
+                    {console.log(
+                      "it is the count of the basket",
+                      this.state.basket[indx]
+                    )}
                     <i
                       onClick={() => {
                         let myBasket = this.state.basket;

@@ -172,9 +172,10 @@ class Menu extends Component {
             style={{ paddingTop: "10%" }}
             className="pr-0 justify-content-end row col-md-4 col-sm-4 col-lg-4 p-3 "
           >
-            {this.state.user ? (
+            {this.state.user && this.state.user.username ? (
               <Link style={{ textDecoration: "none" }} to="/profile">
                 <div
+                  {...console.log("it is the fucking user:", this.state.user)}
                   style={{
                     color: this.renderColorOfTexts(),
                     cursor: "pointer"
@@ -348,7 +349,7 @@ class Menu extends Component {
                   ? this.renderSubMenu(this.state.open, 3)
                   : null} */}
               </div>
-              {this.state.user ? (
+              {this.state.user && this.state.user.username ? (
                 <div
                   onClick={() => this.logout()}
                   className="p-1  col-md-12 col-sm-12 col-lg-12"

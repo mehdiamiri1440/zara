@@ -116,7 +116,7 @@ class ItemDetails extends Component {
         color: this.state.color ? this.state.color : product.color[0],
         name: product.name,
         price: product.price,
-        count: this.state.count,
+        count: parseInt(this.state.count),
         _id: product._id
       };
       finalObject.push(selectedItem);

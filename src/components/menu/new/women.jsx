@@ -105,8 +105,12 @@ class Women extends Component {
             }
             key={index}
           >
-            <img // className=" visibility"
-              style={{ width: counter.indexOf(index) != -1 ? "45%" : "90%" }}
+            <img
+              className={`pt-3 ${cloth.isAvailable ? "visibility" : null}`}
+              style={{
+                height: "90%",
+                width: counter.indexOf(index) != -1 ? "45%" : "90%"
+              }}
               src={
                 cloth.selectedImage == -1
                   ? cloth.images[0]

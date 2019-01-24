@@ -5,6 +5,7 @@ import Menu from "../menu/menu";
 import Alert from "react-s-alert";
 import Footer from "../footer/footer";
 import { serverAddress } from "./../../utility/consts";
+import Joi from "joi-browser";
 import { connect } from "react-redux";
 import {
   FormControlLabel,
@@ -31,6 +32,64 @@ class CreateAccount extends Component {
       policies: false
     };
   }
+  validationTypes = {
+    phone: Joi.number()
+      .integer()
+      .required()
+      .min(10)
+      .error(
+        new Error(
+          "شماره تلفن تنها باید حاوی کارکتر های عددی و حداقل 10 رقم باشد"
+        )
+      ),
+    address: Joi.string()
+      .required()
+      .min(15)
+      .label("Address")
+      .error(new Error("آدرس باید حداقل 15 کارکتر باشد")),
+    postalCode: Joi.string()
+      .required()
+      .min(6)
+      .max(30)
+      .label("Postalcode")
+      .error(new Error("کد پستی باید حداقل 6 کارکتر با فرمت کد باشد")),
+    city: Joi.string()
+      .required()
+      .min(2)
+      .max(30)
+      .label("City")
+      .error(new Error("شهر الزامی است")),
+    firstName: Joi.string()
+      .required()
+      .min(2)
+      .max(30)
+      .label("Firstname")
+      .error(new Error("نام کوچک باید حداقل 2 کارکتر باشد")),
+    lastName: Joi.string()
+      .required()
+      .min(2)
+      .max(30)
+      .label("Lastname")
+      .error(new Error("نام خانوادگی باید حداقل 2 کارکتر باشد")),
+    username: Joi.string()
+      .required()
+      .min(6)
+      .max(30)
+      .label("Username")
+      .error(new Error("نام کاربری باید حداقل 6 کارکتر باشد")),
+    email: Joi.string()
+      .required()
+      .email({ minDomainAtoms: 2 })
+      // .regex(/example\.com$/)
+      .label("Email")
+      .error(new Error("ایمیل نامعتبر است")),
+    password: Joi.string()
+      .required()
+      .min(6)
+      .max(30)
+      .label("Password")
+      .error(new Error("رمز عبور باید حداقل 6 حرف باشد"))
+  };
   componentDidMount = () => {};
 
   fetchUserData(data, event) {
@@ -75,16 +134,43 @@ class CreateAccount extends Component {
         break;
     }
   }
-
-  createAccount() {
-    let user = this.state;
-    if (user.retypedPassword != user.password) {
-      Alert.error("دو رمز عبور وارد شده متفاوت می باشند", {
+  validationInputs = () => {
+    console.log("it is the username", this.state.userName);
+    const usernameError = Joi.validate(
+      {
+        phone: this.state.phone,
+        firstName: this.state.firstName,
+        username: this.state.userName,
+        lastName: this.state.lastName,
+        postalCode: this.state.postalCode,
+        city: this.state.city,
+        address: this.state.address[0],
+        password: this.state.password,
+        email: this.state.email
+      },
+      this.validationTypes
+    );
+    if (this.state.password != this.state.retypedPassword) {
+      Alert.error("دو رمز عبور یکسان نیستند", {
         position: "bottom-right",
         effect: "slide",
-        timeout: 2000
+        timeout: 4000
       });
-    } else {
+      return false;
+    }
+    if (usernameError.error) {
+      Alert.error(usernameError.error.message, {
+        position: "bottom-right",
+        effect: "slide",
+        timeout: 4000
+      });
+      return false;
+    }
+    return true;
+  };
+  createAccount() {
+    let user = this.state;
+    if (this.validationInputs()) {
       if (this.state.policies) {
         fetch(`${serverAddress}/user/signup`, {
           method: "POST",
