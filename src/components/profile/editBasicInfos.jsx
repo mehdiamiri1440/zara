@@ -5,6 +5,7 @@ import Alert from "react-s-alert";
 import Footer from "../footer/footer";
 import { Button, TextField } from "@material-ui/core";
 import { serverAddress } from "./../../utility/consts";
+import AccessDenied from "./../accessDenied/accessDenied";
 class EditBasicInfos extends Component {
   constructor(props) {
     super(props);
@@ -17,27 +18,44 @@ class EditBasicInfos extends Component {
       region: "",
       password: "",
       retypedPassword: "",
+      userLogin: false,
       address: "",
       postalCode: "",
       phone: "",
       policies: false
     };
   }
+  checkUserLoggedIn() {
+    fetch(`${serverAddress}/user/isuserlogin`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(responseJson => {
+        this.setState({ userLogin: responseJson }, () => {
+          console.log("check for loggin user", this.state.userLogin);
+        });
+      })
+      .catch(error => console.error("Error:", error));
+  }
   componentDidMount = () => {
-    this.getUserInfo();
+    this.checkUserLoggedIn();
+    // this.getUserInfo();
   };
   getUserInfo() {
-    //   fetch(`${serverAddress}/user`, {
-    //     method: "GET"
-    //   })
-    //     .then(response => response.json())
-    //     .then(responseJson => {
-    //       console.log("it is the response", responseJson);
-    //       this.setState({ users: responseJson });
-    //     })
-    //     .catch(error => console.error("Error:", error));
-    // }
+    fetch(`${serverAddress}/user`, {
+      method: "GET"
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log("it is the response", responseJson);
+        this.setState({ users: responseJson });
+      })
+      .catch(error => console.error("Error:", error));
   }
+
   fetchUserData(data, event) {
     switch (data) {
       case "email":
@@ -138,182 +156,183 @@ class EditBasicInfos extends Component {
     }
   }
   render() {
-    return (
-      <div>
-        <Alert stack={{ limit: 3 }} />
-        <div style={{ zIndex: -9 }}>
-          <Menu
-            menuItems={true}
-            login={false}
-            contact={true}
-            search={false}
-            color="black"
-            basket={true}
-          />
-        </div>
-        <div className="" style={{ height: "35vh", zIndex: 22222 }} />
-        <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
-          <div
-            style={{
-              fontSize: 30,
-              fontWeight: "bold"
-            }}
-            className="text-center col-md-4 col-lg-4 row justify-content-center"
-          >
-            ویرایش اطلاعات شخصی
-          </div>
-        </div>
-        <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
-          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
-            <TextField
-              style={{ width: "60%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="پست الکترونیک"
-              type="email"
-              value={this.state.email}
-              onChange={event => this.fetchUserData("email", event)}
-              margin="normal"
+    if (this.state.userLogin)
+      return (
+        <div>
+          <Alert stack={{ limit: 3 }} />
+          <div style={{ zIndex: -9 }}>
+            <Menu
+              menuItems={true}
+              login={false}
+              contact={true}
+              search={false}
+              color="black"
+              basket={true}
             />
           </div>
-          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
-            <TextField
-              style={{ width: "60%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="رمز ورود "
-              type="password"
-              value={this.state.password}
-              onChange={event => this.fetchUserData("password", event)}
-              margin="normal"
-            />
-          </div>
-        </div>
-        <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
-          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
-            <TextField
-              style={{ width: "60%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="تکرار رمز ورود"
-              type="password"
-              value={this.state.retypedPassword}
-              onChange={event => this.fetchUserData("retypedPassword", event)}
-              margin="normal"
-            />
-          </div>
-          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
-            <TextField
-              style={{ width: "60%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="نام"
-              type="text"
-              value={this.state.firstName}
-              onChange={event => this.fetchUserData("firstName", event)}
-              margin="normal"
-            />
-          </div>
-        </div>
-        <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
-          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
-            <TextField
-              style={{ width: "60%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="نام خانوادگی "
-              type="text"
-              value={this.state.lastName}
-              onChange={event => this.fetchUserData("lastName", event)}
-              margin="normal"
-            />
-          </div>
-          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
-            <TextField
-              style={{ width: "60%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="شهر "
-              type="text"
-              value={this.state.city}
-              onChange={event => this.fetchUserData("city", event)}
-              margin="normal"
-            />
-          </div>
-        </div>
-        <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
-          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
-            <TextField
-              style={{ width: "60%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="کد پستی"
-              type="text"
-              value={this.state.postalCode}
-              onChange={event => this.fetchUserData("postalCode", event)}
-              margin="normal"
-            />
-          </div>
-          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
-            <TextField
-              style={{ width: "60%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="منطقه "
-              type="text"
-              value={localStorage.language}
-              onChange={event => this.fetchUserData("region", event)}
-              margin="normal"
-            />
-          </div>
-        </div>
-        <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
-          <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
-            <TextField
-              style={{ width: "60%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="تلفن "
-              type="text"
-              value={this.state.phone}
-              onChange={event => this.fetchUserData("phone", event)}
-              margin="normal"
-            />
+          <div className="" style={{ height: "35vh", zIndex: 22222 }} />
+          <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
+            <div
+              style={{
+                fontSize: 30,
+                fontWeight: "bold"
+              }}
+              className="text-center col-md-4 col-lg-4 row justify-content-center"
+            >
+              ویرایش اطلاعات شخصی
+            </div>
           </div>
           <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
-            <TextField
-              style={{ width: "80%" }}
-              InputProps={{ disableUnderline: false }}
-              id="outlined-name"
-              label="آدرس "
-              type="text"
-              value={this.state.address}
-              onChange={event => this.fetchUserData("address", event)}
-              margin="normal"
-            />
+            <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+              <TextField
+                style={{ width: "60%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="پست الکترونیک"
+                type="email"
+                value={this.state.email}
+                onChange={event => this.fetchUserData("email", event)}
+                margin="normal"
+              />
+            </div>
+            <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+              <TextField
+                style={{ width: "60%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="رمز ورود "
+                type="password"
+                value={this.state.password}
+                onChange={event => this.fetchUserData("password", event)}
+                margin="normal"
+              />
+            </div>
           </div>
+          <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
+            <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+              <TextField
+                style={{ width: "60%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="تکرار رمز ورود"
+                type="password"
+                value={this.state.retypedPassword}
+                onChange={event => this.fetchUserData("retypedPassword", event)}
+                margin="normal"
+              />
+            </div>
+            <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+              <TextField
+                style={{ width: "60%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="نام"
+                type="text"
+                value={this.state.firstName}
+                onChange={event => this.fetchUserData("firstName", event)}
+                margin="normal"
+              />
+            </div>
+          </div>
+          <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
+            <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+              <TextField
+                style={{ width: "60%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="نام خانوادگی "
+                type="text"
+                value={this.state.lastName}
+                onChange={event => this.fetchUserData("lastName", event)}
+                margin="normal"
+              />
+            </div>
+            <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+              <TextField
+                style={{ width: "60%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="شهر "
+                type="text"
+                value={this.state.city}
+                onChange={event => this.fetchUserData("city", event)}
+                margin="normal"
+              />
+            </div>
+          </div>
+          <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
+            <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+              <TextField
+                style={{ width: "60%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="کد پستی"
+                type="text"
+                value={this.state.postalCode}
+                onChange={event => this.fetchUserData("postalCode", event)}
+                margin="normal"
+              />
+            </div>
+            <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+              <TextField
+                style={{ width: "60%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="منطقه "
+                type="text"
+                value={localStorage.language}
+                onChange={event => this.fetchUserData("region", event)}
+                margin="normal"
+              />
+            </div>
+          </div>
+          <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
+            <div className="row justify-content-center col-md-5 col-lg-5 col-sm-5 ">
+              <TextField
+                style={{ width: "60%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="تلفن "
+                type="text"
+                value={this.state.phone}
+                onChange={event => this.fetchUserData("phone", event)}
+                margin="normal"
+              />
+            </div>
+            <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
+              <TextField
+                style={{ width: "80%" }}
+                InputProps={{ disableUnderline: false }}
+                id="outlined-name"
+                label="آدرس "
+                type="text"
+                value={this.state.address}
+                onChange={event => this.fetchUserData("address", event)}
+                margin="normal"
+              />
+            </div>
+          </div>
+          <div className="pt-5 row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
+            <Button
+              className="p-3"
+              onClick={() => this.updateUserInfos()}
+              variant="contained"
+              style={{
+                color: "white",
+                backgroundColor: "#000000",
+                marginTop: "6%",
+                width: "60%",
+                border: 0,
+                borderRadius: 0
+              }}
+            >
+              به روز رسانی اطلاعات
+            </Button>
+          </div>
+          <Footer />
         </div>
-        <div className="pt-5 row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
-          <Button
-            className="p-3"
-            onClick={() => this.updateUserInfos()}
-            variant="contained"
-            style={{
-              color: "white",
-              backgroundColor: "#000000",
-              marginTop: "6%",
-              width: "60%",
-              border: 0,
-              borderRadius: 0
-            }}
-          >
-            به روز رسانی اطلاعات
-          </Button>
-        </div>
-
-        <Footer />
-      </div>
-    );
+      );
+    return <AccessDenied />;
   }
 }
 export default withRouter(EditBasicInfos);

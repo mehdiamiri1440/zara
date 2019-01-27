@@ -22,26 +22,22 @@ class ItemDetails extends Component {
       selectedColor: [],
       similarItems: [
         {
-          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
           name: "تی شزت سال جدید",
           price: "2000",
           sizes: ["sx", "s", "md"],
           colors: ["red", "blue", "green"]
         },
         {
-          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
           name: "نو نیست",
           price: "56867",
           sizes: ["sx", "s", "lg"]
         },
         {
-          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
           name: "عجب تی شزتی",
           price: "1000",
           sizes: ["d", "s", "md"]
         },
         {
-          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
           name: "بیا که ارزانیست",
           price: "43222",
           sizes: ["md", "s", "ss"]
@@ -49,25 +45,21 @@ class ItemDetails extends Component {
       ],
       matchWith: [
         {
-          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
           name: "تی شزت سال جدید",
           price: "2000",
           sizes: ["sx", "s", "md"]
         },
         {
-          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
           name: "نو نیست",
           price: "56867",
           sizes: ["sx", "s", "lg"]
         },
         {
-          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
           name: "عجب تی شزتی",
           price: "1000",
           sizes: ["d", "s", "md"]
         },
         {
-          image: require("../../contents/images/arms-cheerful-coffee-1331971.jpg"),
           name: "بیا که ارزانیست",
           price: "43222",
           sizes: ["md", "s", "ss"]

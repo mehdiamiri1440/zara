@@ -1,0 +1,9 @@
+.hoverableText:hover {
+  transition: 0.4s ease-in-out;
+  transform: scale(0.8);
+  color: rgba(190, 45, 201, 0.815) !important ;
+}
+.hoverabletext {
+  transition: 1s ease-out;
+  color: rgba(190, 45, 201, 0.815) !important ;
+}
