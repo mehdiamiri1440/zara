@@ -51,8 +51,7 @@ class Landing extends Component {
         // responseJson.map(roleID => rolesID.push(roleID.Id));
         this.setState({ countries: responseJson });
       })
-      .catch(error => {
-      });
+      .catch(error => {});
   }
   fetchCountryAndLanguage() {
     // 172.16.204.236:3003/country/get
@@ -98,7 +97,7 @@ class Landing extends Component {
         </span>
         <div className=" col-md-12 col-sm-12 col-lg-12">
           <div>
-            <FormControl className={[classes.formControl, "w-25  m-5"]}>
+            <FormControl className={"w-25  m-5"}>
               <InputLabel className="text-white" htmlFor="country">
                 country
               </InputLabel>
@@ -116,7 +115,7 @@ class Landing extends Component {
                 ))}
               </Select>
             </FormControl>
-            <FormControl className={[classes.formControl, "w-25  m-5"]}>
+            <FormControl className={"w-25  m-5"}>
               <InputLabel className="text-white" htmlFor="language">
                 language
               </InputLabel>
@@ -135,15 +134,13 @@ class Landing extends Component {
               </Select>
             </FormControl>
             <FormControl
-              className={[
+              className={
                 "w-25 pt-3 row justify-content-center align-items-center mt-5"
-              ]}
+              }
             >
               <Button
-                color="success"
                 onClick={() => this.fetchCountryAndLanguage()}
                 variant="contained"
-                className={[classes.button]}
                 style={{
                   marginRight: "20%",
                   width: "30%",

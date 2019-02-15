@@ -29,7 +29,7 @@ class ResetPassword extends Component {
       .then(responseJson => {
         if (responseJson)
           this.props.history.push({
-            pathname: "/passwordSentsuccessfully"
+            pathname: "/profile/passwordSentsuccessfully"
           });
         else {
           Alert.error("ایمیل اشتباه است", {

@@ -17,14 +17,6 @@ const initialState = {
 };
 // console.log("it is the user information in redux reducer", user);
 export default function(state = initialState, action) {
-  console.log(
-    "in reducer:",
-    state.basketCount,
-    state.basket.length,
-    state.basket,
-    state,
-    action
-  );
   switch (action.type) {
     case DELETE_BASKET_COUNT:
       return {

@@ -173,7 +173,7 @@ class CheckForSignUp extends Component {
           <Link
             className="row pl-5 justify-content-start col-md-4 col-lg-4"
             style={{ cursor: "pointer" }}
-            to="/resetPassword"
+            to="/profile/resetPassword"
           >
             <div style={{ color: "#808080", textDecoration: "underline" }}>
               آیا رمز عبور خود را فراموش کرده اید ؟

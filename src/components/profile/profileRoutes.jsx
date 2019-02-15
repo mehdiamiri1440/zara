@@ -32,7 +32,7 @@ class ProfileRoutes extends React.Component {
         />
         <Route
           exact
-          path="/passwordSentSuccessfully"
+          path="/profile/passwordSentSuccessfully"
           render={() => <PasswordSentSuccessfully {...this.props} />}
         />
         <Route
