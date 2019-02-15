@@ -6,6 +6,7 @@ import Menu from "../menu/menu";
 import Footer from "../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
 import { serverAddress } from "./../../utility/consts";
+import { FormattedMessage, injectIntl } from "react-intl";
 class ResetPassword extends Component {
   constructor(props) {
     super(props);
@@ -32,19 +33,25 @@ class ResetPassword extends Component {
             pathname: "/profile/passwordSentsuccessfully"
           });
         else {
-          Alert.error("ایمیل اشتباه است", {
-            position: "bottom-right",
-            effect: "slide",
-            timeout: 2000
-          });
+          Alert.error(
+            this.props.intl.formatMessage({ id: "resetpassword.wrongemail" }),
+            {
+              position: "bottom-right",
+              effect: "slide",
+              timeout: 2000
+            }
+          );
         }
       })
       .catch(error => {
-        Alert.error("خطا در ارسال اطلاعات", {
-          position: "bottom-right",
-          effect: "slide",
-          timeout: 2000
-        });
+        Alert.error(
+          this.props.intl.formatMessage({ id: "resetpassword.errorinfetch" }),
+          {
+            position: "bottom-right",
+            effect: "slide",
+            timeout: 2000
+          }
+        );
       });
   }
   render() {
@@ -71,7 +78,7 @@ class ResetPassword extends Component {
             }}
             className="text-center col-md-5 col-lg-5 row justify-content-center"
           >
-            آیا رمز عبور خود را فراموش کرده اید ؟
+            <FormattedMessage id="resetpassword.forgetpassword" />
           </div>
         </div>
         <div className="col-md-12 pt-3 col-lg-12 col-sm-12 row justify-content-center">
@@ -79,7 +86,7 @@ class ResetPassword extends Component {
             style={{ width: "40%" }}
             InputProps={{ disableUnderline: false }}
             id="outlined-name"
-            label="ایمیل"
+            label={this.props.intl.formatMessage({ id: "resetpassword.email" })}
             type="email"
             value={this.state.email}
             onChange={event => this.fetchEmail(event)}
@@ -101,7 +108,7 @@ class ResetPassword extends Component {
               borderRadius: 0
             }}
           >
-            بازنشانی رمز عبور
+            <FormattedMessage id="resetpassword.resetpassword" />
           </Button>
         </div>
         <Footer />
@@ -151,4 +158,4 @@ const styles = theme => ({
 ResetPassword.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withRouter(withStyles(styles)(ResetPassword));
+export default injectIntl(withRouter(withStyles(styles)(ResetPassword)));

@@ -9,7 +9,7 @@ import { withStyles, TextField, Input } from "@material-ui/core";
 import Basket from "@material-ui/icons/ShoppingCart";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import color from "@material-ui/core/colors/teal";
+import { FormattedMessage, injectIntl } from "react-intl";
 import { serverAddress } from "./../../utility/consts";
 class Home extends Component {
   constructor(props) {
@@ -40,35 +40,11 @@ class Home extends Component {
         // responseJson.map(roleID => rolesID.push(roleID.Id));
         this.setState({ carousels: responseJson, loading: false });
       })
-      .catch(error => {
-      });
+      .catch(error => {});
   }
   fetchEmail(event) {
     this.setState({ email: event.target.value });
   }
-  scrollFunc(event) {}
-  renderFooter() {
-    return (
-      <div
-        style={{}}
-        className="row justify-content-center align-items-center w-100 col-md-12 col-sm-12 col-lg-12 text-center align-middle"
-      >
-        <TextField
-          style={{ width: "60%" }}
-          InputProps={{
-            disableUnderline: false
-          }}
-          id="outlined-name"
-          label="SIGN UP FOR OUR NEWSLETTER "
-          value={this.state.email}
-          onChange={event => this.fetchEmail(event)}
-          margin="normal"
-          classes={{}}
-        />
-      </div>
-    );
-  }
-
   render() {
     const { classes } = this.props;
     return (

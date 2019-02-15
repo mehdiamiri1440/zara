@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Redirect, Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles, TextField, Input } from "@material-ui/core";
+import { FormattedMessage, injectIntl } from "react-intl";
+
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,7 @@ class Footer extends Component {
             style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
             href=""
           >
-            CONTACT US
+            <FormattedMessage id="menu.contactus" />
           </a>
         </div>
         <div className="p-1">
@@ -29,7 +31,7 @@ class Footer extends Component {
             style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
             href=""
           >
-            STORES
+            <FormattedMessage id="footer.stories" />
           </a>
         </div>
         <div className="p-1">
@@ -37,7 +39,7 @@ class Footer extends Component {
             style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
             href=""
           >
-            HELP
+            <FormattedMessage id="footer.help" />
           </a>
         </div>
         <div className="p-1">
@@ -45,7 +47,7 @@ class Footer extends Component {
             style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
             href=""
           >
-            COMPANY
+            <FormattedMessage id="footer.company" />
           </a>
         </div>
       </div>
@@ -58,16 +60,12 @@ class Footer extends Component {
           style={{ height: 300 }}
           className="row justify-content-center align-items-center w-100 col-md-12 col-sm-12 col-lg-12 text-center align-middle"
         >
-          <TextField
-            style={{ width: "60%" }}
-            InputProps={{ disableUnderline: false }}
-            id="outlined-name"
-            label="SIGN UP FOR OUR NEWSLETTER "
-            value={this.state.email}
-            onChange={event => this.fetchEmail(event)}
-            margin="normal"
-            classes={{}}
-          />
+          <span
+            className="border-bottom d-flex justify-content-start"
+            style={{ color: "rgba(0,0,0,0.6)", width: "60%" }}
+          >
+            <FormattedMessage id="footer.signupnow" />
+          </span>
         </div>
         <div className="col-md-12 col-lg-12 col-sm-12 row justify-content-center align-items-center text-center">
           <div className="p-2">
@@ -75,7 +73,7 @@ class Footer extends Component {
               style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
               href=""
             >
-              INSTAGRAM
+              <FormattedMessage id="footer.instagram" />
             </a>
           </div>
           <div className="p-2">
@@ -83,7 +81,7 @@ class Footer extends Component {
               style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
               href=""
             >
-              FACEBOOK
+              <FormattedMessage id="footer.facebook" />
             </a>
           </div>
           <div className="p-2">
@@ -91,7 +89,7 @@ class Footer extends Component {
               style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
               href=""
             >
-              TWITTER
+              <FormattedMessage id="footer.twitter" />
             </a>
           </div>
           <div className="p-2">
@@ -99,7 +97,7 @@ class Footer extends Component {
               style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
               href=""
             >
-              TELEGRAM
+              <FormattedMessage id="footer.telegram" />
             </a>
           </div>
         </div>
@@ -114,7 +112,7 @@ class Footer extends Component {
             }}
             href=""
           >
-            +INFO
+            <FormattedMessage id="footer.info" />
           </div>
           <div className=" row justify-content-start">
             {this.state.showMore ? this.renderMoreInfo() : null}
@@ -126,7 +124,7 @@ class Footer extends Component {
               style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
               href=""
             >
-              TERMS OF USE |
+              <FormattedMessage id="footer.termofuse" /> |
             </a>
           </div>
           <div className="p-2">
@@ -134,7 +132,7 @@ class Footer extends Component {
               style={{ color: "rgba(0,0,0,0.6)", textDecoration: "none" }}
               href=""
             >
-              PRIVACY
+              <FormattedMessage id="footer.privacy" /> |
             </a>
           </div>
         </div>
@@ -184,4 +182,4 @@ const styles = theme => ({
 Footer.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withRouter(withStyles(styles)(Footer));
+export default injectIntl(withRouter(withStyles(styles)(Footer)));
