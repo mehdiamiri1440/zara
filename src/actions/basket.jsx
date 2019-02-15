@@ -1,22 +1,27 @@
-export const SHOW_ALERT = "SHOW_ALERT";
-export const HIDE_ALERT = "HIDE_ALERT";
+export const DELETE_BASKET_COUNT = "DELETE_BASKET_COUNT";
+export const ADD_BASKET_COUNT = "ADD_BASKET_COUNT";
 
 /**
  * @param {String} message
  * @return {Object}
  */
-export function showAlert(message) {
-  return {
-    type: SHOW_ALERT,
-    message
+export function addBasketCount(index) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: ADD_BASKET_COUNT,
+      index: index
+    });
   };
 }
 
 /**
  * @return {Object}
  */
-export function hideAlert() {
-  return {
-    type: HIDE_ALERT
+export function deleteBasketCount(index) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: DELETE_BASKET_COUNT,
+      index: index
+    });
   };
 }

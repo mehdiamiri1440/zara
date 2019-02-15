@@ -9,7 +9,10 @@ import { withStyles, TextField } from "@material-ui/core";
 import { connect } from "react-redux";
 import { numberWithCommas } from "./../../utility/index";
 import { serverAddress } from "./../../utility/consts";
-
+import { FormattedMessage } from "react-intl";
+import { addBasketCount, deleteBasketCount } from "../../actions/basket";
+import store from "../../store";
+import { userLogout } from "../../actions/user";
 class Menu extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +32,6 @@ class Menu extends Component {
     this.setState({ scrollY: lastScrollY });
   };
   componentDidMount() {
-    console.log("in shopping basket and menu", this.props.user);
     this.setState({ user: this.props.user });
     if (
       localStorage.basket &&
@@ -111,7 +113,7 @@ class Menu extends Component {
       .then(responseJson => {
         console.log("oit is thgew erwspiis", responseJson);
         localStorage.user = null;
-        this.props.deleteUserData();
+        this.props.userLogout();
         this.props.history.push({
           pathname: "/home"
         });
@@ -158,7 +160,7 @@ class Menu extends Component {
       >
         <div className="position-fixed row col-md-12 col-sm-12 col-lg-12">
           <Link
-            className="display-1 p-3 col-md-4 col-sm-4 col-lg-4"
+            className="display-1 p-3 col-md-4 col-sm-4 d-flex justify-content-start col-lg-4"
             style={{ textDecoration: "none", cursor: "pointer" }}
             to="/home"
           >
@@ -194,7 +196,7 @@ class Menu extends Component {
                   }}
                   className="pt-4 p-2 mt-5 align-middle"
                 >
-                  ورود
+                  <FormattedMessage id="menu.login" />
                 </div>
               </Link>
             )}
@@ -222,76 +224,89 @@ class Menu extends Component {
                     className=" fas fa-shopping-cart"
                   />
                   <span
-                    style={{ bottom: "72%", left: "50%" }}
+                    style={{
+                      bottom: "72%",
+                      left:
+                        this.props.language.direction === "ltr" ? "50%" : "-50%"
+                    }}
                     className="position-absolute bg-info  text-white px-1 rounded-circle"
                   >
                     {this.props.basketCount}
                   </span>
                   <div
+                    style={{
+                      left: this.props.language.direction === "ltr" ? null : 0,
+                      right:
+                        this.props.language.direction === "ltr" ? "2.5%" : null
+                    }}
                     className="p-2 border-3 inBaskets border-dark border-1 bg-white"
                     id="baskets"
                   >
-                    {this.props.basket.map((item, indx) => (
-                      <div
-                        key={indx}
-                        onClick={() => {
-                          this.props.history.push({
-                            pathname: `/itemDetails/id/${item._id}`,
-                            state: item._id
-                          });
-                          window.location.reload();
-                        }}
-                        className="border-bottom d-flex p-1"
-                      >
-                        <img
-                          src={item.image}
-                          style={{ width: "35%", height: "60%" }}
-                          alt=""
-                        />
-                        <div style={{ width: "60%" }} className="text-center">
-                          <div className="px-2 text-right align-top text-dark">
-                            {item.name}
-                          </div>
-                          <div
-                            style={{ fontsize: 16 }}
-                            className="px-2 text-muted  text-right align-top"
-                          >
-                            {numberWithCommas(item.price)}
-                          </div>
-                          <div
-                            style={{ fontsize: 16 }}
-                            className="px-2 text-muted  text-right align-top text-dark"
-                          >
-                            {item.size}
-                          </div>
-                          <div
-                            style={{ fontsize: 16 }}
-                            className="px-2 text-muted  text-right align-top text-dark"
-                          >
-                            {item.color}
-                          </div>
-                          <div
-                            style={{ fontsize: 16 }}
-                            className="px-2 text-muted  text-right align-top text-dark"
-                          >
-                            <i
-                              onClick={e => {
-                                e.stopPropagation();
-                                this.props.deleteItemFromBasket();
-                                let basket = this.state.basket;
-                                basket.splice(indx, 1);
-                                this.setState({ basket }, () => {
-                                  localStorage.basket = JSON.stringify(
-                                    this.state.basket
+                    {this.props.basket &&
+                      this.props.basket.length &&
+                      this.props.basket.map((item, indx) => (
+                        <div
+                          key={indx}
+                          onClick={() => {
+                            this.props.history.push({
+                              pathname: `/itemDetails/id/${item._id}`,
+                              state: item._id
+                            });
+                            window.location.reload();
+                          }}
+                          className="border-bottom d-flex p-1"
+                        >
+                          <img
+                            src={item.image}
+                            style={{ width: "35%", height: "60%" }}
+                            alt=""
+                          />
+                          <div style={{ width: "60%" }} className="text-center">
+                            <div className="px-2 text-right align-top text-dark">
+                              {item.name}
+                            </div>
+                            <div
+                              style={{ fontsize: 16 }}
+                              className="px-2 text-muted  text-right align-top"
+                            >
+                              {numberWithCommas(item.price)}
+                            </div>
+                            <div
+                              style={{ fontsize: 16 }}
+                              className="px-2 text-muted  text-right align-top text-dark"
+                            >
+                              {item.size}
+                            </div>
+                            <div
+                              style={{ fontsize: 16 }}
+                              className="px-2 text-muted  text-right align-top text-dark"
+                            >
+                              {item.color}
+                            </div>
+                            <div
+                              style={{ fontsize: 16 }}
+                              className="px-2 text-muted  text-right align-top text-dark"
+                            >
+                              <i
+                                onClick={e => {
+                                  e.stopPropagation();
+                                  let basket = this.state.basket;
+                                  basket.splice(indx, 1);
+                                  this.setState({ basket }, () => {
+                                    localStorage.basket = JSON.stringify(
+                                      this.state.basket
+                                    );
+                                  });
+                                  this.props.deleteBasketCount(
+                                    this.props.basket.length
                                   );
-                                });
-                              }}
-                              className="fa fa-trash"
-                            />
+                                }}
+                                className="fa fa-trash"
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 </div>
               </div>
@@ -305,7 +320,7 @@ class Menu extends Component {
                 color: this.renderColorOfTexts(),
                 cursor: "pointer"
               }}
-              className="position-absolute pl-3"
+              className="position-absolute px-3"
             >
               <Link
                 style={{
@@ -501,21 +516,16 @@ const styles = theme => ({
 // };
 function mapDispatchToProps(dispatch) {
   return {
-    deleteItemFromBasket: () => {
-      const action = { type: "DELETE_BASKET_COUNT", user: localStorage.user };
-      dispatch(action);
-    },
-    deleteUserData: () => {
-      const action = { type: "USER", user: localStorage.user };
-      dispatch(action);
-    }
+    userLogout: () => dispatch(userLogout()),
+    deleteBasketCount: index => dispatch(deleteBasketCount(index))
   };
 }
 function mapStateToProps(state) {
   return {
-    basketCount: state.basketCount,
-    basket: state.basket,
-    user: state.user
+    basketCount: state.basket.basketCount,
+    language: state.language,
+    basket: state.basket.basket,
+    user: state.user.user
   };
 }
 export default connect(

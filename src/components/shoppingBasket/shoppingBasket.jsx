@@ -6,6 +6,7 @@ import "./shoppingbasket.css";
 import { connect } from "react-redux";
 import store from "../../store";
 import { numberWithCommas } from "./../../utility/index";
+import { deleteBasketCount } from "../../actions/basket";
 var sum = 0;
 class ShoppingBasket extends Component {
   constructor(props) {
@@ -165,7 +166,7 @@ class ShoppingBasket extends Component {
                             );
                           }
                         );
-                        this.props.deleteItemFromBasket();
+                        this.props.deleteBasketCount(this.props.basket.length);
                       }}
                       style={{ fontSize: 20, cursor: "pointer" }}
                       className="fas fa-times-circle"
@@ -178,7 +179,7 @@ class ShoppingBasket extends Component {
         </div>
         <div className="px-5  d-flex justify-content-end">
           <span>تومان</span>
-          <span>{this.state.sum}</span>
+          <span>{numberWithCommas(this.state.sum)}</span>
           <span>: تمامی خرید ها</span>
         </div>
         <div className="px-5 pt-1 d-flex justify-content-end">
@@ -188,7 +189,7 @@ class ShoppingBasket extends Component {
         </div>
         <div className="px-5 pt-1 d-flex justify-content-end">
           <span>تومان</span>
-          <span>{this.state.sum}</span>
+          <span>{numberWithCommas(this.state.sum)}</span>
           <span>: کل هزینه</span>
         </div>
         <div className="row justify-content-between px-5 pt-5">
@@ -224,14 +225,11 @@ class ShoppingBasket extends Component {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    deleteItemFromBasket: () => {
-      const action = { type: "DELETE_BASKET_COUNT" };
-      dispatch(action);
-    }
+    deleteBasketCount: index => dispatch(deleteBasketCount(index))
   };
 }
 function mapStateToProps(state) {
-  return { basketCount: state.basketCount, basket: state.basket };
+  return { basketCount: state.basket.basketCount, basket: state.basket.basket };
 }
 export default connect(
   mapStateToProps,

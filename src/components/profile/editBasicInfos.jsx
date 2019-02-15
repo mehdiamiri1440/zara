@@ -6,16 +6,18 @@ import Footer from "../footer/footer";
 import { Button, TextField } from "@material-ui/core";
 import { serverAddress } from "./../../utility/consts";
 import AccessDenied from "./../accessDenied/accessDenied";
+import { connect } from "react-redux";
 class EditBasicInfos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: [],
+      user: {},
       email: "",
       firstName: "",
       lastName: "",
       city: "",
       region: "",
+      country: "",
       password: "",
       retypedPassword: "",
       userLogin: false,
@@ -42,51 +44,64 @@ class EditBasicInfos extends Component {
   }
   componentDidMount = () => {
     this.checkUserLoggedIn();
-    // this.getUserInfo();
+    this.setState({ country: localStorage.country });
+    this.getUserInfo();
   };
   getUserInfo() {
-    fetch(`${serverAddress}/user`, {
-      method: "GET"
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log("it is the response", responseJson);
-        this.setState({ users: responseJson });
-      })
-      .catch(error => console.error("Error:", error));
+    this.setState({ user: this.props.user });
+    // fetch(`${serverAddress}/user`, {
+    //   method: "GET"
+    // })
+    //   .then(response => response.json())
+    //   .then(responseJson => {
+    //     console.log("it is the response", responseJson);
+    //     this.setState({ user: responseJson });
+    //   })
+    //   .catch(error => console.error("Error:", error));
   }
 
   fetchUserData(data, event) {
+    let user = this.state.user;
     switch (data) {
       case "email":
-        this.setState({ email: event.target.value });
+        user.email = event.target.value;
+        this.setState({ user });
         break;
       case "firstName":
-        this.setState({ firstName: event.target.value });
+        user.firstName = event.target.value;
+        this.setState({ user });
         break;
       case "lastName":
-        this.setState({ lastName: event.target.value });
+        user.lastName = event.target.value;
+        this.setState({ user });
         break;
       case "address":
-        this.setState({ address: event.target.value });
+        user.address = event.target.value;
+        this.setState({ user });
         break;
       case "city":
-        this.setState({ city: event.target.value });
+        user.city = event.target.value;
+        this.setState({ user });
         break;
       case "password":
-        this.setState({ password: event.target.value });
+        user.password = event.target.value;
+        this.setState({ user });
         break;
       case "retypedPassword":
-        this.setState({ retypedPassword: event.target.value });
+        user.retypedPassword = event.target.value;
+        this.setState({ user });
         break;
       case "region":
-        this.setState({ region: localStorage.country });
+        localStorage.country = event.target.value;
+        this.setState({ country: localStorage.country });
         break;
       case "postalCode":
-        this.setState({ postalCode: event.target.value });
+        user.postalCode = event.target.value;
+        this.setState({ user });
         break;
       case "phone":
-        this.setState({ phone: event.target.value });
+        user.phone = event.target.value;
+        this.setState({ user });
         break;
       case "policies":
         this.setState({ policies: !this.state.policies });
@@ -173,10 +188,7 @@ class EditBasicInfos extends Component {
           <div className="" style={{ height: "35vh", zIndex: 22222 }} />
           <div className="row justify-content-center col-md-12 col-lg-12 col-sm-12 ">
             <div
-              style={{
-                fontSize: 30,
-                fontWeight: "bold"
-              }}
+              style={{ fontSize: 30, fontWeight: "bold" }}
               className="text-center col-md-4 col-lg-4 row justify-content-center"
             >
               ویرایش اطلاعات شخصی
@@ -190,7 +202,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="پست الکترونیک"
                 type="email"
-                value={this.state.email}
+                value={this.state.user && this.state.user.email}
                 onChange={event => this.fetchUserData("email", event)}
                 margin="normal"
               />
@@ -202,7 +214,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="رمز ورود "
                 type="password"
-                value={this.state.password}
+                value={this.state.user && this.state.user.password}
                 onChange={event => this.fetchUserData("password", event)}
                 margin="normal"
               />
@@ -216,7 +228,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="تکرار رمز ورود"
                 type="password"
-                value={this.state.retypedPassword}
+                value={this.state.user && this.state.user.retypedPassword}
                 onChange={event => this.fetchUserData("retypedPassword", event)}
                 margin="normal"
               />
@@ -228,7 +240,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="نام"
                 type="text"
-                value={this.state.firstName}
+                value={this.state.user && this.state.user.firstName}
                 onChange={event => this.fetchUserData("firstName", event)}
                 margin="normal"
               />
@@ -242,7 +254,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="نام خانوادگی "
                 type="text"
-                value={this.state.lastName}
+                value={this.state.user && this.state.user.lastName}
                 onChange={event => this.fetchUserData("lastName", event)}
                 margin="normal"
               />
@@ -254,7 +266,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="شهر "
                 type="text"
-                value={this.state.city}
+                value={this.state.user && this.state.user.city}
                 onChange={event => this.fetchUserData("city", event)}
                 margin="normal"
               />
@@ -268,7 +280,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="کد پستی"
                 type="text"
-                value={this.state.postalCode}
+                value={this.state.user && this.state.user.postalCode}
                 onChange={event => this.fetchUserData("postalCode", event)}
                 margin="normal"
               />
@@ -280,7 +292,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="منطقه "
                 type="text"
-                value={localStorage.language}
+                value={this.state.country}
                 onChange={event => this.fetchUserData("region", event)}
                 margin="normal"
               />
@@ -294,7 +306,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="تلفن "
                 type="text"
-                value={this.state.phone}
+                value={this.state.user && this.state.user.phone}
                 onChange={event => this.fetchUserData("phone", event)}
                 margin="normal"
               />
@@ -306,7 +318,7 @@ class EditBasicInfos extends Component {
                 id="outlined-name"
                 label="آدرس "
                 type="text"
-                value={this.state.address}
+                value={this.state.user && this.state.user.address}
                 onChange={event => this.fetchUserData("address", event)}
                 margin="normal"
               />
@@ -335,4 +347,22 @@ class EditBasicInfos extends Component {
     return <AccessDenied />;
   }
 }
-export default withRouter(EditBasicInfos);
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteItemFromBasket: () => {
+      const action = { type: "ADD_BASKET_COUNT" };
+      dispatch(action);
+    }
+  };
+}
+function mapStateToProps(state) {
+  return {
+    basketCount: state.basketCount,
+    basket: state.basket,
+    user: state.user
+  };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(EditBasicInfos));

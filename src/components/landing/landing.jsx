@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "./styles.css";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import Alert from "react-s-alert";
 import { withStyles } from "@material-ui/core/styles";
@@ -14,6 +13,8 @@ import {
   MenuItem,
   FormControl
 } from "@material-ui/core";
+import { changeLanguage } from "../../actions/language";
+import { connect } from "react-redux";
 class Landing extends Component {
   constructor(props) {
     super(props);
@@ -57,6 +58,10 @@ class Landing extends Component {
   }
   fetchCountryAndLanguage() {
     // 172.16.204.236:3003/country/get
+    console.log("langage", this.state.language);
+    if (this.state.language === "Persian") this.props.changeLanguage("fa");
+    else if (this.state.language === "English") this.props.changeLanguage("en");
+    else this.props.changeLanguage("ar");
     localStorage.language = this.state.language.toString();
     localStorage.country = this.state.country.toString();
     if (this.state.country && this.state.language) {
@@ -72,7 +77,7 @@ class Landing extends Component {
         }
       });
     } else {
-      Alert.error("لطفا تمام فیلد ها را پر کنید", {
+      Alert.error("Fill out all the inputs", {
         position: "bottom-right",
         effect: "slide",
         timeout: 2000
@@ -92,13 +97,13 @@ class Landing extends Component {
         <Alert stack={{ limit: 3 }} />
 
         <span style={{ fontSize: 30 }} className="d-flex w-100  p-5">
-          M.S.A
+          Soraya
         </span>
         <div className=" col-md-12 col-sm-12 col-lg-12">
           <div>
             <FormControl className={[classes.formControl, "w-25  m-5"]}>
               <InputLabel className="text-white" htmlFor="country">
-                کشور
+                country
               </InputLabel>
               <Select
                 value={this.state.country}
@@ -116,7 +121,7 @@ class Landing extends Component {
             </FormControl>
             <FormControl className={[classes.formControl, "w-25  m-5"]}>
               <InputLabel className="text-white" htmlFor="language">
-                زبان
+                language
               </InputLabel>
               <Select
                 value={this.state.language}
@@ -175,4 +180,13 @@ const styles = theme => ({
 Landing.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withRouter(withStyles(styles)(Landing));
+function mapStateToProps(state, props) {
+  return {
+    language: state.language
+    // notification: state.notification
+  };
+}
+export default connect(
+  mapStateToProps,
+  { changeLanguage }
+)(withRouter(withStyles(styles)(Landing)));

@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import App from "./App";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "bootstrap/dist/css/bootstrap.css";
 import * as serviceWorker from "./serviceWorker";
 //alerts
 // mandatory
+import IntlProvider from "./intlProvider";
+
 import { Provider } from "react-redux";
 import store from "./store";
 import "react-s-alert/dist/s-alert-default.css";
@@ -26,7 +27,7 @@ const Joi = require("joi");
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <IntlProvider />
   </Provider>,
   document.getElementById("root")
 );

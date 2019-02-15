@@ -5,6 +5,7 @@ import Menu from "../menu/menu";
 import { connect } from "react-redux";
 import AccessDenied from "./../accessDenied/accessDenied";
 import { serverAddress } from "./../../utility/consts";
+import { userLogin } from "../../actions/user";
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -112,14 +113,11 @@ class Profile extends Component {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    deleteItemFromBasket: () => {
-      const action = { type: "USER" };
-      dispatch(action);
-    }
+    userLogin: user => dispatch(userLogin(user))
   };
 }
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { user: state.user.user };
 }
 export default connect(
   mapStateToProps,

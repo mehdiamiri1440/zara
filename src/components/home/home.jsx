@@ -106,32 +106,34 @@ class Home extends Component {
             contact={true}
             login={true}
           />
-          <Carousel
-            stopOnHover={false}
-            infiniteLoop={true}
-            autoPlay={true}
-            showThumbs={false}
-            showStatus={false}
-          >
-            {this.state.carousels.map((carousel, index) => (
-              <div
-                key={index}
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  this.props.history.push({
-                    pathname: `/category/${carousel.location.split("/")[0]}`,
-                    state: carousel.location.split("/")[1]
-                  });
-                }}
-                onScroll={event => this.scrollFunc(event)}
-              >
-                <img
-                  // carousel.image
-                  src={carousel.image}
-                />
-              </div>
-            ))}
-          </Carousel>
+          <div style={{ direction: "ltr" }}>
+            <Carousel
+              stopOnHover={false}
+              infiniteLoop={true}
+              autoPlay={true}
+              showThumbs={false}
+              showStatus={false}
+            >
+              {this.state.carousels.map((carousel, index) => (
+                <div
+                  key={index}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    this.props.history.push({
+                      pathname: `/category/${carousel.location.split("/")[0]}`,
+                      state: carousel.location.split("/")[1]
+                    });
+                  }}
+                  onScroll={event => this.scrollFunc(event)}
+                >
+                  <img
+                    // carousel.image
+                    src={carousel.image}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </div>
           <div className="h-100" style={{ height: 400 }}>
             <Footer />
           </div>

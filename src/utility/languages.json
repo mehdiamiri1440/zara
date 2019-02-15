@@ -1,0 +1,17 @@
+{
+  "en": {
+    "name": "en",
+    "direction": "ltr",
+    "fontFamily": "GothamLight"
+  },
+  "fa": {
+    "name": "fa",
+    "direction": "rtl",
+    "fontFamily": "Shabnam"
+  },
+  "ar": {
+    "name": "ar",
+    "direction": "rtl",
+    "fontFamily": "Shabnam"
+  }
+}

@@ -1,30 +1,56 @@
-import { SHOW_ALERT, HIDE_ALERT } from "./../actions/basket";
-
+import { ADD_BASKET_COUNT, DELETE_BASKET_COUNT } from "./../actions/basket";
+import store from "../store";
+let basketObject;
+if (
+  localStorage.basket &&
+  JSON.parse(localStorage.basket) &&
+  JSON.parse(localStorage.basket).length
+)
+  basketObject = JSON.parse(localStorage.basket);
+else basketObject = [];
+// let user = localStorage.user ? JSON.parse(localStorage.user) : {};
+// console.log("in store:", basketObject);
 const initialState = {
-  message: "This is the test message !!!",
-  visibility: false
+  basketCount: 0,
+  basket: []
+  // user: user
 };
-
-/**
- * @param {Object} state
- * @param {Object} action
- * @returns {Object}
- */
-export default function alertReducer(state = initialState, action) {
+// console.log("it is the user information in redux reducer", user);
+export default function(state = initialState, action) {
+  console.log(
+    "in reducer:",
+    state.basketCount,
+    state.basket.length,
+    state.basket,
+    state,
+    action
+  );
   switch (action.type) {
-    case SHOW_ALERT:
+    case DELETE_BASKET_COUNT:
       return {
         ...state,
-        message: action.message,
-        visibility: true
+        basketCount: action.index,
+        basket: state.basket
       };
-    case HIDE_ALERT:
+    case ADD_BASKET_COUNT:
       return {
         ...state,
-        //message: "",
-        visibility: false
+        basketCount: action.index,
+        basket: state.basket
       };
+    // return Object.assign({}, state, {
+    //   basketCount: state.basketCount + 1,
+    //   basket: state.basket
+    // });
+    // case "USER":
+    //   return Object.assign({}, state, {
+    //     user: JSON.parse(action.user)
+    //   });
     default:
       return state;
   }
 }
+// console.log(
+//   "after assign the user to uiser state that has fuckerd me up",
+//   user
+// );

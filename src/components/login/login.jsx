@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import Alert from "react-s-alert";
 import { connect } from "react-redux";
 import Menu from "../menu/menu";
-import Footer from "../footer/footer";
 import { Button, withStyles, TextField } from "@material-ui/core";
 import { serverAddress } from "./../../utility/consts";
+import { userLogin } from "../../actions/user";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +35,7 @@ class Login extends Component {
       .then(responseJson => {
         if (!responseJson.error) {
           localStorage.user = JSON.stringify(responseJson);
-          this.props.deleteItemFromBasket();
+          this.props.userLogin(responseJson);
           console.log("res", responseJson);
           this.setState({ user: responseJson });
           this.props.history.push({
@@ -208,7 +208,7 @@ class Login extends Component {
             </Button>
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }
@@ -258,14 +258,11 @@ Login.propTypes = {
 };
 function mapDispatchToProps(dispatch) {
   return {
-    deleteItemFromBasket: () => {
-      const action = { type: "USER", user: localStorage.user };
-      dispatch(action);
-    }
+    userLogin: user => dispatch(userLogin(user))
   };
 }
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { user: state.user.user };
 }
 export default connect(
   mapStateToProps,

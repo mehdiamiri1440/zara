@@ -8,6 +8,7 @@ import Footer from "../footer/footer";
 import { connect } from "react-redux";
 import { serverAddress } from "./../../utility/consts";
 import { numberWithCommas } from "./../../utility/index";
+import { addBasketCount } from "../../actions/basket";
 class ItemDetails extends Component {
   constructor(props) {
     super(props);
@@ -124,7 +125,7 @@ class ItemDetails extends Component {
         //   this.setState({ finalObject: JSON.parse(localStorage.basket) });
       });
       for (let i = 0; i < this.state.selectedSize.length; i++) {
-        this.props.deleteItemFromBasket();
+        this.props.addBasketCount(this.props.basket.length);
       }
     } else {
       console.log("my loicalstorage:", localStorage.basket);
@@ -280,7 +281,7 @@ class ItemDetails extends Component {
           />
         </div>
         <div style={{ paddingTop: "5%" }}>
-          <div className=" w-50" style={{ left: 0 }}>
+          <div className=" w-50" style={{ cursor: "pointer", left: 0 }}>
             {this.state.product[0].images.map((image, index) => (
               <div key={index}>
                 <img
@@ -302,7 +303,9 @@ class ItemDetails extends Component {
             }
             style={
               this.state.scrollY < this.state.product[0].images.length * 400
-                ? { right: 0, top: "19%" }
+                ? this.props.language.direction === "ltr"
+                  ? { right: 0, top: "19%" }
+                  : { left: 0, top: "19%" }
                 : { display: "none" }
             }
           >
@@ -472,14 +475,15 @@ class ItemDetails extends Component {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    deleteItemFromBasket: () => {
-      const action = { type: "ADD_BASKET_COUNT" };
-      dispatch(action);
-    }
+    addBasketCount: index => dispatch(addBasketCount(index))
   };
 }
 function mapStateToProps(state) {
-  return { basketCount: state.basketCount, basket: state.basket };
+  return {
+    basketCount: state.basket.basketCount,
+    basket: state.basket.basket,
+    language: state.language
+  };
 }
 export default connect(
   mapStateToProps,
