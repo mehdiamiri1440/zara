@@ -48,7 +48,6 @@ class Women extends Component {
           resolve(responseJson);
         })
         .catch(error => {
-          console.log("it was false", error);
         });
     });
   }

@@ -49,7 +49,6 @@ class SearchProducts extends Component {
           resolve(responseJson);
         })
         .catch(error => {
-          console.log("it was false", error);
         });
     });
   }
@@ -173,11 +172,9 @@ class SearchProducts extends Component {
       .then(response => response.json())
       .then(responseJson => {
         responseJson.map(cloth => (cloth.selectedImage = -1));
-        console.log("sdfg", responseJson);
         this.setState({ products: responseJson });
       })
       .catch(error => {
-        console.log("it was false", error);
       });
   }
   renderSearchBox() {

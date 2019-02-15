@@ -4,7 +4,6 @@ const initialState = {
   user: {}
 };
 export default function(state = initialState, action) {
-  console.log("in user reducer:", state);
   switch (action.type) {
     case USER:
       return { ...state, user: action.user };

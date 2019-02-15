@@ -17,7 +17,6 @@ class Contact extends Component {
     this.setState({ email: event.target.value });
   }
   render() {
-    console.log("it is the props:", this.props);
 
     return (
       <div>

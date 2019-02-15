@@ -89,11 +89,9 @@ class ItemDetails extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ product: responseJson }, () => {
-          console.log("it is my response:", responseJson, this.state.product);
         });
       })
       .catch(error => {
-        console.log("it was false", error);
       });
   }
   handleScroll = () => {
@@ -128,7 +126,6 @@ class ItemDetails extends Component {
         this.props.addBasketCount(this.props.basket.length);
       }
     } else {
-      console.log("my loicalstorage:", localStorage.basket);
       Alert.error("لطفا سایز را انتخاب کنید", {
         position: "bottom-right",
         effect: "slide"
@@ -191,7 +188,6 @@ class ItemDetails extends Component {
           className="text-center border-bottom border-secondary border-top colorHover col w-100"
         >
           {this.state.selectedColor[this.state.selectedColor.length - 1]}
-          {console.log("selected color", this.state.selectedColor)}
         </div>
       </div>
     );

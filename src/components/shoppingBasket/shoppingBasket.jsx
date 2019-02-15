@@ -36,7 +36,6 @@ class ShoppingBasket extends Component {
     this.setState({ basket: this.props.basket }, () => {
       this.calculaeSum();
     });
-    console.log(sum, "it is the summation of the all of the prices");
   }
   changeRoute() {
     if (localStorage.username && localStorage.username.length > 0) {
@@ -128,10 +127,6 @@ class ShoppingBasket extends Component {
                     <span className="text-center align-middle">
                       {basket.count}
                     </span>
-                    {console.log(
-                      "it is the count of the basket",
-                      this.state.basket[indx]
-                    )}
                     <i
                       onClick={() => {
                         let myBasket = this.state.basket;

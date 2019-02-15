@@ -111,7 +111,6 @@ class Menu extends Component {
       }
     })
       .then(responseJson => {
-        console.log("oit is thgew erwspiis", responseJson);
         localStorage.user = null;
         this.props.userLogout();
         this.props.history.push({
@@ -177,7 +176,6 @@ class Menu extends Component {
             {this.state.user && this.state.user.username ? (
               <Link style={{ textDecoration: "none" }} to="/profile">
                 <div
-                  {...console.log("it is the fucking user:", this.state.user)}
                   style={{
                     color: this.renderColorOfTexts(),
                     cursor: "pointer"

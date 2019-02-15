@@ -36,9 +36,7 @@ class EditBasicInfos extends Component {
       }
     })
       .then(responseJson => {
-        this.setState({ userLogin: responseJson }, () => {
-          console.log("check for loggin user", this.state.userLogin);
-        });
+        this.setState({ userLogin: responseJson }, () => {});
       })
       .catch(error => console.error("Error:", error));
   }

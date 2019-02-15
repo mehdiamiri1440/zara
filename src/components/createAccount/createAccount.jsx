@@ -135,7 +135,6 @@ class CreateAccount extends Component {
     }
   }
   validationInputs = () => {
-    console.log("it is the username", this.state.userName);
     const usernameError = Joi.validate(
       {
         phone: this.state.phone,

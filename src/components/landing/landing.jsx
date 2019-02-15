@@ -48,17 +48,14 @@ class Landing extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        console.log("it is the countires", responseJson);
         // responseJson.map(roleID => rolesID.push(roleID.Id));
         this.setState({ countries: responseJson });
       })
       .catch(error => {
-        console.log("it was false", error);
       });
   }
   fetchCountryAndLanguage() {
     // 172.16.204.236:3003/country/get
-    console.log("langage", this.state.language);
     if (this.state.language === "Persian") this.props.changeLanguage("fa");
     else if (this.state.language === "English") this.props.changeLanguage("en");
     else this.props.changeLanguage("ar");

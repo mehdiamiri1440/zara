@@ -25,7 +25,6 @@ class Home extends Component {
     this.setState({ searchStuff: event.target.value });
   }
   componentDidMount() {
-    console.log(this.props.user);
     this.getCarousel();
   }
   getCarousel() {
@@ -38,12 +37,10 @@ class Home extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        console.log("it is the countires", responseJson);
         // responseJson.map(roleID => rolesID.push(roleID.Id));
         this.setState({ carousels: responseJson, loading: false });
       })
       .catch(error => {
-        console.log("it was false", error);
       });
   }
   fetchEmail(event) {

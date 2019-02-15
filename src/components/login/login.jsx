@@ -36,7 +36,6 @@ class Login extends Component {
         if (!responseJson.error) {
           localStorage.user = JSON.stringify(responseJson);
           this.props.userLogin(responseJson);
-          console.log("res", responseJson);
           this.setState({ user: responseJson });
           this.props.history.push({
             pathname: "/profile",
@@ -51,7 +50,6 @@ class Login extends Component {
         }
       })
       .catch(error => {
-        console.log(error);
         Alert.error("خطا در ارسال اطلاعات", {
           position: "bottom-right",
           effect: "slide",
@@ -60,7 +58,6 @@ class Login extends Component {
       });
   }
   componentDidMount() {
-    console.log("it is the user", this.props.user, localStorage.user);
   }
 
   render() {

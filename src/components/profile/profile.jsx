@@ -13,7 +13,6 @@ class Profile extends Component {
   }
   componentDidMount = () => {
     this.checkUserLoggedIn();
-    console.log("drjhf", this.props);
     this.setState({ user: this.props.user });
   };
   editUserInfo(path) {
@@ -30,14 +29,8 @@ class Profile extends Component {
       }
     })
       .then(responseJson => {
-        if (responseJson)
-          this.setState({ userLogin: true }, () => {
-            console.log("check for loggin user", this.state.userLogin);
-          });
-        else
-          this.setState({ userLogin: false }, () => {
-            console.log("check for loggin user", this.state.userLogin);
-          });
+        if (responseJson) this.setState({ userLogin: true }, () => {});
+        else this.setState({ userLogin: false }, () => {});
       })
       .catch(error => console.error("Error:", error));
   }
