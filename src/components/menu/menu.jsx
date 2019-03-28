@@ -301,7 +301,7 @@ class Menu extends Component {
                 color: this.renderColorOfTexts(),
                 cursor: "pointer"
               }}
-              className="position-absolute text-center px-5 mx-4"
+              className=" text-center px-5 mx-4"
             >
               <Link
                 style={{
