@@ -89,13 +89,16 @@ class ItemDetails extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ product: responseJson }, () => {
+          console.log("it is my response:", responseJson, this.state.product);
         });
       })
       .catch(error => {
+        console.log("it was false", error);
       });
   }
   handleScroll = () => {
     var lastScrollY = window.scrollY;
+    console.log("scroll:", lastScrollY);
     this.setState({ scrollY: lastScrollY });
   };
   addToCart(e, product) {
@@ -126,6 +129,7 @@ class ItemDetails extends Component {
         this.props.addBasketCount(this.props.basket.length);
       }
     } else {
+      console.log("my loicalstorage:", localStorage.basket);
       Alert.error("لطفا سایز را انتخاب کنید", {
         position: "bottom-right",
         effect: "slide"
@@ -188,6 +192,7 @@ class ItemDetails extends Component {
           className="text-center border-bottom border-secondary border-top colorHover col w-100"
         >
           {this.state.selectedColor[this.state.selectedColor.length - 1]}
+          {console.log("selected color", this.state.selectedColor)}
         </div>
       </div>
     );
@@ -272,6 +277,7 @@ class ItemDetails extends Component {
             login={false}
             contact={true}
             search={false}
+            position="none"
             color="black"
             basket={true}
           />
@@ -292,18 +298,26 @@ class ItemDetails extends Component {
             ))}
           </div>
           <div
-            className={
-              this.state.scrollY < this.state.product[0].images.length * 400
-                ? "position-fixed w-50"
-                : null
-            }
+            className="position-fixed w-50"
+            // className={
+            //   this.state.scrollY <
+            //   screen.height * this.state.product[0].images.length
+            //     ? "position-fixed w-50"
+            //     : null
+            // }
             style={
-              this.state.scrollY < this.state.product[0].images.length * 400
-                ? this.props.language.direction === "ltr"
-                  ? { right: 0, top: "19%" }
-                  : { left: 0, top: "19%" }
-                : { display: "none" }
+              this.props.language.direction === "ltr"
+                ? { right: 0, top: "19%" }
+                : { left: 0, top: "19%" }
             }
+            // style={
+            //   this.state.scrollY <
+            //   screen.height * this.state.product[0].images.length
+            //     ? this.props.language.direction === "ltr"
+            //       ? { right: 0, top: "19%" }
+            //       : { left: 0, top: "19%" }
+            //     : { display: "none" }
+            // }
           >
             <div
               style={{ fontSize: 24, fontWeight: "bold" }}
@@ -464,7 +478,7 @@ class ItemDetails extends Component {
           </div>
         </div> */}
 
-        <Footer />
+        {/* <Footer /> */}
       </div>
     ) : null;
   }

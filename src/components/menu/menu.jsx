@@ -63,6 +63,7 @@ class Menu extends Component {
       }
     })
       .then(responseJson => {
+        console.log("oit is thgew erwspiis", responseJson);
         localStorage.user = null;
         this.props.userLogout();
         this.props.history.push({
@@ -111,14 +112,22 @@ class Menu extends Component {
         className=" col-md-12 col-sm-12 col-lg-12 text-white"
         style={{ zIndex: 1 }}
       >
-        <div className="position-fixed row col-md-12 col-sm-12 col-lg-12">
+        <div
+          className={`${
+            this.props.position ? null : "position-fixed"
+          } row col-md-12 col-sm-12 col-lg-12`}
+        >
           <Link
             className="display-1 p-3 col-md-4 col-sm-4 d-flex justify-content-start col-lg-4"
             style={{ textDecoration: "none", cursor: "pointer" }}
             to="/home"
           >
             <div style={{ color: this.renderColorOfTexts() }}>
-              <FormattedMessage id="menu.soraya" />
+              <img
+                style={{ width: 200, height: 300 }}
+                src={require("../../contents/icons/Untitled-2.png")}
+                alt=""
+              />
             </div>
           </Link>
 
@@ -132,6 +141,7 @@ class Menu extends Component {
             {this.state.user && this.state.user.username ? (
               <Link style={{ textDecoration: "none" }} to="/profile">
                 <div
+                  {...console.log("it is the fucking user:", this.state.user)}
                   style={{
                     color: this.renderColorOfTexts(),
                     cursor: "pointer"
@@ -169,11 +179,20 @@ class Menu extends Component {
             ) : null}
             {this.props.basket ? (
               <div
-                style={{ color: this.renderColorOfTexts(), cursor: "pointer" }}
+                style={{
+                  color: this.renderColorOfTexts(),
+                  cursor: "pointer"
+                }}
                 className="pt-4 p-2 mt-5 align-middle"
               >
                 <div className="hoverBasket position-relative">
                   <i
+                    onClick={() => {
+                      if (this.props.basketCount > 0)
+                        return this.props.history.push({
+                          pathname: "/shoppingbasket"
+                        });
+                    }}
                     style={{ fontSize: 24 }}
                     className=" fas fa-shopping-cart"
                   />
@@ -187,81 +206,89 @@ class Menu extends Component {
                   >
                     {this.props.basketCount}
                   </span>
-                  <div
-                    style={{
-                      left: this.props.language.direction === "ltr" ? null : 0,
-                      right:
-                        this.props.language.direction === "ltr" ? "2.5%" : null
-                    }}
-                    className="p-2 border-3 inBaskets border-dark border-1 bg-white"
-                    id="baskets"
-                  >
-                    {this.props.basket &&
-                      this.props.basket.length &&
-                      this.props.basket.map((item, indx) => (
-                        <div
-                          key={indx}
-                          onClick={() => {
-                            this.props.history.push({
-                              pathname: `/itemDetails/id/${item._id}`,
-                              state: item._id
-                            });
-                            window.location.reload();
-                          }}
-                          className="border-bottom d-flex p-1"
-                        >
-                          <img
-                            src={item.image}
-                            style={{ width: "35%", height: "60%" }}
-                            alt=""
-                          />
-                          <div style={{ width: "60%" }} className="text-center">
-                            <div className="px-2 text-right align-top text-dark">
-                              {item.name}
-                            </div>
+                  {this.props.basketCount > 0 ? (
+                    <div
+                      style={{
+                        left:
+                          this.props.language.direction === "ltr" ? null : 0,
+                        right:
+                          this.props.language.direction === "ltr"
+                            ? "2.5%"
+                            : null
+                      }}
+                      className="p-2 border-3 inBaskets border-dark border-1 bg-white"
+                      id="baskets"
+                    >
+                      {this.props.basket &&
+                        this.props.basket.length &&
+                        this.props.basket.map((item, indx) => (
+                          <div
+                            key={indx}
+                            onClick={() => {
+                              this.props.history.push({
+                                pathname: `/itemDetails/id/${item._id}`,
+                                state: item._id
+                              });
+                              window.location.reload();
+                            }}
+                            className="border-bottom d-flex p-1"
+                          >
+                            <img
+                              src={item.image}
+                              style={{ width: "35%", height: "60%" }}
+                              alt=""
+                            />
                             <div
-                              style={{ fontsize: 16 }}
-                              className="px-2 text-muted  text-right align-top"
+                              style={{ width: "60%" }}
+                              className="text-center"
                             >
-                              {numberWithCommas(item.price)}
-                            </div>
-                            <div
-                              style={{ fontsize: 16 }}
-                              className="px-2 text-muted  text-right align-top text-dark"
-                            >
-                              {item.size}
-                            </div>
-                            <div
-                              style={{ fontsize: 16 }}
-                              className="px-2 text-muted  text-right align-top text-dark"
-                            >
-                              {item.color}
-                            </div>
-                            <div
-                              style={{ fontsize: 16 }}
-                              className="px-2 text-muted  text-right align-top text-dark"
-                            >
-                              <i
-                                onClick={e => {
-                                  e.stopPropagation();
-                                  let basket = this.state.basket;
-                                  basket.splice(indx, 1);
-                                  this.setState({ basket }, () => {
-                                    localStorage.basket = JSON.stringify(
-                                      this.state.basket
+                              <div className="px-2 text-right align-top text-dark">
+                                {item.name}
+                              </div>
+                              <div
+                                style={{ fontsize: 16 }}
+                                className="px-2 text-muted  text-right align-top"
+                              >
+                                {numberWithCommas(item.price)}
+                              </div>
+                              <div
+                                style={{ fontsize: 16 }}
+                                className="px-2 text-muted  text-right align-top text-dark"
+                              >
+                                {item.size}
+                              </div>
+                              <div
+                                style={{ fontsize: 16 }}
+                                className="px-2 text-muted  text-right align-top text-dark"
+                              >
+                                {item.color}
+                              </div>
+                              <div
+                                style={{ fontsize: 16 }}
+                                className="px-2 text-muted  text-right align-top text-dark"
+                              >
+                                <i
+                                  onClick={e => {
+                                    e.stopPropagation();
+                                    let basket = this.state.basket;
+                                    basket.splice(indx, 1);
+                                    this.setState({ basket }, () => {
+                                      localStorage.basket = JSON.stringify(
+                                        this.state.basket
+                                      );
+                                    });
+                                    this.props.deleteBasketCount(
+                                      this.props.basket.length
                                     );
-                                  });
-                                  this.props.deleteBasketCount(
-                                    this.props.basket.length
-                                  );
-                                }}
-                                className="fa fa-trash"
-                              />
+                                  }}
+                                  className="fa fa-trash"
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                  </div>
+                        ))}
+                    </div>
+                  ) : null}
                 </div>
               </div>
             ) : null}
@@ -274,7 +301,7 @@ class Menu extends Component {
                 color: this.renderColorOfTexts(),
                 cursor: "pointer"
               }}
-              className="position-absolute px-4"
+              className="position-absolute text-center px-5 mx-4"
             >
               <Link
                 style={{

@@ -1,4 +1,4 @@
 // const domain = "192.168.43.102";
-const domain = "192.168.43.183";
+const domain = "185.187.51.213";
 const port = 3005;
 export const serverAddress = `http://${domain}:${port}`;

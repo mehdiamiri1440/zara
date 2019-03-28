@@ -3,7 +3,8 @@
   width: 20rem !important;
   max-height: 20rem !important;
   display: block;
-  overflow: auto;}
+  overflow: auto;
+}
 .hoverBasket > #baskets {
   display: none;
 }

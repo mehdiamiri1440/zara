@@ -36,12 +36,7 @@ class CreateAccount extends Component {
     phone: Joi.number()
       .integer()
       .required()
-      .min(10)
-      .error(
-        new Error(
-          "شماره تلفن تنها باید حاوی کارکتر های عددی و حداقل 10 رقم باشد"
-        )
-      ),
+      .min(10),
     address: Joi.string()
       .required()
       .min(15)
@@ -135,6 +130,7 @@ class CreateAccount extends Component {
     }
   }
   validationInputs = () => {
+    console.log("it is the username", this.state.userName);
     const usernameError = Joi.validate(
       {
         phone: this.state.phone,

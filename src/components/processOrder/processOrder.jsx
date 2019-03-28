@@ -2,10 +2,35 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Menu from "../menu/menu";
 import Footer from "../footer/footer";
+import { serverAddress } from "../../utility/consts";
+import { Alert } from "react-s-alert";
+import { connect } from "react-redux";
 class ProcessOrder extends Component {
   constructor(props) {
     super(props);
     this.state = { shippingWay: "", paymentType: "" };
+  }
+  goToPayment() {
+    console.log("it is the basket", JSON.stringify(this.props.basket));
+    fetch(`${serverAddress}/payment`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        basket: this.props.basket
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {})
+      .catch(error => {
+        Alert.error("خطا در ارسال اطلاعات", {
+          position: "bottom-right",
+          effect: "slide",
+          timeout: 2000
+        });
+      });
   }
   render() {
     return (
@@ -74,6 +99,7 @@ class ProcessOrder extends Component {
             <img src={require("../../contents/icons/paypal.png")} alt="" />
             <input
               className="mx-2"
+              value={this.state.paymentType}
               onClick={() =>
                 this.setState({
                   paymentType: "localPay"
@@ -86,6 +112,7 @@ class ProcessOrder extends Component {
           <span className="d-flex align-items-center px-1">بانک ملی</span>
           <input
             className="mx-2"
+            value={this.state.paymentType}
             onClick={() =>
               this.setState({
                 paymentType: "payPal"
@@ -95,6 +122,31 @@ class ProcessOrder extends Component {
             name="category0"
           />
           <span className="d-flex align-items-center px-1">paypal</span>
+          <input
+            className="mx-2"
+            onClick={() =>
+              this.setState({
+                paymentType: "zarinPal"
+              })
+            }
+            value={this.state.paymentType}
+            type="radio"
+            name="category0"
+          />
+          <span className="d-flex align-items-center px-1">زرین پال</span>
+        </div>
+        <div className="d-flex justify-content-center p-3">
+          <button
+            className="px-5  text-white  btn border-dark w-25 pt-1 d-flex justify-content-center"
+            style={{
+              textDecoration: "none",
+              backgroundColor: "#000000",
+              borderRadius: 0
+            }}
+            onClick={() => this.goToPayment()}
+          >
+            پرداخت
+          </button>
         </div>
         <div />
         <Footer />
@@ -103,4 +155,7 @@ class ProcessOrder extends Component {
   }
 }
 
-export default withRouter(ProcessOrder);
+function mapStateToProps(state) {
+  return { basketCount: state.basket.basketCount, basket: state.basket.basket };
+}
+export default connect(mapStateToProps)(withRouter(ProcessOrder));

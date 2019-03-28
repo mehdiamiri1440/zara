@@ -33,7 +33,7 @@ class MainRoutes extends React.Component {
           path="/checkForSignUp"
           render={() => <CheckForSignUp {...this.props} />}
         />
-        {/* <Route
+        <Route
           exact
           path="/profile/updateAddresses"
           render={() => <UpdateAddresses {...this.props} />}
@@ -47,22 +47,22 @@ class MainRoutes extends React.Component {
           exact
           path="/profile/editBasicInfos"
           render={() => <EditBasicInfos {...this.props} />}
-        /> */}
-        {/* <Route
+        />
+        <Route
           exact
           path="/passwordSentSuccessfully"
           render={() => <PasswordSentSuccessfully {...this.props} />}
-        /> */}
+        />
         <Route
           exact
           path="/landing"
           render={() => <Landing {...this.props} />}
         />
-        {/* <Route
+        <Route
           exact
           path="/profile"
           render={() => <Profile {...this.props} />}
-        /> */}
+        />
         <Route
           exact
           path="/processOrder"
@@ -95,11 +95,11 @@ class MainRoutes extends React.Component {
           render={() => <Contact {...this.props} />}
         />
         <Route exact path="/login" render={() => <Login {...this.props} />} />
-        {/* <Route
+        <Route
           exact
-          path="/resetPassword"
+          path="/profile/resetPassword"
           render={() => <ResetPassword {...this.props} />}
-        /> */}
+        />
         <Route exact path="/home" render={() => <Home {...this.props} />} />
       </Switch>
     );
