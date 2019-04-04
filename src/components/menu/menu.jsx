@@ -112,32 +112,89 @@ class Menu extends Component {
         className=" col-md-12 col-sm-12 col-lg-12 text-white"
         style={{ zIndex: 1 }}
       >
-        <div
-          className={`${
-            this.props.position ? null : "position-fixed"
-          } row col-md-12 col-sm-12 col-lg-12`}
-        >
+        <div className="position-fixed">
           <Link
-            className="display-1 p-3 col-md-4 col-sm-4 d-flex justify-content-start col-lg-4"
+            className="col-2 d-flex justify-content-start"
             style={{ textDecoration: "none", cursor: "pointer" }}
             to="/home"
           >
-            <div style={{ color: this.renderColorOfTexts() }}>
+            <div
+              className="contentHeight"
+              style={{
+                color: this.renderColorOfTexts()
+              }}
+            >
               <img
-                style={{ width: 200, height: 300 }}
+                style={{ width: 190 }}
                 src={require("../../contents/icons/Untitled-2.png")}
                 alt=""
               />
+              {this.props.menuItems ? (
+                <div
+                  style={{
+                    top: "90%",
+                    visibility: this.state.scrollY > 800 ? "hidden" : null,
+                    color: this.renderColorOfTexts(),
+                    cursor: "pointer"
+                  }}
+                  className=" text-center px-5 mx-4"
+                >
+                  <Link
+                    style={{
+                      color: this.renderColorOfTexts(),
+                      textDecoration: "none"
+                    }}
+                    to="/category/new"
+                  >
+                    <div className="p-1  col-md-12 col-sm-12 col-lg-12">
+                      <FormattedMessage id="menu.new" />
+                    </div>
+                  </Link>
+                  <div
+                    onClick={() =>
+                      this.props.history.push({
+                        pathname: "/category/women",
+                        state: ""
+                      })
+                    }
+                    className="p-1  col-md-12 col-sm-12 col-lg-12"
+                  >
+                    <FormattedMessage id="menu.women" />
+                  </div>
+                  <div
+                    onClick={() =>
+                      this.props.history.push({
+                        pathname: "/category/men",
+                        state: ""
+                      })
+                    }
+                    className="p-1  col-md-12 col-sm-12 col-lg-12"
+                  >
+                    <FormattedMessage id="menu.men" />
+                  </div>
+                  {this.state.user && this.state.user.username ? (
+                    <div
+                      onClick={() => this.logout()}
+                      className="p-1  col-md-12 col-sm-12 col-lg-12"
+                    >
+                      خروج
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           </Link>
-
-          <div className="display-1 mt-3 col-md-4 col-sm-4 col-lg-4 p-3">
-            {this.renderSearch()}
-          </div>
-          <div
-            style={{ paddingTop: "10%" }}
-            className="pr-0 justify-content-end row col-md-4 col-sm-4 col-lg-4 p-3 "
-          >
+        </div>
+        <div
+          style={
+            this.props.language.direction === "ltr" ? { right: 0 } : { left: 0 }
+          }
+          className={`${
+            this.props.position ? null : "position-absolute"
+          } d-flex col-10 p-0 m-0 justify-content-end `}
+        >
+          <div className="col-7 contentHeight">{this.renderSearch()}</div>
+          <div className=" justify-content-end d-flex col-3 contentHeight">
             {this.state.user && this.state.user.username ? (
               <Link style={{ textDecoration: "none" }} to="/profile">
                 <div
@@ -293,7 +350,7 @@ class Menu extends Component {
               </div>
             ) : null}
           </div>
-          {this.props.menuItems ? (
+          {/* {this.props.menuItems ? (
             <div
               style={{
                 top: "90%",
@@ -345,7 +402,7 @@ class Menu extends Component {
                 </div>
               ) : null}
             </div>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
     );

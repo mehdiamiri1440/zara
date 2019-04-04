@@ -122,7 +122,11 @@ class ShoppingBasket extends Component {
                         });
                       }}
                       style={{ cursor: "pointer", fontSize: 20 }}
-                      className="hoverableArrow align-middle text-center p-3 fas fa-angle-left"
+                      className={`hoverableArrow align-middle text-center p-3 fas ${
+                        this.props.language.direction === "ltr"
+                          ? "fa-angle-left"
+                          : "fa-angle-right"
+                      }`}
                     />
                     <span className="text-center align-middle">
                       {basket.count}
@@ -139,7 +143,11 @@ class ShoppingBasket extends Component {
                         });
                       }}
                       style={{ cursor: "pointer", fontSize: 20 }}
-                      className="hoverableArrow align-middle text-center p-3 fas fa-angle-right "
+                      className={`hoverableArrow align-middle text-center p-3 fas ${
+                        this.props.language.direction === "ltr"
+                          ? "fa-angle-right"
+                          : "fa-angle-left"
+                      } `}
                     />
                   </td>
                   <td className="align-middle text-center">
@@ -224,7 +232,11 @@ function mapDispatchToProps(dispatch) {
   };
 }
 function mapStateToProps(state) {
-  return { basketCount: state.basket.basketCount, basket: state.basket.basket };
+  return {
+    basketCount: state.basket.basketCount,
+    basket: state.basket.basket,
+    language: state.language
+  };
 }
 export default connect(
   mapStateToProps,

@@ -8,3 +8,6 @@
 .hoverBasket > #baskets {
   display: none;
 }
+.contentHeight {
+  height: max-content;
+}
